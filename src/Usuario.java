@@ -1,10 +1,11 @@
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Usuario extends Persona {
     private String nombreUsuario;
     private String correoElectronico;
     private double saldo;
-    //  private ListaProductos lista;
+    private ArrayList <Producto> lista;
     private String contrasenia;
 
     Usuario() {
@@ -13,6 +14,7 @@ public class Usuario extends Persona {
         correoElectronico = " ";
         saldo = 0;
         contrasenia = " ";
+        lista = new ArrayList<>();
     }
 
     Usuario(String nombre, String apellido, int edad, String documento, String direccion, String nombreUsuario, String correoElectronico, double saldo, String contrasenia) {
@@ -21,6 +23,7 @@ public class Usuario extends Persona {
         this.correoElectronico = correoElectronico;
         this.saldo = saldo;
         this.contrasenia = contrasenia;
+        lista = new ArrayList<>();
     }
 
     public String getNombreUsuario() {
@@ -62,13 +65,21 @@ public class Usuario extends Persona {
         Usuario usuario = (Usuario) o;
         return Double.compare(usuario.saldo, saldo) == 0 &&
                 Objects.equals(nombreUsuario, usuario.nombreUsuario) &&
-                Objects.equals(correoElectronico, usuario.correoElectronico) &&
-                Objects.equals(contrasenia, usuario.contrasenia);
+                Objects.equals(correoElectronico, usuario.correoElectronico);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(nombreUsuario, correoElectronico, saldo, contrasenia);
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "nombreUsuario='" + nombreUsuario + '\'' +
+                ", correoElectronico='" + correoElectronico + '\'' +
+                ", saldo=" + saldo +
+                "} ";
     }
 
     // public void crearProducto(){}

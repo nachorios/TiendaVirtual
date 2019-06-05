@@ -1,7 +1,7 @@
-public class Comprador extends Usuario {
+public class Comprador extends Usuario implements Transaccion {
     private double cantProducComprados;
 
-    Comprador(){
+    Comprador() {
         super();
         cantProducComprados = 0;
     }
@@ -24,4 +24,25 @@ public class Comprador extends Usuario {
     // quitarProduc
 
 
+    @Override
+    public String toString() {
+        return "Comprador{" +
+                "cantProducComprados=" + cantProducComprados +
+                "} " + super.toString();
+    }
+
+    @Override
+    public String mediosDePago() {
+        return null;
+    }
+
+    @Override
+    public void comprar() {
+
+    }
+
+    @Override
+    public void vender() {
+
+    }
 }
