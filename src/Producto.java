@@ -1,7 +1,16 @@
 import java.util.ArrayList;
 
+import org.json.JSONObject;
+
 enum ProductoType {PRODUCTO, SERVICIO}
-public class Producto {
+
+/**
+ * Esta clase almacena toda la informacion de un producto, Su ID
+ * es unico e irrepetible.
+ * @author usuario
+ * @version 1.0
+ */
+public class Producto implements IJSON{
 	private int ID;
 	private String nombre;
 	private String vendedor;
@@ -13,12 +22,32 @@ public class Producto {
 	private Caracteristica caracteristicas;
 	private Categoria categoria;
 	
-	/*public void crearProductoEnConsola() {
-		Consola.println("Ingrese el nombre del producto: ");
-		setNombre(Consola.pedirString());
+	@Override
+	public JSONObject objetoAJSON() {
+		JSONObject jsonProducto = new JSONObject();
+		jsonProducto.put("id", getID());
+		jsonProducto.put("nombre", getNombre());
+		jsonProducto.put("vendedor", getVendedor());
+		jsonProducto.put("precio", getPrecio());
+		jsonProducto.put("enVenta", isEnVenta());
+		jsonProducto.put("tipoProducto", getTipoProducto());
+		jsonProducto.put("descripcion", getDescripcion());
+		jsonProducto.put("caracteristicas", getCaracteristicas());
+		jsonProducto.put("categoria", getCategoria());
+		
+		System.out.println(jsonProducto.toString());
+		return jsonProducto;
 	}
-	*/
 	
+	
+	/****************************/
+	
+	/**
+	 * Compara si el ID del objeto enviado por parametros
+	 * es igual que el objeto actual.
+	 * @param obj : Cualquier objeto (Debe ser tipo producto para lograr una correcta comparacion).
+	 * @return Verdadero o falseo
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		boolean flag = false;
@@ -43,7 +72,9 @@ public class Producto {
 				+"\nCaracteristicas: "+getCaracteristicas()
 				+"\nCategorias: "+getCategoria();
 	}
-	
+	/**
+	 * Inicializa todos los atributos del objeto, y coloca su ID irrepetible.
+	 */
 	public Producto() {
 		super();
 		ID = getIDnuevoProducto();
@@ -58,7 +89,11 @@ public class Producto {
 		categoria = new Categoria();
 		
 	}
-	
+	/**
+	 * inicializa las variables del nuevo producto copiando los elementos del
+	 * objeto enviado por parametros(El ID no se copia, sino crea uno nuevo).
+	 * @param p : Producto a copiar.
+	 */
 	public Producto(Producto p) {
 		super();
 		ID = getIDnuevoProducto();
@@ -73,6 +108,18 @@ public class Producto {
 		setVendedor(p.getVendedor());
 	}
 	
+	/**
+	 * Crea un producto desde los valores enviados por parametros.
+	 * @param nombre
+	 * @param vendedor
+	 * @param precio
+	 * @param cantidad
+	 * @param enVenta
+	 * @param tipoProducto
+	 * @param descripcion
+	 * @param caracteristicas
+	 * @param categoria
+	 */
 	public Producto(String nombre, String vendedor, float precio, int cantidad,boolean enVenta,ProductoType tipoProducto, ArrayList<String> descripcion,
 			Caracteristica caracteristicas, Categoria categoria) {
 		super();
