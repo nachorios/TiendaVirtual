@@ -1,11 +1,11 @@
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Usuario extends Persona {
+abstract class Usuario extends Persona {
     private String nombreUsuario;
     private String correoElectronico;
     private double saldo;
-    private ArrayList <Producto> lista;
+    protected ArrayList <Producto> lista;
     private String contrasenia;
 
     Usuario() {
@@ -17,7 +17,8 @@ public class Usuario extends Persona {
         lista = new ArrayList<>();
     }
 
-    Usuario(String nombre, String apellido, int edad, String documento, String direccion, String nombreUsuario, String correoElectronico, double saldo, String contrasenia) {
+    Usuario(String nombre, String apellido, int edad, String documento, String direccion,
+            String nombreUsuario, String correoElectronico, double saldo, String contrasenia) {
         super(nombre, apellido, edad, documento, direccion);
         this.nombreUsuario = nombreUsuario;
         this.correoElectronico = correoElectronico;
@@ -82,5 +83,4 @@ public class Usuario extends Persona {
                 "} ";
     }
 
-    // public void crearProducto(){}
 }

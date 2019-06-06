@@ -1,4 +1,4 @@
-public class Comprador extends Usuario implements Transaccion {
+public class Comprador extends Usuario {
     private double cantProducComprados;
 
     Comprador() {
@@ -6,7 +6,8 @@ public class Comprador extends Usuario implements Transaccion {
         cantProducComprados = 0;
     }
 
-    public Comprador(String nombre, String apellido, int edad, String documento, String direccion, String nombreUsuario, String correoElectronico, double saldo, String contrasenia, double cantProducComprados) {
+    public Comprador(String nombre, String apellido, int edad, String documento, String direccion, String nombreUsuario,
+                     String correoElectronico, double saldo, String contrasenia, double cantProducComprados) {
         super(nombre, apellido, edad, documento, direccion, nombreUsuario, correoElectronico, saldo, contrasenia);
         this.cantProducComprados = cantProducComprados;
     }
@@ -19,10 +20,18 @@ public class Comprador extends Usuario implements Transaccion {
         this.cantProducComprados = cantProducComprados;
     }
 
-    // agregarProduc
+    public void comprar(Producto prod) throws Excepciones{
+        if (getSaldo()>0 && prod.getCantidad()>0){
+            setSaldo(getSaldo() - prod.getPrecio());
+            lista.add(prod);
+        }
+        else
+            throw new Excepciones("No tiene saldo");
+    }
 
-    // quitarProduc
-
+    public void cargarSaldo(double dinero){
+        setSaldo(getSaldo()+ dinero);
+    }
 
     @Override
     public String toString() {
@@ -31,18 +40,5 @@ public class Comprador extends Usuario implements Transaccion {
                 "} " + super.toString();
     }
 
-    @Override
-    public String mediosDePago() {
-        return null;
-    }
 
-    @Override
-    public void comprar() {
-
-    }
-
-    @Override
-    public void vender() {
-
-    }
 }
