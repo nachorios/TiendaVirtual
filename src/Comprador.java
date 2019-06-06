@@ -1,4 +1,6 @@
-public class Comprador extends Usuario {
+import org.json.JSONObject;
+
+public class Comprador extends Usuario implements IJSON {
     private double cantProducComprados;
 
     Comprador() {
@@ -40,5 +42,20 @@ public class Comprador extends Usuario {
                 "} " + super.toString();
     }
 
+    @Override
+    public JSONObject objetoAJSON() {
+        JSONObject jsonProducto = new JSONObject();
+        jsonProducto.put("nombre", getNombre());
+        jsonProducto.put("apellido", getApellido());
+        jsonProducto.put("edad", getEdad());
+        jsonProducto.put("documento", getDocumento());
+        jsonProducto.put("direccion", getDireccion());
+        jsonProducto.put("nombreUsuario", getNombreUsuario());
+        jsonProducto.put("correo", getCorreoElectronico());
+        jsonProducto.put("saldo", getSaldo());
+        jsonProducto.put("contrasenia", getContrasenia());
+        jsonProducto.put("cantProducComprados", getCantProducComprados());
 
+        return jsonProducto;
+    }
 }

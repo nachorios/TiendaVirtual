@@ -1,6 +1,8 @@
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
-public class Vendedor extends Usuario {
+public class Vendedor extends Usuario implements IJSON {
     private ArrayList<Producto> listaVenta;
     private double cantProdVendidos;
     private boolean esEmpresa;
@@ -54,7 +56,6 @@ public class Vendedor extends Usuario {
         }
     }
 
-
     @Override
     public String toString() {
         return "Vendedor{" +
@@ -73,5 +74,23 @@ public class Vendedor extends Usuario {
         } catch (Excepciones excepciones) {
             excepciones.printStackTrace();
         }
+    }
+
+    @Override
+    public JSONObject objetoAJSON() {
+        JSONObject jsonProducto = new JSONObject();
+        jsonProducto.put("nombre", getNombre());
+        jsonProducto.put("apellido", getApellido());
+        jsonProducto.put("edad", getEdad());
+        jsonProducto.put("documento", getDocumento());
+        jsonProducto.put("direccion", getDireccion());
+        jsonProducto.put("nombreUsuario", getNombreUsuario());
+        jsonProducto.put("correo", getCorreoElectronico());
+        jsonProducto.put("saldo", getSaldo());
+        jsonProducto.put("contrasenia", getContrasenia());
+        jsonProducto.put("cantidadProdVendidos", getCantProdVendidos());
+        jsonProducto.put("empresa", isEsEmpresa());
+
+        return jsonProducto;
     }
 }
