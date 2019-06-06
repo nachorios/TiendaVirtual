@@ -5,9 +5,17 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import excepciones.MaximoProductosPublicitadosException;
+import excepciones.MaximoProductosPublicitadosPorUsuarioException;
+import excepciones.MaximoProductosVendidosPorUsuarioException;
+import excepciones.PublicacionException;
+
 import java.util.Stack;
 
-public class Publicacion {
+import org.json.JSONObject;
+
+public class Publicacion implements IJSON{
 	private final int maxProductosSugeridos = 5;
 	private final int maxProductosPublicitados = 10;
 	private final int maxProductosPublicitadosxUsuario = 2;
@@ -15,17 +23,55 @@ public class Publicacion {
 	
 	HashMap<Usuario,ArrayList<Producto>> listadoDeProductosVenta;
 	HashMap<Usuario,Stack<Producto>> listadoDeProductosSugeridos;
-	HashMap<Usuario,LinkedHashMap<Integer, Producto>> listadoDeProductosPublicitados;
+	HashMap<Usuario,LinkedHashMap<Date, Producto>> listadoDeProductosPublicitados;
 	
 	public Publicacion() {
 		listadoDeProductosVenta = new HashMap<Usuario,ArrayList<Producto>>();
 		listadoDeProductosSugeridos = new HashMap<Usuario,Stack<Producto>>();
-		listadoDeProductosPublicitados = new HashMap<Usuario,LinkedHashMap<Integer, Producto>>();
+		listadoDeProductosPublicitados = new HashMap<Usuario,LinkedHashMap<Date, Producto>>();
 	}
 	
-	public boolean publicitarProducto(Usuario usuario, Producto producto, int nivel, Date fecha) {
-		//TODO
-		return false;
+	public void publicitarProducto(Usuario usuario, Producto producto, int nivel, Date fecha) throws PublicacionException{
+		
+		if (contarProductosPublicitadosDeUnUsuario(usuario)<maxProductosPublicitadosxUsuario) {
+			if (contarTodosProductosPublicitados()<maxProductosPublicitados) {
+				//TODO fecha = fecha * nivel;
+				LinkedHashMap<Date, Producto> productos = getProductosPublicitadosDeUnUsuario(usuario);
+				productos.put(fecha, producto);
+				getListadoDeProductosPublicitados().put(usuario, productos);
+			} else {
+				throw new MaximoProductosPublicitadosException("Se ha alcanzado el limite de productos publicitados.");
+			}
+		} else {
+			throw new MaximoProductosPublicitadosPorUsuarioException("No puedes publicitar mas de "+maxProductosPublicitadosxUsuario+" productos por usuario.");
+		}
+	}
+	
+	private int contarTodosProductosPublicitados() {
+		int cantidad = 0;
+		HashMap<Usuario,LinkedHashMap<Date, Producto>> listado = getListadoDeProductosPublicitados();
+		if (listado != null) {
+			cantidad = listado.size();
+		}
+		return cantidad;
+	}
+
+	private LinkedHashMap<Date, Producto> getProductosPublicitadosDeUnUsuario(Usuario usuario) {
+		LinkedHashMap<Date, Producto> productos = getListadoDeProductosPublicitados().get(usuario);
+		if (productos == null) {
+			productos = new LinkedHashMap<Date, Producto>();
+		}
+		
+		return productos;
+	}
+	
+	public int contarProductosPublicitadosDeUnUsuario(Usuario usuario) {
+		int cantidad = 0;
+		LinkedHashMap<Date, Producto> productos = getListadoDeProductosPublicitados().get(usuario);
+		if (productos != null) {
+			cantidad = productos.size();
+		}
+		return cantidad;
 	}
 	
 	public void sugerirProducto(Usuario usuario, Producto producto) {
@@ -33,8 +79,21 @@ public class Publicacion {
 		getListadoDeProductosSugeridos().put(usuario, prodSugeridos);
 	}
 	
-	public void publicarProducto(Usuario usuario, Producto producto) {
-		agregarProductoEnListadoProductos(usuario, producto);
+	public void publicarProducto(Usuario usuario, Producto producto) throws PublicacionException{
+		if (contarProductosPublicadosDeUnUsuario(usuario)<maxProductosEnVentaxUsuario) {
+			agregarProductoEnListadoProductos(usuario, producto);
+		} else {
+			throw new MaximoProductosVendidosPorUsuarioException("No puedes publicar mas de "+maxProductosEnVentaxUsuario+" productos por usuario.");
+		}
+	}
+	
+	public int contarProductosPublicadosDeUnUsuario(Usuario usuario) {
+		int cantidad = 0;
+		ArrayList<Producto> productos = getProductosDeUnUsuario(usuario);
+		if (productos != null) {
+			cantidad = productos.size();
+		}
+		return cantidad;
 	}
 	
 	private Stack<Producto> buscarProductosASugerir(Usuario usuario, Producto producto) {
@@ -91,26 +150,30 @@ public class Publicacion {
 		return listadoDeProductosVenta;
 	}
 
-	private void setListadoDeProductosVenta(HashMap<Usuario, ArrayList<Producto>> listadoDeProductos) {
-		this.listadoDeProductosVenta = listadoDeProductos;
+	private HashMap<Usuario, LinkedHashMap<Date, Producto>> getListadoDeProductosPublicitados() {
+		return listadoDeProductosPublicitados;
 	}
-
+	
 	private HashMap<Usuario, Stack<Producto>> getListadoDeProductosSugeridos() {
 		return listadoDeProductosSugeridos;
 	}
 
+	@Override
+	public JSONObject objetoAJSON() {
+		JSONObject jsonPublicacion = new JSONObject();
+		return null;
+	}
+	
+	/*private void setListadoDeProductosVenta(HashMap<Usuario, ArrayList<Producto>> listadoDeProductos) {
+		this.listadoDeProductosVenta = listadoDeProductos;
+	}
 	private void setListadoDeProductosSugeridos(HashMap<Usuario, Stack<Producto>> listadoDeProductosSugeridos) {
 		this.listadoDeProductosSugeridos = listadoDeProductosSugeridos;
 	}
-
-	private HashMap<Usuario, LinkedHashMap<Integer, Producto>> getListadoDeProductosPublicitados() {
-		return listadoDeProductosPublicitados;
-	}
-
 	private void setListadoDeProductosPublicitados(
-			HashMap<Usuario, LinkedHashMap<Integer, Producto>> listadoDeProductosPublicitados) {
+			HashMap<Usuario, LinkedHashMap<Date, Producto>> listadoDeProductosPublicitados) {
 		this.listadoDeProductosPublicitados = listadoDeProductosPublicitados;
-	}
+	}*/
 	
 	
 }
