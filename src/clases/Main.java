@@ -1,3 +1,5 @@
+package clases;
+
 public class Main {
     public static void main(String[] args) {
     	System.out.println("hola");
@@ -5,5 +7,10 @@ public class Main {
 
 
         
+    }
+    
+    //prueba
+    public static void crearProducto() {
+    	
     }
 }

@@ -1,8 +1,11 @@
+package clases;
 import org.json.JSONObject;
+
+import interfaces.IJsonObj;
 
 import java.util.ArrayList;
 
-public class Vendedor extends Usuario implements IJSON {
+public class Vendedor extends Usuario implements IJsonObj {
     private ArrayList<Producto> listaVenta;
     private double cantProdVendidos;
     private boolean esEmpresa;

@@ -1,6 +1,9 @@
+package clases;
 import org.json.JSONObject;
 
-public class Comprador extends Usuario implements IJSON {
+import interfaces.IJsonObj;
+
+public class Comprador extends Usuario implements IJsonObj {
     private double cantProducComprados;
 
     Comprador() {

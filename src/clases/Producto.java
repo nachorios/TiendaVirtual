@@ -1,8 +1,12 @@
+package clases;
 import java.util.ArrayList;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
-enum ProductoType {PRODUCTO, SERVICIO}
+import interfaces.ICaracteristica;
+import interfaces.IJsonObj;
+
 
 /**
  * Esta clase almacena toda la informacion de un producto, Su ID
@@ -10,17 +14,16 @@ enum ProductoType {PRODUCTO, SERVICIO}
  * @author usuario
  * @version 1.0
  */
-public class Producto implements IJSON{
+public class Producto implements IJsonObj{
 	private int ID;
 	private String nombre;
 	private String vendedor;
 	private float precio;
 	private int cantidad;
 	private boolean enVenta;
-	private ProductoType tipoProducto;
 	private ArrayList<String> descripcion;
-	private Caracteristica caracteristicas;
-	private Categoria categoria;
+	private ICaracteristica caracteristicas;
+	private Categoria categorias;
 	
 	@Override
 	public JSONObject objetoAJSON() {
@@ -30,12 +33,10 @@ public class Producto implements IJSON{
 		jsonProducto.put("vendedor", getVendedor());
 		jsonProducto.put("precio", getPrecio());
 		jsonProducto.put("enVenta", isEnVenta());
-		jsonProducto.put("tipoProducto", getTipoProducto());
 		jsonProducto.put("descripcion", getDescripcion());
 		jsonProducto.put("caracteristicas", getCaracteristicas());
-		jsonProducto.put("categoria", getCategoria());
+		jsonProducto.put("categoria", getCategoria().objetoAJSON());
 		
-		System.out.println(jsonProducto.toString());
 		return jsonProducto;
 	}
 	
@@ -67,7 +68,6 @@ public class Producto implements IJSON{
 				+"\nPrecio: "+getPrecio()
 				+"\nCantidad: "+getCantidad()
 				+"\nEn venta: "+isEnVenta()
-				+"\nTipo de producto: "+getTipoProducto()
 				+"\nDescripcion: "+getDescripcion()
 				+"\nCaracteristicas: "+getCaracteristicas()
 				+"\nCategorias: "+getCategoria();
@@ -83,10 +83,9 @@ public class Producto implements IJSON{
 		precio = 0;
 		cantidad = 0;
 		enVenta = false;
-		tipoProducto = ProductoType.PRODUCTO;
 		descripcion = new ArrayList<>();
-		caracteristicas = new Caracteristica();
-		categoria = new Categoria();
+		categorias = new Categoria();
+		caracteristicas = null;//TODO CORREGIR
 		
 	}
 	/**
@@ -100,7 +99,6 @@ public class Producto implements IJSON{
 		setNombre(p.getNombre());
 		setCantidad(p.getCantidad());
 		setEnVenta(p.isEnVenta());
-		setTipoProducto(p.getTipoProducto());
 		setCaracteristicas(p.getCaracteristicas());
 		setCategoria(p.getCategoria());
 		setDescripcion(p.getDescripcion());
@@ -120,14 +118,13 @@ public class Producto implements IJSON{
 	 * @param caracteristicas
 	 * @param categoria
 	 */
-	public Producto(String nombre, String vendedor, float precio, int cantidad,boolean enVenta,ProductoType tipoProducto, ArrayList<String> descripcion,
-			Caracteristica caracteristicas, Categoria categoria) {
+	public Producto(String nombre, String vendedor, float precio, int cantidad,boolean enVenta, ArrayList<String> descripcion,
+			ICaracteristica caracteristicas, Categoria categoria) {
 		super();
 		ID = getIDnuevoProducto();
 		setNombre(nombre);
 		setCantidad(cantidad);
 		setEnVenta(enVenta);
-		setTipoProducto(tipoProducto);
 		setCaracteristicas(caracteristicas);
 		setCategoria(categoria);
 		setDescripcion(descripcion);
@@ -179,20 +176,20 @@ public class Producto implements IJSON{
 		this.descripcion = descripcion;
 	}
 
-	public Caracteristica getCaracteristicas() {
+	public ICaracteristica getCaracteristicas() {
 		return caracteristicas;
 	}
 
-	public void setCaracteristicas(Caracteristica caracteristicas) {
+	public void setCaracteristicas(ICaracteristica caracteristicas) {
 		this.caracteristicas = caracteristicas;
 	}
 
 	public Categoria getCategoria() {
-		return categoria;
+		return categorias;
 	}
 
 	public void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
+		this.categorias = categoria;
 	}
 
 	public int getID() {
@@ -207,13 +204,5 @@ public class Producto implements IJSON{
 		this.enVenta = enVenta;
 	}
 
-	public ProductoType getTipoProducto() {
-		return tipoProducto;
-	}
-
-	public void setTipoProducto(ProductoType tipoProducto) {
-		this.tipoProducto = tipoProducto;
-	}
-	
 	
 }

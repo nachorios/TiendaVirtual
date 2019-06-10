@@ -1,3 +1,4 @@
+package clases;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -10,12 +11,13 @@ import excepciones.MaximoProductosPublicitadosException;
 import excepciones.MaximoProductosPublicitadosPorUsuarioException;
 import excepciones.MaximoProductosVendidosPorUsuarioException;
 import excepciones.PublicacionException;
+import interfaces.IJsonObj;
 
 import java.util.Stack;
 
 import org.json.JSONObject;
 
-public class Publicacion implements IJSON{
+public class Publicacion implements IJsonObj{
 	private final int maxProductosSugeridos = 5;
 	private final int maxProductosPublicitados = 10;
 	private final int maxProductosPublicitadosxUsuario = 2;
