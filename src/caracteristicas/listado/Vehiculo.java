@@ -1,13 +1,13 @@
 package caracteristicas.listado;
 
-import clases.Categoria;
-import interfaces.ICaracteristica;
+import caracteristicas.Caracteristica;
+import utils.UtilsClases;
 /**
  * 
  * @author usuario
  *
  */
-public class Vehiculo implements ICaracteristica{
+public class Vehiculo extends Caracteristica{
 	
 	private int modelo;
 	private int kilometros;
@@ -20,8 +20,8 @@ public class Vehiculo implements ICaracteristica{
 	 * @param cantPuertas
 	 * @param color
 	 */
-	public Vehiculo(int modelo, int kilometros, int cantPuertas, String color, Categoria categoria) {
-		super();
+	public Vehiculo(int modelo, int kilometros, int cantPuertas, String color) {
+		super("Vehiculo");
 		this.modelo = modelo;
 		this.kilometros = kilometros;
 		this.cantPuertas = cantPuertas;
@@ -54,11 +54,8 @@ public class Vehiculo implements ICaracteristica{
 	}
 
 	@Override
-	public void crearCaracteristicas(Object... parametros) {
-		
+	public String toString() {
+		return UtilsClases.crearToString(this.getClass(),this);
 	}
-
-	
-	
 	
 }

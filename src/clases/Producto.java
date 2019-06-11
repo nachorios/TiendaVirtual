@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import caracteristicas.Caracteristica;
 import interfaces.ICaracteristica;
 import interfaces.IJsonObj;
 
@@ -22,7 +23,7 @@ public class Producto implements IJsonObj{
 	private int cantidad;
 	private boolean enVenta;
 	private ArrayList<String> descripcion;
-	private ICaracteristica caracteristicas;
+	private Caracteristica caracteristicas;
 	private Categoria categorias;
 	
 	@Override
@@ -70,7 +71,7 @@ public class Producto implements IJsonObj{
 				+"\nEn venta: "+isEnVenta()
 				+"\nDescripcion: "+getDescripcion()
 				+"\nCaracteristicas: "+getCaracteristicas()
-				+"\nCategorias: "+getCategoria();
+				+"\nCategoria: "+getCategoria();
 	}
 	/**
 	 * Inicializa todos los atributos del objeto, y coloca su ID irrepetible.
@@ -86,7 +87,6 @@ public class Producto implements IJsonObj{
 		descripcion = new ArrayList<>();
 		categorias = new Categoria();
 		caracteristicas = null;//TODO CORREGIR
-		
 	}
 	/**
 	 * inicializa las variables del nuevo producto copiando los elementos del
@@ -119,7 +119,7 @@ public class Producto implements IJsonObj{
 	 * @param categoria
 	 */
 	public Producto(String nombre, String vendedor, float precio, int cantidad,boolean enVenta, ArrayList<String> descripcion,
-			ICaracteristica caracteristicas, Categoria categoria) {
+			Caracteristica caracteristicas, Categoria categoria) {
 		super();
 		ID = getIDnuevoProducto();
 		setNombre(nombre);
@@ -176,11 +176,11 @@ public class Producto implements IJsonObj{
 		this.descripcion = descripcion;
 	}
 
-	public ICaracteristica getCaracteristicas() {
+	public Caracteristica getCaracteristicas() {
 		return caracteristicas;
 	}
 
-	public void setCaracteristicas(ICaracteristica caracteristicas) {
+	public void setCaracteristicas(Caracteristica caracteristicas) {
 		this.caracteristicas = caracteristicas;
 	}
 
