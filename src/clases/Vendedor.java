@@ -1,4 +1,5 @@
 package clases;
+import excepciones.Excepciones;
 import org.json.JSONObject;
 
 import interfaces.IJsonObj;

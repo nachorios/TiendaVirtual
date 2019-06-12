@@ -1,6 +1,6 @@
 package clases;
+import excepciones.Excepciones;
 import org.json.JSONObject;
-
 import interfaces.IJsonObj;
 
 public class Comprador extends Usuario implements IJsonObj {
@@ -25,7 +25,7 @@ public class Comprador extends Usuario implements IJsonObj {
         this.cantProducComprados = cantProducComprados;
     }
 
-    public void comprar(Producto prod) throws Excepciones{
+    public void comprar(Producto prod) throws Excepciones {
         if (getSaldo()>0 && prod.getCantidad()>0){
             setSaldo(getSaldo() - prod.getPrecio());
             lista.add(prod);

@@ -1,6 +1,6 @@
-package clases;
+package excepciones;
 public class Excepciones extends Exception {
-    Excepciones(String info) {
+    public Excepciones(String info) {
         super(info);
     }
 

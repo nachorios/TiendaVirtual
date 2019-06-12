@@ -7,17 +7,17 @@ public class Inmueble extends Caracteristica{
 	
 	private int superficie;
 	private int ambientes;
-	private int baños;
+	private int banios;
 	private int dormitorios;
 	private int cocheras;
 	
 	
 	
-	public Inmueble(int superficie, int ambientes, int baños, int dormitorios, int cocheras) {
+	public Inmueble(int superficie, int ambientes, int banios, int dormitorios, int cocheras) {
 		super("Inmueble");
 		this.superficie = superficie;
 		this.ambientes = ambientes;
-		this.baños = baños;
+		this.banios = banios;
 		this.dormitorios = dormitorios;
 		this.cocheras = cocheras;
 	}
@@ -36,8 +36,8 @@ public class Inmueble extends Caracteristica{
 
 
 
-	public int getBaños() {
-		return baños;
+	public int getBanios() {
+		return banios;
 	}
 
 
