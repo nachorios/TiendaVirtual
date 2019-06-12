@@ -7,14 +7,45 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import caracteristicas.Caracteristica;
+import caracteristicas.listado.Alimento;
 import clases.Categoria.CategoriaType;
+import excepciones.Excepciones;
+import excepciones.PublicacionException;
 import interfacesGraficas.Interfaz;
 import utils.UtilsClases;
 
 public class Main {
+	static Scanner sc = new Scanner(System.in);
     public static void main(String[] args) {
-    	//crearProducto();
-    	Interfaz.main(null);
+    	Vendedor vendedor = new Vendedor("Carlitos","Menem",45,"12435784","Mercedes 123","Carli","carlitos@hotmail.com",100.00,"contrasena",0,false);
+    	
+    	ArrayList<String> descripcion = new ArrayList<>();
+    	descripcion.add("bebida deliciosa");
+    	Categoria categoria = new Categoria(CategoriaType.ALIMENTO);
+    	Producto producto = new Producto("Manaos",vendedor.getNombreUsuario(),14.0f,12,false,
+    			descripcion,new Alimento("labichi", 14, "Enlatada", "amargo"),categoria);
+    	
+    	try {
+			vendedor.agregarProductoVenta(producto);
+		} catch (Excepciones e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	Publicacion publicacion = new Publicacion();
+    	try {
+			publicacion.publicarProducto(vendedor.getNombreUsuario(), producto);
+		} catch (PublicacionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	//System.out.println(publicacion.getProductosDeUnUsuario(vendedor.getNombreUsuario()));
+    	Comprador comprador = new Comprador("Mario","Cansas",29,"18746856","calle 1","Marito","marioNeta@gmail.com",14.0,"contra",0);
+   
+		System.out.println(publicacion.removerProducto(vendedor, comprador, producto));;
+		
+    
+    	
+    	
     }
     
     //prueba

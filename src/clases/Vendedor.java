@@ -42,6 +42,10 @@ public class Vendedor extends Usuario implements IJsonObj {
         this.esEmpresa = esEmpresa;
     }
 
+    public ArrayList<Producto> getListaVenta() {
+		return listaVenta;
+	}
+    
     public void agregarProductoVenta(Producto prod) throws Excepciones {
         if (prod instanceof Producto){
             listaVenta.add(prod);

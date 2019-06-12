@@ -25,13 +25,14 @@ public class Comprador extends Usuario implements IJsonObj {
         this.cantProducComprados = cantProducComprados;
     }
 
-    public void comprar(Producto prod) throws Excepciones {
-        if (getSaldo()>0 && prod.getCantidad()>0){
+    public boolean comprar(Producto prod) {
+        if (getSaldo()>0 && prod.getCantidad()>0 && getSaldo() >= prod.getPrecio()){
             setSaldo(getSaldo() - prod.getPrecio());
             lista.add(prod);
+            return true;
         }
         else
-            throw new Excepciones("No tiene saldo");
+        	return false;
     }
 
     public void cargarSaldo(double dinero){

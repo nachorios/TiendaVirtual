@@ -7,6 +7,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import excepciones.Excepciones;
 import excepciones.MaximoProductosPublicitadosException;
 import excepciones.MaximoProductosPublicitadosPorUsuarioException;
 import excepciones.MaximoProductosVendidosPorUsuarioException;
@@ -24,17 +25,28 @@ public class Publicacion implements IJsonObj{
 	private final int maxProductosPublicitadosxUsuario = 2;
 	private final int maxProductosEnVentaxUsuario = 2;
 	
-	HashMap<Usuario,ArrayList<Producto>> listadoDeProductosVenta;//Corregir
-	HashMap<Usuario,Stack<Producto>> listadoDeProductosSugeridos;
-	HashMap<Usuario,LinkedHashMap<Date, Producto>> listadoDeProductosPublicitados;
+	private HashMap<String,ArrayList<Producto>> listadoDeProductosVenta;//Corregir
+	private HashMap<String,Stack<Producto>> listadoDeProductosSugeridos;
+	private HashMap<String,LinkedHashMap<Date, Producto>> listadoDeProductosPublicitados;
 	
 	public Publicacion() {
-		listadoDeProductosVenta = new HashMap<Usuario,ArrayList<Producto>>();
-		listadoDeProductosSugeridos = new HashMap<Usuario,Stack<Producto>>();
-		listadoDeProductosPublicitados = new HashMap<Usuario,LinkedHashMap<Date, Producto>>();
+		listadoDeProductosVenta = new HashMap<String,ArrayList<Producto>>();
+		listadoDeProductosSugeridos = new HashMap<String,Stack<Producto>>();
+		listadoDeProductosPublicitados = new HashMap<String,LinkedHashMap<Date, Producto>>();
 	}
 	
-	public void publicitarProducto(Usuario usuario, Producto producto, int nivel, Date fecha) throws PublicacionException{
+	public String removerProducto(Vendedor vendedor,Comprador comprador, Producto producto){
+		if(comprador.comprar(producto)){
+			vendedor.vender(producto);
+			listadoDeProductosVenta.remove(producto);
+			return "Producto comprado";
+		}
+		else {
+			return "No es posbile realizar la compra";
+		}
+	}
+	
+	public void publicitarProducto(String usuario, Producto producto, int nivel, Date fecha) throws PublicacionException{
 		
 		if (contarProductosPublicitadosDeUnUsuario(usuario)<maxProductosPublicitadosxUsuario) {
 			if (contarTodosProductosPublicitados()<maxProductosPublicitados) {
@@ -52,14 +64,14 @@ public class Publicacion implements IJsonObj{
 	
 	private int contarTodosProductosPublicitados() {
 		int cantidad = 0;
-		HashMap<Usuario,LinkedHashMap<Date, Producto>> listado = getListadoDeProductosPublicitados();
+		HashMap<String,LinkedHashMap<Date, Producto>> listado = getListadoDeProductosPublicitados();
 		if (listado != null) {
 			cantidad = listado.size();
 		}
 		return cantidad;
 	}
 
-	private LinkedHashMap<Date, Producto> getProductosPublicitadosDeUnUsuario(Usuario usuario) {
+	private LinkedHashMap<Date, Producto> getProductosPublicitadosDeUnUsuario(String usuario) {
 		LinkedHashMap<Date, Producto> productos = getListadoDeProductosPublicitados().get(usuario);
 		if (productos == null) {
 			productos = new LinkedHashMap<Date, Producto>();
@@ -68,7 +80,7 @@ public class Publicacion implements IJsonObj{
 		return productos;
 	}
 	
-	public int contarProductosPublicitadosDeUnUsuario(Usuario usuario) {
+	public int contarProductosPublicitadosDeUnUsuario(String usuario) {
 		int cantidad = 0;
 		LinkedHashMap<Date, Producto> productos = getListadoDeProductosPublicitados().get(usuario);
 		if (productos != null) {
@@ -77,12 +89,12 @@ public class Publicacion implements IJsonObj{
 		return cantidad;
 	}
 	
-	public void sugerirProducto(Usuario usuario, Producto producto) {
+	public void sugerirProducto(String usuario, Producto producto) {
 		Stack<Producto> prodSugeridos = buscarProductosASugerir(usuario, producto);
 		getListadoDeProductosSugeridos().put(usuario, prodSugeridos);
 	}
 	
-	public void publicarProducto(Usuario usuario, Producto producto) throws PublicacionException{
+	public void publicarProducto(String usuario, Producto producto) throws PublicacionException{
 		if (contarProductosPublicadosDeUnUsuario(usuario)<maxProductosEnVentaxUsuario) {
 			agregarProductoEnListadoProductos(usuario, producto);
 		} else {
@@ -90,7 +102,7 @@ public class Publicacion implements IJsonObj{
 		}
 	}
 	
-	public int contarProductosPublicadosDeUnUsuario(Usuario usuario) {
+	public int contarProductosPublicadosDeUnUsuario(String usuario) {
 		int cantidad = 0;
 		ArrayList<Producto> productos = getProductosDeUnUsuario(usuario);
 		if (productos != null) {
@@ -99,9 +111,9 @@ public class Publicacion implements IJsonObj{
 		return cantidad;
 	}
 	
-	private Stack<Producto> buscarProductosASugerir(Usuario usuario, Producto producto) {
+	private Stack<Producto> buscarProductosASugerir(String usuario, Producto producto) {
 		ArrayList<Producto> productos = new ArrayList<>();
-		Iterator<Entry<Usuario, ArrayList<Producto>>> it = getListadoDeProductosVenta().entrySet().iterator();
+		Iterator<Entry<String, ArrayList<Producto>>> it = getListadoDeProductosVenta().entrySet().iterator();
 		while (it.hasNext()) {
 			@SuppressWarnings("rawtypes")//?
 			Map.Entry me = (Map.Entry) it.next();
@@ -127,7 +139,7 @@ public class Publicacion implements IJsonObj{
 		return productosSugeridos;
 	}
 	
-	private Stack<Producto> getProductosSugeridosDeUnUsuario(Usuario usuario) {
+	private Stack<Producto> getProductosSugeridosDeUnUsuario(String usuario) {
 		Stack<Producto> productosSugeridos = getListadoDeProductosSugeridos().get(usuario);
 		if (productosSugeridos == null) {
 			productosSugeridos = new Stack<Producto>();
@@ -135,13 +147,13 @@ public class Publicacion implements IJsonObj{
 		return productosSugeridos;
 	}
 
-	private void agregarProductoEnListadoProductos(Usuario usuario, Producto producto) {
+	private void agregarProductoEnListadoProductos(String usuario, Producto producto) {
 		ArrayList<Producto> productos = getProductosDeUnUsuario(usuario);
 		productos.add(producto);
 		getListadoDeProductosVenta().put(usuario, productos);
 	}
 	
-	private ArrayList<Producto> getProductosDeUnUsuario(Usuario usuario) {
+	public ArrayList<Producto> getProductosDeUnUsuario(String usuario) {
 		ArrayList<Producto> productos = getListadoDeProductosVenta().get(usuario);
 		if (productos == null) {
 			productos = new ArrayList<>();
@@ -149,15 +161,15 @@ public class Publicacion implements IJsonObj{
 		return productos;
 	}
 	/*GETTERS Y SETTERS*/
-	private HashMap<Usuario, ArrayList<Producto>> getListadoDeProductosVenta() {
+	private HashMap<String, ArrayList<Producto>> getListadoDeProductosVenta() {
 		return listadoDeProductosVenta;
 	}
 
-	private HashMap<Usuario, LinkedHashMap<Date, Producto>> getListadoDeProductosPublicitados() {
+	private HashMap<String, LinkedHashMap<Date, Producto>> getListadoDeProductosPublicitados() {
 		return listadoDeProductosPublicitados;
 	}
 	
-	private HashMap<Usuario, Stack<Producto>> getListadoDeProductosSugeridos() {
+	private HashMap<String, Stack<Producto>> getListadoDeProductosSugeridos() {
 		return listadoDeProductosSugeridos;
 	}
 
