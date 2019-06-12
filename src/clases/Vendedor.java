@@ -9,20 +9,18 @@ import java.util.ArrayList;
 public class Vendedor extends Usuario implements IJsonObj {
     private ArrayList<Producto> listaVenta;
     private double cantProdVendidos;
-    private boolean esEmpresa;
 
     Vendedor() {
         super();
         cantProdVendidos = 0;
-        esEmpresa = true;
         listaVenta = new ArrayList<>();
     }
 
     public Vendedor(String nombre, String apellido, int edad, String documento, String direccion, String nombreUsuario,
-                    String correoElectronico, double saldo, String contrasenia, double cantProdVendidos, boolean esEmpresa) {
+                    String correoElectronico, double saldo, String contrasenia, double cantProdVendidos) {
         super(nombre, apellido, edad, documento, direccion, nombreUsuario, correoElectronico, saldo, contrasenia);
         this.cantProdVendidos = cantProdVendidos;
-        this.esEmpresa = esEmpresa;
+
         listaVenta = new ArrayList<>();
     }
 
@@ -32,14 +30,6 @@ public class Vendedor extends Usuario implements IJsonObj {
 
     public void setCantProdVendidos(double cantProdVendidos) {
         this.cantProdVendidos = cantProdVendidos;
-    }
-
-    public boolean isEsEmpresa() {
-        return esEmpresa;
-    }
-
-    public void setEsEmpresa(boolean esEmpresa) {
-        this.esEmpresa = esEmpresa;
     }
 
     public ArrayList<Producto> getListaVenta() {
@@ -97,7 +87,6 @@ public class Vendedor extends Usuario implements IJsonObj {
         jsonProducto.put("saldo", getSaldo());
         jsonProducto.put("contrasenia", getContrasenia());
         jsonProducto.put("cantidadProdVendidos", getCantProdVendidos());
-        jsonProducto.put("empresa", isEsEmpresa());
 
         return jsonProducto;
     }

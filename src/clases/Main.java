@@ -1,11 +1,14 @@
 package clases;
 
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import basedatos.Archivos;
 import caracteristicas.Caracteristica;
 import caracteristicas.listado.Alimento;
 import clases.Categoria.CategoriaType;
@@ -17,37 +20,51 @@ import utils.UtilsClases;
 public class Main {
 	static Scanner sc = new Scanner(System.in);
     public static void main(String[] args) {
-    	Vendedor vendedor = new Vendedor("Carlitos","Menem",45,"12435784","Mercedes 123","Carli","carlitos@hotmail.com",100.00,"contrasena",0,false);
-    	
-    	ArrayList<String> descripcion = new ArrayList<>();
-    	descripcion.add("bebida deliciosa");
-    	Categoria categoria = new Categoria(CategoriaType.ALIMENTO);
-    	Producto producto = new Producto("Manaos",vendedor.getNombreUsuario(),14.0f,12,false,
-    			descripcion,new Alimento("labichi", 14, "Enlatada", "amargo"),categoria);
-    	
-    	try {
-			vendedor.agregarProductoVenta(producto);
-		} catch (Excepciones e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+    	InterfazConsola menu = new InterfazConsola();
+		File venta = new File ("vendedores.json");
+		File compra = new File("compradores.json");
+		File publi = new File ("publicaiones.json");
+		Archivos archi = new Archivos();
+    	Vendedor vendedor = null;
+    	Comprador comprador = new Comprador();
+    	Categoria categoria = new Categoria();
+    	Producto producto = new Producto();
     	Publicacion publicacion = new Publicacion();
-    	try {
-			publicacion.publicarProducto(vendedor.getNombreUsuario(), producto);
-		} catch (PublicacionException e) {
-			// TODO Auto-generated catch block
+
+		System.out.println(menu.menuPrincipal());
+		switch (sc.nextInt()){
+			case 1:
+				System.out.println(menu.menuSesion());
+				break;
+			case 2:
+				System.out.println(menu.menuRegistracion());
+				switch (sc.nextInt()){
+					case 1:
+						crearVendedor(vendedor, archi, venta);
+						break;
+				}
+				break;
+		}
+
+
+	}
+
+	public static void crearComprador(){
+
+	}
+
+	public static void crearVendedor(Vendedor vendedor, Archivos archi, File file){
+
+		vendedor = new Vendedor();
+		try {
+			archi.guardar(vendedor.objetoAJSON(), file);
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
-    	//System.out.println(publicacion.getProductosDeUnUsuario(vendedor.getNombreUsuario()));
-    	Comprador comprador = new Comprador("Mario","Cansas",29,"18746856","calle 1","Marito","marioNeta@gmail.com",14.0,"contra",0);
-   
-		System.out.println(publicacion.removerProducto(vendedor, comprador, producto));;
-		
-    
-    	
-    	
-    }
-    
+
+	}
+
+    /*
     //prueba
     public static void crearProducto() {
     	Scanner sc = new Scanner(System.in);
@@ -122,5 +139,5 @@ public class Main {
     	System.out.println(producto.toString());
     	sc.close();
     }
-    
+    */
 }

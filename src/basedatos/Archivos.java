@@ -4,7 +4,8 @@ import org.json.JSONObject;
 
 import java.io.*;
 
-public class Archivos extends JSONObject {
+public class Archivos
+{
 
     public File guardar(JSONObject js, File archi) throws IOException {
         FileWriter fw = new FileWriter(archi.getAbsoluteFile(), true);
