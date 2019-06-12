@@ -56,6 +56,7 @@ public class Interfaz {
 			public void run() {
 				try {
 					Interfaz window = new Interfaz();
+					window.frame.resize(600, 500);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

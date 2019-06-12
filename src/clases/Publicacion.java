@@ -15,6 +15,7 @@ import interfaces.IJsonObj;
 
 import java.util.Stack;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class Publicacion implements IJsonObj{
@@ -23,7 +24,7 @@ public class Publicacion implements IJsonObj{
 	private final int maxProductosPublicitadosxUsuario = 2;
 	private final int maxProductosEnVentaxUsuario = 2;
 	
-	HashMap<Usuario,ArrayList<Producto>> listadoDeProductosVenta;
+	HashMap<Usuario,ArrayList<Producto>> listadoDeProductosVenta;//Corregir
 	HashMap<Usuario,Stack<Producto>> listadoDeProductosSugeridos;
 	HashMap<Usuario,LinkedHashMap<Date, Producto>> listadoDeProductosPublicitados;
 	
@@ -163,7 +164,44 @@ public class Publicacion implements IJsonObj{
 	@Override
 	public JSONObject objetoAJSON() {
 		JSONObject jsonPublicacion = new JSONObject();
-		return null;
+		
+		JSONArray jsonProdEnVenta = new JSONArray();
+		Iterator iterProdEnVenta = getListadoDeProductosVenta().entrySet().iterator();
+		while (iterProdEnVenta.hasNext()) {
+			Map.Entry me = (Map.Entry) iterProdEnVenta.next();
+			JSONObject usuarioConProductos = new JSONObject();
+			usuarioConProductos.put(me.getKey().toString(), ((Producto)me.getValue()).objetoAJSON());
+			jsonProdEnVenta.put(usuarioConProductos);
+		}
+		jsonPublicacion.put("listadoProductosEnVenta", jsonProdEnVenta);
+		
+		
+		JSONArray jsonProdSugerido= new JSONArray();
+		Iterator iterProdSugerido = getListadoDeProductosSugeridos().entrySet().iterator();
+		while (iterProdSugerido.hasNext()) {
+			Map.Entry me = (Map.Entry) iterProdSugerido.next();
+			JSONObject usuarioConProductos = new JSONObject();
+			usuarioConProductos.put(me.getKey().toString(), ((Producto)me.getValue()).objetoAJSON());
+			jsonProdSugerido.put(usuarioConProductos);
+		}
+		jsonPublicacion.put("listadoProductosEnVenta", jsonProdSugerido);
+		
+		/*
+		JSONArray jsonProdPublicitados= new JSONArray();
+		Iterator iterProdPublicitados = getListadoDeProductosPublicitados().entrySet().iterator();
+		while (iterProdPublicitados.hasNext()) {
+			Map.Entry me = (Map.Entry) iterProdPublicitados.next();
+			JSONObject usuarioConProductos = new JSONObject();
+			usuarioConProductos.put(me.getKey().toString(), ((Producto)me.getValue()).objetoAJSON());
+			JSONObject fechaConProducto = new JSONObject();
+			Map.Entry = ((LinkedHashMap<Date, Producto>)me.getValue()).entrySet();
+			fechaConProducto.put(, value)
+			jsonProdSugerido.put(usuarioConProductos);
+		}
+		jsonPublicacion.put("listadoProductosEnVenta", jsonProdSugerido);*/
+		//TODO LISTADO DE PRODUCTOS PUBLICITADOS
+		
+		return jsonPublicacion;
 	}
 	
 	/*private void setListadoDeProductosVenta(HashMap<Usuario, ArrayList<Producto>> listadoDeProductos) {
