@@ -7,11 +7,14 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import caracteristicas.Caracteristica;
+import clases.Categoria.CategoriaType;
+import interfacesGraficas.Interfaz;
 import utils.UtilsClases;
 
 public class Main {
     public static void main(String[] args) {
     	//crearProducto();
+    	Interfaz.main(null);
     }
     
     //prueba

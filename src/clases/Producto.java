@@ -1,11 +1,9 @@
 package clases;
 import java.util.ArrayList;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import caracteristicas.Caracteristica;
-import interfaces.ICaracteristica;
 import interfaces.IJsonObj;
 
 

@@ -3,9 +3,12 @@ package clases;
 import org.json.JSONObject;
 import interfaces.IJsonObj;
 
-enum CategoriaType{ACCESORIO,ALIMENTO,ANTIGUEDAD,ARTE,INMUEBLE,JOYERIA,JUGUETE,LIBRO,MUSICA,OTRO,ROPA,TECNOLOGIA,VEHICULO}
+
 
 	public class Categoria implements IJsonObj{
+	
+	public enum CategoriaType{ACCESORIO,ALIMENTO,ANTIGUEDAD,ARTE,INMUEBLE,JOYERIA,JUGUETE,LIBRO,MUSICA,ROPA,TECNOLOGIA,VEHICULO,OTRO}
+	
 	private CategoriaType tipo;
 	private String nombre;
 	
