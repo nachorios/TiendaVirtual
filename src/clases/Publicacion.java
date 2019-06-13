@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -19,20 +20,78 @@ import java.util.Stack;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import clases.Categoria.CategoriaType;
+
 public class Publicacion implements IJsonObj{
 	private final int maxProductosSugeridos = 5;
 	private final int maxProductosPublicitados = 10;
 	private final int maxProductosPublicitadosxUsuario = 2;
 	private final int maxProductosEnVentaxUsuario = 2;
 	
-	private HashMap<String,ArrayList<Producto>> listadoDeProductosVenta;//Corregir
+	private HashMap<String,ArrayList<Producto>> listadoDeProductosVenta;
 	private HashMap<String,Stack<Producto>> listadoDeProductosSugeridos;
-	private HashMap<String,LinkedHashMap<Date, Producto>> listadoDeProductosPublicitados;
+	private HashMap<String,LinkedHashMap<Integer, Producto>> listadoDeProductosPublicitados;
 	
 	public Publicacion() {
 		listadoDeProductosVenta = new HashMap<String,ArrayList<Producto>>();
 		listadoDeProductosSugeridos = new HashMap<String,Stack<Producto>>();
-		listadoDeProductosPublicitados = new HashMap<String,LinkedHashMap<Date, Producto>>();
+		listadoDeProductosPublicitados = new HashMap<String,LinkedHashMap<Integer, Producto>>();
+	}
+	
+	public ArrayList<Producto> buscarProductosPorNombre(String nombre) {
+		ArrayList<Producto> productos = new ArrayList<>();
+		
+		ArrayList<Producto> productosEnVenta = getArrayListDeProductosVenta();
+		ArrayList<Producto> productosSugeridos = getArrayListDeProductosSugeridos();
+		ArrayList<Producto> productosPublicitados = getArrayListDeProductosPublicitados();
+
+		agregarProductoListaComprobacionesComienzaCon(nombre, productos, productosPublicitados);
+		agregarProductoListaComprobacionesComienzaCon(nombre, productos, productosSugeridos);
+		agregarProductoListaComprobacionesComienzaCon(nombre, productos, productosEnVenta);
+
+		agregarProductoListaComprobacionesContieneEl(nombre, productos, productosPublicitados);
+		agregarProductoListaComprobacionesContieneEl(nombre, productos, productosSugeridos);
+		agregarProductoListaComprobacionesContieneEl(nombre, productos, productosEnVenta);
+		
+		return productos;
+	}
+	
+	public ArrayList<Producto> buscarProductosPorCategoria(CategoriaType categoria) {
+		ArrayList<Producto> productos = new ArrayList<>();
+		
+		ArrayList<Producto> productosEnVenta = getArrayListDeProductosVenta();
+		ArrayList<Producto> productosSugeridos = getArrayListDeProductosSugeridos();
+		ArrayList<Producto> productosPublicitados = getArrayListDeProductosPublicitados();
+
+		agregarProductoListaComprobacionesCategoria(categoria, productos, productosPublicitados);
+		agregarProductoListaComprobacionesCategoria(categoria, productos, productosSugeridos);
+		agregarProductoListaComprobacionesCategoria(categoria, productos, productosEnVenta);
+		
+		return productos;
+	}
+	
+	private void agregarProductoListaComprobacionesCategoria(CategoriaType categoria, ArrayList<Producto> productos, ArrayList<Producto> productosEnVenta) {
+		for(Producto p : productosEnVenta) {
+			if(p.getCategoria().getTipo().equals(categoria) && !productos.contains(p)) {
+				productos.add(p);
+			}
+		}
+	}
+	
+	private void agregarProductoListaComprobacionesComienzaCon(String nombre, ArrayList<Producto> productos, ArrayList<Producto> productosEnVenta) {
+		for(Producto p : productosEnVenta) {
+			if(p.getNombre().startsWith(nombre) && !productos.contains(p)) {
+				productos.add(p);
+			}
+		}
+	}
+	
+	private void agregarProductoListaComprobacionesContieneEl(String nombre, ArrayList<Producto> productos, ArrayList<Producto> productosEnVenta) {
+		for(Producto p : productosEnVenta) {
+			if(p.getNombre().contains(nombre) && !productos.contains(p)) {
+				productos.add(p);
+			}
+		}
 	}
 	
 	public String removerProducto(Vendedor vendedor,Comprador comprador, Producto producto){
@@ -46,13 +105,13 @@ public class Publicacion implements IJsonObj{
 		}
 	}
 	
-	public void publicitarProducto(String usuario, Producto producto, int nivel, Date fecha) throws PublicacionException{
+	public void publicitarProducto(String usuario, Producto producto, int cantPublicidades) throws PublicacionException{
 		
 		if (contarProductosPublicitadosDeUnUsuario(usuario)<maxProductosPublicitadosxUsuario) {
 			if (contarTodosProductosPublicitados()<maxProductosPublicitados) {
 				//TODO fecha = fecha * nivel;
-				LinkedHashMap<Date, Producto> productos = getProductosPublicitadosDeUnUsuario(usuario);
-				productos.put(fecha, producto);
+				LinkedHashMap<Integer, Producto> productos = getProductosPublicitadosDeUnUsuario(usuario);
+				productos.put(cantPublicidades, producto);
 				getListadoDeProductosPublicitados().put(usuario, productos);
 			} else {
 				throw new MaximoProductosPublicitadosException("Se ha alcanzado el limite de productos publicitados.");
@@ -64,17 +123,17 @@ public class Publicacion implements IJsonObj{
 	
 	private int contarTodosProductosPublicitados() {
 		int cantidad = 0;
-		HashMap<String,LinkedHashMap<Date, Producto>> listado = getListadoDeProductosPublicitados();
+		HashMap<String,LinkedHashMap<Integer, Producto>> listado = getListadoDeProductosPublicitados();
 		if (listado != null) {
 			cantidad = listado.size();
 		}
 		return cantidad;
 	}
 
-	private LinkedHashMap<Date, Producto> getProductosPublicitadosDeUnUsuario(String usuario) {
-		LinkedHashMap<Date, Producto> productos = getListadoDeProductosPublicitados().get(usuario);
+	private LinkedHashMap<Integer, Producto> getProductosPublicitadosDeUnUsuario(String usuario) {
+		LinkedHashMap<Integer, Producto> productos = getListadoDeProductosPublicitados().get(usuario);
 		if (productos == null) {
-			productos = new LinkedHashMap<Date, Producto>();
+			productos = new LinkedHashMap<Integer, Producto>();
 		}
 		
 		return productos;
@@ -82,7 +141,7 @@ public class Publicacion implements IJsonObj{
 	
 	public int contarProductosPublicitadosDeUnUsuario(String usuario) {
 		int cantidad = 0;
-		LinkedHashMap<Date, Producto> productos = getListadoDeProductosPublicitados().get(usuario);
+		LinkedHashMap<Integer, Producto> productos = getListadoDeProductosPublicitados().get(usuario);
 		if (productos != null) {
 			cantidad = productos.size();
 		}
@@ -165,12 +224,52 @@ public class Publicacion implements IJsonObj{
 		return listadoDeProductosVenta;
 	}
 
-	private HashMap<String, LinkedHashMap<Date, Producto>> getListadoDeProductosPublicitados() {
+	private HashMap<String, LinkedHashMap<Integer, Producto>> getListadoDeProductosPublicitados() {
 		return listadoDeProductosPublicitados;
 	}
 	
 	private HashMap<String, Stack<Producto>> getListadoDeProductosSugeridos() {
 		return listadoDeProductosSugeridos;
+	}
+	
+	private ArrayList<Producto> getArrayListDeProductosVenta() {
+		Iterator it = getListadoDeProductosVenta().entrySet().iterator();
+		ArrayList<Producto> productos = new ArrayList<Producto>();
+		while (it.hasNext()) {
+			Map.Entry me = (Map.Entry) it.next();
+			productos.add((Producto) me.getValue());
+		}
+		return productos;
+	}
+
+	private ArrayList<Producto> getArrayListDeProductosPublicitados() {
+		// HashMap<String,LinkedHashMap<Date, Producto>>
+		
+		Iterator it = getListadoDeProductosPublicitados().entrySet().iterator();
+		ArrayList<Producto> productos = new ArrayList<Producto>();
+		while (it.hasNext()) {
+			Map.Entry me = (Map.Entry) it.next();
+			LinkedHashMap<Date, Producto> fechasConProducto = (LinkedHashMap<Date, Producto>) me.getValue();
+			Iterator it2 = fechasConProducto.entrySet().iterator();
+			while (it2.hasNext()) {
+				Map.Entry me2 = (Map.Entry) it2.next();
+				productos.add((Producto) me2.getValue());
+			}
+		}
+		return productos;
+	}
+	
+	private ArrayList<Producto> getArrayListDeProductosSugeridos() {
+		Iterator it = getListadoDeProductosSugeridos().entrySet().iterator();
+		ArrayList<Producto> productos = new ArrayList<Producto>();
+		while (it.hasNext()) {
+			Map.Entry me = (Map.Entry) it.next();
+			Stack<Producto> pilaProductos = (Stack<Producto>) me.getValue();
+			while (pilaProductos.size() > 0) {
+				productos.add(pilaProductos.pop());
+			}
+		}
+		return productos;
 	}
 
 	@Override

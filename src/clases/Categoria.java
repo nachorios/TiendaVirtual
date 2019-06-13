@@ -27,7 +27,7 @@ import interfaces.IJsonObj;
 		this.nombre = tipo.name();
 	}
 	
-	private CategoriaType getTipo() {
+	public CategoriaType getTipo() {
 		return tipo;
 	}
 

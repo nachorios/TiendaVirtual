@@ -64,7 +64,7 @@ public class Main {
 
 	}
 
-    /*
+    
     //prueba
     public static void crearProducto() {
     	Scanner sc = new Scanner(System.in);
@@ -74,12 +74,7 @@ public class Main {
     	System.out.println("Nombre del producto: ");
     	producto.setNombre(sc.next());
     	System.out.println("Descripcion:");
-    	String[] descrip = sc.next().split(". ");
-    	ArrayList<String> descripcion = new ArrayList<>();
-    	for (String s : descrip) {
-    		descripcion.add(s);
-    	}
-    	producto.setDescripcion(descripcion);
+    	producto.setDescripcion(sc.next());
     	System.out.println("Elije la categoria de tu producto: ");
     	for (int i = 0; i < CategoriaType.values().length; i++) {
     		System.out.println(i+") "+ CategoriaType.values()[i]);
@@ -139,5 +134,5 @@ public class Main {
     	System.out.println(producto.toString());
     	sc.close();
     }
-    */
+    
 }

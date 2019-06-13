@@ -9,7 +9,7 @@ public class InterfazConsola {
     }
 
     public String menuSesion(){
-        return "Ingrese usuario y contraseÃ±a";
+        return "Ingrese usuario y contraseña";
     }
 
     public String menuRegistracion(){
