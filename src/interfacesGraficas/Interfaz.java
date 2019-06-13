@@ -89,7 +89,7 @@ public class Interfaz {
 		textFieldNombre.setColumns(10);
 		
 		JLabel lblNombre = new JLabel("Nombre:");
-		lblNombre.setBounds(57, 59, 46, 14);
+		lblNombre.setBounds(57, 59, 56, 14);
 		frame.getContentPane().add(lblNombre);
 		
 		JLabel lblPrecio = new JLabel("Precio:");
@@ -102,7 +102,7 @@ public class Interfaz {
 		textFieldPrecio.setColumns(10);
 		
 		JLabel lblNewLabel_1 = new JLabel("Categoria:");
-		lblNewLabel_1.setBounds(57, 134, 69, 14);
+		lblNewLabel_1.setBounds(57, 118, 69, 14);
 		frame.getContentPane().add(lblNewLabel_1);
 
 		JPanel laminaDeCategorias = new JPanel();
@@ -145,10 +145,10 @@ public class Interfaz {
 		categorias.setVisibleRowCount(4);
 		
 		JScrollPane desplazamientoCategorias = new JScrollPane(categorias);
-		desplazamientoCategorias.setBounds(123, 132, 89, 66);
+		desplazamientoCategorias.setBounds(123, 118, 109, 83);
 		frame.getContentPane().add(desplazamientoCategorias);
 		
-		rotulo.setBounds(57, 214, 244, 29);
+		rotulo.setBounds(57, 212, 244, 29);
 		frame.getContentPane().add(rotulo);
 		
 		JLabel lblPrecio_1 = new JLabel("Producto ID:");

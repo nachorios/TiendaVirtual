@@ -198,7 +198,7 @@ public class Publicacion implements IJsonObj{
 		}
 		jsonPublicacion.put("listadoProductosEnVenta", jsonProdSugerido);
 		
-		/*
+		
 		JSONArray jsonProdPublicitados= new JSONArray();
 		Iterator iterProdPublicitados = getListadoDeProductosPublicitados().entrySet().iterator();
 		while (iterProdPublicitados.hasNext()) {
@@ -206,11 +206,11 @@ public class Publicacion implements IJsonObj{
 			JSONObject usuarioConProductos = new JSONObject();
 			usuarioConProductos.put(me.getKey().toString(), ((Producto)me.getValue()).objetoAJSON());
 			JSONObject fechaConProducto = new JSONObject();
-			Map.Entry = ((LinkedHashMap<Date, Producto>)me.getValue()).entrySet();
-			fechaConProducto.put(, value)
+			//Map.Entry me2= ((LinkedHashMap<Date, Producto>)me.getValue()).entrySet();
+			//fechaConProducto.put(, value)
 			jsonProdSugerido.put(usuarioConProductos);
 		}
-		jsonPublicacion.put("listadoProductosEnVenta", jsonProdSugerido);*/
+		jsonPublicacion.put("listadoProductosEnVenta", jsonProdPublicitados);
 		//TODO LISTADO DE PRODUCTOS PUBLICITADOS
 		
 		return jsonPublicacion;
