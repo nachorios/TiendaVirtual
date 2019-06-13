@@ -20,7 +20,7 @@ public class Producto implements IJsonObj{
 	private float precio;
 	private int cantidad;
 	private boolean enVenta;
-	private ArrayList<String> descripcion;
+	private String descripcion;
 	private Caracteristica caracteristicas;
 	private Categoria categorias;
 	
@@ -61,7 +61,7 @@ public class Producto implements IJsonObj{
 	
 	@Override
 	public String toString() {
-		return 	"Nombre: "+getNombre()
+		return 	"\nNombre: "+getNombre()
 				+"\nID: "+getID()
 				+"\nVendedor: "+getVendedor()
 				+"\nPrecio: "+getPrecio()
@@ -82,7 +82,7 @@ public class Producto implements IJsonObj{
 		precio = 0;
 		cantidad = 0;
 		enVenta = false;
-		descripcion = new ArrayList<>();
+		descripcion = "";
 		categorias = new Categoria();
 		caracteristicas = null;//TODO CORREGIR
 	}
@@ -116,7 +116,7 @@ public class Producto implements IJsonObj{
 	 * @param caracteristicas
 	 * @param categoria
 	 */
-	public Producto(String nombre, String vendedor, float precio, int cantidad,boolean enVenta, ArrayList<String> descripcion,
+	public Producto(String nombre, String vendedor, float precio, int cantidad,boolean enVenta, String descripcion,
 			Caracteristica caracteristicas, Categoria categoria) {
 		super();
 		ID = getIDnuevoProducto();
@@ -131,7 +131,7 @@ public class Producto implements IJsonObj{
 	}
 
 	private int getIDnuevoProducto() {
-		return 1;
+		return (int) (Math.random()*10000);
 	}
 
 	public String getNombre() {
@@ -166,11 +166,11 @@ public class Producto implements IJsonObj{
 		this.cantidad = cantidad;
 	}
 
-	public ArrayList<String> getDescripcion() {
+	public String getDescripcion() {
 		return descripcion;
 	}
 
-	public void setDescripcion(ArrayList<String> descripcion) {
+	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
 
