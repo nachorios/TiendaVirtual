@@ -61,7 +61,7 @@ public class Producto implements IJsonObj{
 	
 	@Override
 	public String toString() {
-		return 	"Nombre: "+getNombre()
+		return 	"\nNombre: "+getNombre()
 				+"\nID: "+getID()
 				+"\nVendedor: "+getVendedor()
 				+"\nPrecio: "+getPrecio()
@@ -131,7 +131,7 @@ public class Producto implements IJsonObj{
 	}
 
 	private int getIDnuevoProducto() {
-		return 1;
+		return (int) (Math.random()*10000);
 	}
 
 	public String getNombre() {
