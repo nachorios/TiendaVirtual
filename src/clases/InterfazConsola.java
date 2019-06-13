@@ -9,7 +9,7 @@ public class InterfazConsola {
     }
 
     public String menuSesion(){
-        return "Ingrese usuario y contraseña";
+        return "Ingrese 1 para vendedor o 2 para comprador";
     }
 
     public String menuRegistracion(){
@@ -17,4 +17,7 @@ public class InterfazConsola {
                 "Ingrese 2 para registrarse como comprador";
     }
 
+    public String menuOpcionesVendedor(){
+        return "1. Datos vendedor\n2. Publicar";
+    }
 }

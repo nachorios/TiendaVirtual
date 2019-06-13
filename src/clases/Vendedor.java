@@ -10,7 +10,7 @@ public class Vendedor extends Usuario implements IJsonObj {
     private ArrayList<Producto> listaVenta;
     private double cantProdVendidos;
 
-    Vendedor() {
+    public Vendedor() {
         super();
         cantProdVendidos = 0;
         listaVenta = new ArrayList<>();
@@ -90,4 +90,6 @@ public class Vendedor extends Usuario implements IJsonObj {
 
         return jsonProducto;
     }
+
+
 }

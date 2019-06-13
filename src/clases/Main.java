@@ -17,50 +17,103 @@ import excepciones.PublicacionException;
 import interfacesGraficas.Interfaz;
 import utils.UtilsClases;
 
+
 public class Main {
 	static Scanner sc = new Scanner(System.in);
     public static void main(String[] args) {
     	InterfazConsola menu = new InterfazConsola();
-		File venta = new File ("vendedores.json");
-		File compra = new File("compradores.json");
-		File publi = new File ("publicaiones.json");
+		File venta = new File ("vendedores.dat");
+		File compra = new File("compradores.dat");
+		File publi = new File ("publicaiones.dat");
 		Archivos archi = new Archivos();
     	Vendedor vendedor = null;
     	Comprador comprador = new Comprador();
-    	Categoria categoria = new Categoria();
     	Producto producto = new Producto();
     	Publicacion publicacion = new Publicacion();
+    	String control = "s";
+    	ArrayList<Vendedor> listaVendedor = new ArrayList<>();
+    	do {
+			System.out.println(menu.menuPrincipal());
+			switch (sc.nextInt()) {
+				case 1:
+					System.out.println(menu.menuSesion());
+					switch (sc.nextInt()) {
+						case 1:
+							try {
+								System.out.println("Ingrese nombre usuario");
+								vendedor = archi.buscarVendedor(venta, sc.next(), listaVendedor);
+								if (vendedor != null) {
+									System.out.println("Ingrese contraseña");
+									if(vendedor.getContrasenia().equals(sc.next())){
+										System.out.println("Bienvenido");
+										System.out.println(menu.menuOpcionesVendedor());
+										switch (sc.nextInt()){
+											case 1:
+												System.out.println(archi.leerVendedor(venta, vendedor.getNombreUsuario(), listaVendedor));
+												break;
 
-		System.out.println(menu.menuPrincipal());
-		switch (sc.nextInt()){
-			case 1:
-				System.out.println(menu.menuSesion());
-				break;
-			case 2:
-				System.out.println(menu.menuRegistracion());
-				switch (sc.nextInt()){
-					case 1:
-						crearVendedor(vendedor, archi, venta);
+											default:
+												System.out.println("Ingrese una opcion correcta");
+												break;
+										}
+									}
+									else
+										System.out.println("Incorrecto");
+								} else
+									System.out.println("Usuario no encontrado");
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
+						}
+						vendedor = null;
 						break;
-				}
-				break;
-		}
 
+					case 2:
+						System.out.println(menu.menuRegistracion());
+						switch (sc.nextInt()) {
+							case 1:
+								//crearVendedor(vendedor, archi, venta);
+								try {
+									crearVendedor(vendedor, archi, venta, listaVendedor);
+								} catch (IOException e) {
+									e.printStackTrace();
+								}
+								break;
+							case 2:
+								//crearComprador(comprador, archi, compra);
+								break;
+							default:
+								System.out.println("Ingrese una opcion correcta");
+								break;
+						}
+					break;
+
+					case 0:
+						control = "n";
+					break;
+
+					default:
+						System.out.println("Ingrese una opcion correcta");
+					break;
+			}
+			System.out.println("Presione s para continuar");
+			//control = sc.next();
+		}while (control.equals(sc.next()));
 
 	}
 
-	public static void crearComprador(){
 
-	}
 
-	public static void crearVendedor(Vendedor vendedor, Archivos archi, File file){
+	public static void crearVendedor(Vendedor vendedor, Archivos archi, File file, ArrayList<Vendedor> listaVende) throws IOException {
 
-		vendedor = new Vendedor();
-		try {
-			archi.guardar(vendedor.objetoAJSON(), file);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		listaVende = archi.levantarVendedor(file);
+		System.out.println("Ingrese nombre de usuario");
+		vendedor.setNombreUsuario(sc.next());
+		System.out.println("Ingrese contraseña");
+		vendedor.setContrasenia(sc.next());
+		listaVende.add(vendedor);
+		archi.guardar(listaVende, file);
+
 
 	}
 
