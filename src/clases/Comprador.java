@@ -1,12 +1,11 @@
 package clases;
-import excepciones.Excepciones;
 import org.json.JSONObject;
 import interfaces.IJsonObj;
 
 public class Comprador extends Usuario implements IJsonObj {
     private double cantProducComprados;
 
-    Comprador() {
+    public Comprador() {
         super();
         cantProducComprados = 0;
     }

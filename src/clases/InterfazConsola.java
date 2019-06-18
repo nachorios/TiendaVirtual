@@ -9,12 +9,14 @@ public class InterfazConsola {
     }
 
     public String menuSesion(){
-        return "Ingrese usuario y contraseña";
+        return "Ingrese 1 para vendedor\nIngrese 2 para comprador";
     }
 
     public String menuRegistracion(){
-        return "Ingrese 1 para registrarse como vendedor\n" +
-                "Ingrese 2 para registrarse como comprador";
+        return "Ingrese 1 para registrarse como vendedor\nIngrese 2 para registrarse como comprador";
     }
 
+    public String menuOpcionesVendedor(){
+        return "1. Datos\n2.Vender";
+    }
 }

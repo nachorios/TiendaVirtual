@@ -1,5 +1,4 @@
 package clases;
-import excepciones.Excepciones;
 import org.json.JSONObject;
 
 import interfaces.IJsonObj;
@@ -36,21 +35,19 @@ public class Vendedor extends Usuario implements IJsonObj {
 		return listaVenta;
 	}
     
-    public void agregarProductoVenta(Producto prod) throws Excepciones {
+    public void agregarProductoVenta(Producto prod) {
         if (prod instanceof Producto){
             listaVenta.add(prod);
         }
-        else
-            throw new Excepciones("Agregue un producto");
+
     }
 
-    public void quitarProducto(Producto prod) throws Excepciones{
+    public void quitarProducto(Producto prod){
         for (int i = 0; i<listaVenta.size(); i++){
             if (prod == listaVenta.get(i)){
                 listaVenta.remove(i);
             }
-            else
-                throw new Excepciones("Producto no encontrado");
+
         }
     }
 
@@ -69,7 +66,7 @@ public class Vendedor extends Usuario implements IJsonObj {
                 prod.setCantidad(prod.getCantidad() - 1);
             setSaldo(getSaldo() + prod.getPrecio());
 
-        } catch (Excepciones excepciones) {
+        } catch (Exception excepciones) {
             excepciones.printStackTrace();
         }
     }
@@ -91,5 +88,17 @@ public class Vendedor extends Usuario implements IJsonObj {
         return jsonProducto;
     }
 
+    @Override
+    public boolean equals(Object o){
+        if(o instanceof Vendedor){
+            Vendedor temp = (Vendedor) o;
+            if (this.getNombreUsuario().equals(temp.getNombreUsuario()))
+                return true;
+            else
+                return false;
+        }
+        else
+            return false;
+    }
 
 }
