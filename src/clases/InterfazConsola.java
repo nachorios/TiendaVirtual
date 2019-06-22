@@ -17,6 +17,6 @@ public class InterfazConsola {
     }
 
     public String menuOpcionesVendedor(){
-        return "1. Datos\n2.Vender";
+        return "1. Datos\n2.Crear producto\n3.Vender";
     }
 }

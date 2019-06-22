@@ -33,7 +33,7 @@ public class Comprador extends Usuario implements IJsonObj {
         if (getSaldo() >= getCestaCompras().getPrecioTotal()){
             setSaldo(getSaldo() - getCestaCompras().getPrecioTotal());
             for (Producto p : getCestaCompras().obtenerProductos()) {
-            	lista.add(p);
+            	getLista().add(p);
             }
             setCantProducComprados(getCestaCompras().obtenerProductos().size()+1);
             return true;

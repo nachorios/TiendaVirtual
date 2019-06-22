@@ -6,7 +6,7 @@ abstract class Usuario extends Persona {
     private String nombreUsuario;
     private String correoElectronico;
     private double saldo;
-    protected ArrayList <Producto> lista;
+    private ArrayList <Producto> lista;
     private String contrasenia;
 
     Usuario() {
@@ -16,6 +16,10 @@ abstract class Usuario extends Persona {
         saldo = 0;
         contrasenia = " ";
         lista = new ArrayList<>();
+    }
+    
+    public void agregarProductoLista(Producto producto) {
+    	getLista().add(producto);
     }
 
     Usuario(String nombre, String apellido, int edad, String documento, String direccion,
@@ -28,7 +32,17 @@ abstract class Usuario extends Persona {
         lista = new ArrayList<>();
     }
 
-    public String getNombreUsuario() {
+    
+    
+    public ArrayList<Producto> getLista() {
+		return lista;
+	}
+
+	public void setLista(ArrayList<Producto> lista) {
+		this.lista = lista;
+	}
+
+	public String getNombreUsuario() {
         return nombreUsuario;
     }
 
