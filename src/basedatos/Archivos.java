@@ -1,7 +1,6 @@
 package basedatos;
 
 import clases.Comprador;
-import clases.Consola;
 import clases.Vendedor;
 import org.json.JSONArray;
 import org.json.JSONObject;

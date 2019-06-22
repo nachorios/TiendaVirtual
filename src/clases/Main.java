@@ -6,6 +6,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import basedatos.Archivos;
@@ -29,38 +30,63 @@ public class Main {
 
 		do {
 			System.out.println(menu.menuPrincipal());
+
 			switch (sc.nextInt()) {
 				case 1:
 					System.out.println(menu.menuSesion());
-					switch (sc.nextInt()) {
-						case 1:
-							inicioVendedor( archi, venta, menu);
-						break;
-						case 2:
-							inicioComprador( archi, compra, menu);
-						break;
-					}
+					do {
+						try {
+							switch (sc.nextInt()) {
+								case 1:
+									inicioVendedor(archi, venta, menu);
+									break;
+								case 2:
+									inicioComprador(archi, compra, menu);
+									break;
+								case 0:
+									control = false;
+									break;
+								default:
+									System.out.println("Ingrese una opcion correcta");
+							}
+						}catch (InputMismatchException e){
+							System.out.println("Ingrese un numero");
+							sc.nextLine();
+						}
+					}while (control);
+					control = true;
+				break;
 				case 2:
 					System.out.println(menu.menuRegistracion());
-						switch (sc.nextInt()) {
-							case 1:
-								try {
-									crearVendedor(archi, venta);
-								} catch (IOException e) {
-									e.printStackTrace();
+						do {
+							try {
+								switch (sc.nextInt()) {
+									case 1:
+										try {
+											crearVendedor(archi, venta);
+										} catch (IOException e) {
+											System.out.println("Error al crear usuario");
+										}
+										break;
+									case 2:
+										try {
+											crearComprador(archi, compra);
+										} catch (IOException e) {
+											System.out.println("Error al crear usuario");
+										}
+										break;
+									case 0:
+										control = false;
+									default:
+										System.out.println("Ingrese una opcion correcta");
+										break;
 								}
-								break;
-							case 2:
-								try {
-									crearComprador(archi, compra);
-								} catch (IOException e) {
-									e.printStackTrace();
-								}
-								break;
-							default:
-								System.out.println("Ingrese una opcion correcta");
-								break;
-						}
+							}catch (InputMismatchException a){
+								System.out.println("Ingrese un numero");
+								sc.nextLine();
+							}
+						}while (control);
+						control = true;
 					break;
 				case 0:
 						control = false;
@@ -161,7 +187,7 @@ public class Main {
 				System.out.println("Ingrese contraseña");
 				if(comprador.getContrasenia().equals(sc.next())){
 					System.out.println("Bienvenido");
-					System.out.println(menu.menuOpcionesVendedor());
+					System.out.println(menu.menuOpcionesComprador());
 					switch (sc.nextInt()){
 						case 1:
 							System.out.println(archi.leerComprador(compra, comprador.getNombreUsuario()));
@@ -184,6 +210,7 @@ public class Main {
 	}
 
 	public static Vendedor pedirDatosV(){
+    	boolean control = true;
     	Vendedor vendedor = new Vendedor();
 		System.out.println("Ingrese nombre de usuario: ");
 		vendedor.setNombreUsuario(sc.next());
@@ -198,7 +225,16 @@ public class Main {
 		System.out.println("Documento: ");
 		vendedor.setDocumento(sc.next());
 		System.out.println("Edad: ");
-		vendedor.setEdad(sc.nextInt());
+		do {
+			try {
+				vendedor.setEdad(sc.nextInt());
+				control = false;
+			} catch (InputMismatchException e) {
+				System.out.println("Ingrese un numero");
+				sc.nextLine();
+			}
+		}while (control);
+
 		System.out.println("Direccion: ");
 		vendedor.setDireccion(sc.next());
 
@@ -206,6 +242,7 @@ public class Main {
 	}
 
 	public static Comprador pedirDatosC(){
+    	boolean control = true;
 		Comprador comprador = new Comprador();
 		System.out.println("Ingrese nombre de usuario: ");
 		comprador.setNombreUsuario(sc.next());
@@ -220,7 +257,15 @@ public class Main {
 		System.out.println("Documento: ");
 		comprador.setDocumento(sc.next());
 		System.out.println("Edad: ");
-		comprador.setEdad(sc.nextInt());
+		do {
+			try {
+				comprador.setEdad(sc.nextInt());
+				control = false;
+			} catch (InputMismatchException e) {
+				System.out.println("Ingrese un numero");
+				sc.nextLine();
+			}
+		}while (control);
 		System.out.println("Direccion: ");
 		comprador.setDireccion(sc.next());
 
