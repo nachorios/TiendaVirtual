@@ -9,14 +9,22 @@ public class InterfazConsola {
     }
 
     public String menuSesion(){
-        return "Ingrese 1 para vendedor\nIngrese 2 para comprador";
+        return "Ingrese 1 para vendedor\nIngrese 2 para comprador\nIngrese 0 para salir";
     }
 
     public String menuRegistracion(){
-        return "Ingrese 1 para registrarse como vendedor\nIngrese 2 para registrarse como comprador";
+        return "Ingrese 1 para registrarse como vendedor\nIngrese 2 para registrarse como comprador\nIngrese 0 para salir";
     }
 
     public String menuOpcionesVendedor(){
+<<<<<<< HEAD
         return "1. Datos\n2.Crear producto\n3.Vender";
+=======
+        return "1. Datos\n2. Vender";
+    }
+
+    public String menuOpcionesComprador(){
+        return "1. Datos\n2. Comprar";
+>>>>>>> branch 'master' of https://github.com/nachorios/TiendaVirtual.git
     }
 }
