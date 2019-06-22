@@ -4,6 +4,7 @@ import interfaces.IJsonObj;
 
 public class Comprador extends Usuario implements IJsonObj {
     private double cantProducComprados;
+    private Cesta<Producto> cestaCompras;
 
     public Comprador() {
         super();
@@ -24,7 +25,23 @@ public class Comprador extends Usuario implements IJsonObj {
         this.cantProducComprados = cantProducComprados;
     }
 
-    public boolean comprar(Producto prod) {
+    public void agregarProductoCesta(Producto prod) {
+    	getCestaCompras().agregarProductoEnCesta(prod);
+    	
+    }
+    public boolean comprar() {
+        if (getSaldo() >= getCestaCompras().getPrecioTotal()){
+            setSaldo(getSaldo() - getCestaCompras().getPrecioTotal());
+            for (Producto p : getCestaCompras().obtenerProductos()) {
+            	lista.add(p);
+            }
+            setCantProducComprados(getCestaCompras().obtenerProductos().size()+1);
+            return true;
+        }
+        else
+        	return false;
+    }
+    /*public boolean comprar(Producto prod) {
         if (getSaldo()>0 && prod.getCantidad()>0 && getSaldo() >= prod.getPrecio()){
             setSaldo(getSaldo() - prod.getPrecio());
             lista.add(prod);
@@ -33,7 +50,7 @@ public class Comprador extends Usuario implements IJsonObj {
         }
         else
         	return false;
-    }
+    }*/
 
     public void cargarSaldo(double dinero){
         setSaldo(getSaldo()+ dinero);
@@ -62,4 +79,12 @@ public class Comprador extends Usuario implements IJsonObj {
 
         return jsonProducto;
     }
+
+	public Cesta<Producto> getCestaCompras() {
+		return cestaCompras;
+	}
+
+	public void setCestaCompras(Cesta<Producto> cestaCompras) {
+		this.cestaCompras = cestaCompras;
+	}
 }

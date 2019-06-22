@@ -2,10 +2,16 @@ package clases;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 import basedatos.Archivos;
+import caracteristicas.Caracteristica;
+import clases.Categoria.CategoriaType;
+import utils.UtilsClases;
 
 
 public class Main {
@@ -223,13 +229,9 @@ public class Main {
 		return comprador;
 	}
 
-    /*
-    //prueba
     public static void crearProducto() {
-    	Scanner sc = new Scanner(System.in);
     	Producto producto = new Producto();
     	
-    	System.out.println("--Crear Pruducto--");
     	System.out.println("Nombre del producto: ");
     	producto.setNombre(sc.next());
     	System.out.println("Descripcion:");
@@ -241,7 +243,6 @@ public class Main {
     	CategoriaType categoria = CategoriaType.values()[sc.nextInt()];
     	producto.setCategoria(new Categoria(categoria));
     	System.out.println("Ingrese las caracteristicas de tu producto:");
-    	Caracteristica caracteristicas;
     	String mayuscula = Character.toString(categoria.name().charAt(0));
     	String nombreClase = categoria.name().toLowerCase().replace(categoria.name().toLowerCase().charAt(0), mayuscula.charAt(0));
     	 try {
@@ -293,5 +294,4 @@ public class Main {
     	System.out.println(producto.toString());
     	sc.close();
     }
-    */
 }

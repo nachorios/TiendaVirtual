@@ -126,22 +126,42 @@ public class Publicacion implements IJsonObj{
 			}
 		}
 	}
-	/**
-	 * 
-	 * @param vendedor
-	 * @param comprador
-	 * @param producto
-	 * @return
-	 */
-	public String removerProducto(Vendedor vendedor,Comprador comprador, Producto producto){
-		if(comprador.comprar(producto)){
-			vendedor.vender(producto);
-			listadoDeProductosVenta.remove(producto);
-			return "Producto comprado";
+	
+	public String realizarIntercambio(Comprador comprador){
+		StringBuilder resultado = new StringBuilder();
+		
+		ArrayList<Producto> productosAcomprar = comprador.getCestaCompras().obtenerProductos();
+		ArrayList<Producto> productosNoDisponibles = new ArrayList<>();
+		for (Producto p : productosAcomprar) {
+			if (getArrayListDeProductosVenta().contains(p)) {
+				Producto productoEnVenta = getArrayListDeProductosVenta().get(getArrayListDeProductosVenta().indexOf(p));
+				if (productoEnVenta.getCantidad() < p.getCantidad()) {
+					productosNoDisponibles.add(p);
+				} 
+			} else {
+				productosNoDisponibles.add(p);
+			}
 		}
-		else {
-			return "No es posbile realizar la compra";
+		
+		if (!productosNoDisponibles.isEmpty()) {
+			for (Producto p : productosNoDisponibles) {
+				comprador.getCestaCompras().quitarProductoEnCesta(p);
+				productosAcomprar.remove(p);
+			}
 		}
+		if (comprador.comprar()) {
+			resultado.append("Has realizado la compra.");
+			if (!productosNoDisponibles.isEmpty()) {
+				resultado.append("No ha habido stock de los siguientes productos: ");
+				for (Producto p : productosNoDisponibles) {
+					resultado.append(p.getNombre());
+					resultado.append(" ,");
+				}
+			}
+		} else {
+			resultado.append("No tienes suficiente saldo paraa realizar la compra.");
+		}
+		return resultado.toString();
 	}
 	/**
 	 * 

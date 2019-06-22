@@ -21,6 +21,11 @@ public class Cesta <T extends Producto> {
 		setPrecioTotal(getPrecioTotal()-producto.getPrecio());
 	}
 	
+	public ArrayList<T> obtenerProductos() {
+		ArrayList<T> nuevaCesta = getCesta();
+		return nuevaCesta;
+	}
+	
 	public void vaciarCesta() {
 		cesta.clear();
 		setPrecioTotal(0);

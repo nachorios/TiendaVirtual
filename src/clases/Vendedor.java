@@ -6,13 +6,13 @@ import interfaces.IJsonObj;
 import java.util.ArrayList;
 
 public class Vendedor extends Usuario implements IJsonObj {
-    private ArrayList<Producto> listaVenta;
+    //private ArrayList<Producto> listaVenta;
     private double cantProdVendidos;
 
     public Vendedor() {
         super();
         cantProdVendidos = 0;
-        listaVenta = new ArrayList<>();
+        //listaVenta = new ArrayList<>();
     }
 
     public Vendedor(String nombre, String apellido, int edad, String documento, String direccion, String nombreUsuario,
@@ -20,7 +20,7 @@ public class Vendedor extends Usuario implements IJsonObj {
         super(nombre, apellido, edad, documento, direccion, nombreUsuario, correoElectronico, saldo, contrasenia);
         this.cantProdVendidos = cantProdVendidos;
 
-        listaVenta = new ArrayList<>();
+        //listaVenta = new ArrayList<>();
     }
 
     public double getCantProdVendidos() {
@@ -31,7 +31,7 @@ public class Vendedor extends Usuario implements IJsonObj {
         this.cantProdVendidos = cantProdVendidos;
     }
 
-    public ArrayList<Producto> getListaVenta() {
+    /*public ArrayList<Producto> getListaVenta() {
 		return listaVenta;
 	}
     
@@ -50,14 +50,14 @@ public class Vendedor extends Usuario implements IJsonObj {
 
         }
     }
-
+     */
     @Override
     public String toString() {
         return "Vendedor{" +
                 "cantProdVendidos=" + cantProdVendidos +
                 "} " + super.toString();
     }
-
+/*//TODO CORREGIR
     public void vender(Producto prod) {
         try {
             if(prod.getCantidad() < 0)
@@ -70,7 +70,7 @@ public class Vendedor extends Usuario implements IJsonObj {
             excepciones.printStackTrace();
         }
     }
-
+*/
     @Override
     public JSONObject objetoAJSON() {
         JSONObject jsonProducto = new JSONObject();
