@@ -22,13 +22,11 @@ public class Main {
 		File compra = new File("compradores.dat");
 		File publi = new File ("publicaiones.dat");
 		Archivos archi = new Archivos();
-    	Vendedor vendedor = null;
-    	Comprador comprador = null;
+
     	Producto producto = new Producto();
     	Publicacion publicacion = new Publicacion();
     	boolean control = true;
-    	ArrayList<Vendedor> listaVendedor = new ArrayList<>();
-		ArrayList<Comprador> listaComprador = new ArrayList<>();
+
 		do {
 			System.out.println(menu.menuPrincipal());
 			switch (sc.nextInt()) {
@@ -36,10 +34,10 @@ public class Main {
 					System.out.println(menu.menuSesion());
 					switch (sc.nextInt()) {
 						case 1:
-							inicioVendedor(vendedor, archi, venta, listaVendedor, menu);
+							inicioVendedor( archi, venta, menu);
 						break;
 						case 2:
-							inicioComprador(comprador, archi, compra, listaComprador, menu);
+							inicioComprador( archi, compra, menu);
 						break;
 					}
 				case 2:
@@ -125,10 +123,10 @@ public class Main {
 
 	}
 
-	public static void inicioVendedor(Vendedor vendedor, Archivos archi, File venta, ArrayList<Vendedor> listaVendedor, InterfazConsola menu){
+	public static void inicioVendedor(Archivos archi, File venta, InterfazConsola menu){
 		try {
 			System.out.println("Ingrese nombre usuario");
-			vendedor = archi.buscarVendedor(venta, sc.next(), listaVendedor);
+			Vendedor vendedor = archi.buscarVendedor(venta, sc.next());
 			if (vendedor != null) {
 				System.out.println("Ingrese contraseña");
 				if(vendedor.getContrasenia().equals(sc.next())){
@@ -136,7 +134,7 @@ public class Main {
 					System.out.println(menu.menuOpcionesVendedor());
 					switch (sc.nextInt()){
 						case 1:
-							System.out.println(archi.leerVendedor(venta, vendedor.getNombreUsuario(), listaVendedor));
+							System.out.println(archi.leerVendedor(venta, vendedor.getNombreUsuario()));
 							break;
 
 						default:
@@ -155,10 +153,10 @@ public class Main {
 
 	}
 
-	public static void inicioComprador(Comprador comprador, Archivos archi, File compra, ArrayList<Comprador> listaComprador, InterfazConsola menu){
+	public static void inicioComprador(Archivos archi, File compra, InterfazConsola menu){
 		try {
 			System.out.println("Ingrese nombre usuario");
-			comprador = archi.buscarComprador(compra, sc.next(), listaComprador);
+			Comprador comprador = archi.buscarComprador(compra, sc.next());
 			if (comprador != null) {
 				System.out.println("Ingrese contraseña");
 				if(comprador.getContrasenia().equals(sc.next())){
@@ -166,7 +164,7 @@ public class Main {
 					System.out.println(menu.menuOpcionesVendedor());
 					switch (sc.nextInt()){
 						case 1:
-							System.out.println(archi.leerComprador(compra, comprador.getNombreUsuario(), listaComprador));
+							System.out.println(archi.leerComprador(compra, comprador.getNombreUsuario()));
 							break;
 
 						default:

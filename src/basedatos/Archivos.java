@@ -1,6 +1,7 @@
 package basedatos;
 
 import clases.Comprador;
+import clases.Consola;
 import clases.Vendedor;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -54,7 +55,6 @@ public class Archivos
      * @throws IOException
      */
     public ArrayList<Vendedor> levantarVendedor(File file)throws IOException{
-        /// al revez
         ArrayList<Vendedor> vendedor = new ArrayList<>();
         FileReader fr = new FileReader(file);
         BufferedReader br = new BufferedReader(fr);
@@ -120,9 +120,9 @@ public class Archivos
         return comprador;
     }
 
-    public String leerVendedor(File file, String usuario, ArrayList<Vendedor> listaVenta) throws IOException {
+    public String leerVendedor(File file, String usuario) throws IOException {
         Vendedor vendedor;
-        listaVenta = levantarVendedor(file);
+        ArrayList<Vendedor> listaVenta = levantarVendedor(file);
         for (int i =0; i<listaVenta.size(); i++){
             vendedor = listaVenta.get(i);
             if (vendedor.getNombreUsuario().equals(usuario))
@@ -131,9 +131,9 @@ public class Archivos
         return null;
     }
 
-    public String leerComprador(File file, String usuario, ArrayList<Comprador> listaComprador) throws IOException {
+    public String leerComprador(File file, String usuario) throws IOException {
         Comprador comprador;
-        listaComprador = levantarComprador(file);
+        ArrayList<Comprador> listaComprador = levantarComprador(file);
         for (int i =0; i<listaComprador.size(); i++){
             comprador = listaComprador.get(i);
             if (comprador.getNombreUsuario().equals(usuario))
@@ -142,9 +142,9 @@ public class Archivos
         return null;
     }
 
-    public Vendedor buscarVendedor(File file, String usuario, ArrayList<Vendedor> vendedorArrayList) throws IOException {
+    public Vendedor buscarVendedor(File file, String usuario) throws IOException {
         Vendedor vendedor1;
-        vendedorArrayList = levantarVendedor(file);
+        ArrayList<Vendedor> vendedorArrayList = levantarVendedor(file);
 
         for (int i =0; i<vendedorArrayList.size(); i++){
             vendedor1 = vendedorArrayList.get(i);
@@ -157,9 +157,9 @@ public class Archivos
         return vendedor1 = null;
     }
 
-    public Comprador buscarComprador(File file, String usuario, ArrayList<Comprador> compradorArrayList) throws IOException {
+    public Comprador buscarComprador(File file, String usuario) throws IOException {
         Comprador comprador1;
-        compradorArrayList = levantarComprador(file);
+        ArrayList<Comprador> compradorArrayList = levantarComprador(file);
 
         for (int i =0; i<compradorArrayList.size(); i++){
             comprador1 = compradorArrayList.get(i);
