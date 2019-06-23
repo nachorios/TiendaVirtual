@@ -18,6 +18,8 @@ import utils.UtilsClases;
 public class Main {
 	static Scanner sc = new Scanner(System.in);
     public static void main(String[] args) {
+    	Consola consola = new Consola();
+    	consola.menuInicial();
     	InterfazConsola menu = new InterfazConsola();
 		File venta = new File ("vendedores.dat");
 		File compra = new File("compradores.dat");

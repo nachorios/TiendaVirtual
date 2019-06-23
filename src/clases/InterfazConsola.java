@@ -17,14 +17,10 @@ public class InterfazConsola {
     }
 
     public String menuOpcionesVendedor(){
-<<<<<<< HEAD
-        return "1. Datos\n2.Crear producto\n3.Vender";
-=======
         return "1. Datos\n2. Vender";
     }
 
     public String menuOpcionesComprador(){
         return "1. Datos\n2. Comprar";
->>>>>>> branch 'master' of https://github.com/nachorios/TiendaVirtual.git
     }
 }
