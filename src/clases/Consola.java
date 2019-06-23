@@ -11,6 +11,7 @@ import java.util.Scanner;
 import basedatos.Archivos;
 import caracteristicas.Caracteristica;
 import clases.Categoria.CategoriaType;
+import excepciones.PublicacionException;
 import utils.UtilsClases;
 
 public class Consola {
@@ -38,11 +39,12 @@ public class Consola {
 			 int opcion = sc.nextInt();
 			 switch(opcion) {
 			 	case 1:
-			 		if (ingresarUsuario()) {
-			 			
-			 		}
+			 		//if (ingresarUsuario()) {
+			 			menuCompradorVendedor();
+			 		//}
 			 		break;
 			 	case 2:
+			 		
 			 		//CREAR USUARIO
 			 		break;
 			 	case 0:
@@ -78,6 +80,10 @@ public class Consola {
 		}while(control);
 	}
 	
+	public void menuComprador() {
+		//TODO
+	}
+	
 	public void menuVendedor() {
 		Vendedor vendedor = new Vendedor(); //= CARGAR DATOS VENDEDOR SEGUN EL NOMBRE DE USUARIO DE EL OBJETO 'usuario';
 		boolean control = true;
@@ -89,6 +95,8 @@ public class Consola {
 			System.out.println("3. Modificar producto");
 			System.out.println("4. Publicitar producto");
 			System.out.println("5. Ver informacion de la cuenta");
+			System.out.println("6. Ver productos publicados a la venta");
+			System.out.println("7. Ver productos publicitados");
 			System.out.println("0. Volver al Menu Principal");
 			System.out.print("Elije opcion: ");
 			int opcion = sc.nextInt();
@@ -97,25 +105,104 @@ public class Consola {
 					vendedor.agregarProductoLista(crearProducto(vendedor.getNombre()));
 					break;
 				case 2:
-					
+					publicarEnVentaProducto(vendedor);
 					break;
 				case 3:
 					menuEdicionProducto(vendedor);
 					break;
 				case 4:
-					
+					publicitarProducto(vendedor);
 					break;
 				case 5:
-					
+					verInformacionCuenta(vendedor);
+					break;
+				case 6:
+					verProductosEnVenta(vendedor);
+					break;
+				case 7:
+					verProductosPublicitados(vendedor);
 					break;
 				case 0:
-					
+					control = false;
 					break;
 				default:
 					System.out.println("Opcion incorrecta.");
-						
 			}
 		}while(control);
+	}
+	
+	public void verProductosEnVenta(Vendedor vendedor) {
+		for(Producto p : publicacion.getProductosDeUnUsuario(vendedor.getNombreUsuario())) {
+			System.out.println(p);
+		}
+	}
+	
+	public void verProductosPublicitados(Vendedor vendedor) {
+		for(Producto p : publicacion.getArrayListProductosPublicitadosDeUnUsuario(vendedor.getNombreUsuario())) {
+			System.out.println(p);
+		}
+	}
+	
+	public void verInformacionCuenta(Vendedor vendedor) {
+		System.out.println(vendedor.toString());
+	}
+	
+	public void publicarEnVentaProducto(Vendedor vendedor) {
+		Producto productoSeleccionado = productoSeleccionado = elegirProducto(vendedor, false);
+		if (productoSeleccionado != null) {
+			try {
+				Producto productoVendedor = vendedor.getLista().get(vendedor.getLista().indexOf(productoSeleccionado));
+				publicacion.publicarProducto(vendedor.getNombreUsuario(), productoVendedor);
+				System.out.println("Has colocado a la venta tu producto.");
+			} catch (PublicacionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else {
+			System.out.println("No tienes productos para vender.");
+		}
+		
+	}
+	
+	public void publicitarProducto(Vendedor vendedor) {
+		Producto productoSeleccionado = productoSeleccionado = elegirProducto(vendedor, true);
+		if (productoSeleccionado != null) {
+			int opcion;
+			do {
+				System.out.println("Elije la opcion de publicidad que desees:");
+				System.out.println("Opcion 1) 50$ duracion 2 compras del producto.");
+				System.out.println("Opcion 2) 100$ duracion 4 compras del producto.");
+				System.out.println("Opcion 3) 250$ duracion 8 compras del producto.");
+				System.out.println("Opcion 4) 500$ duracion 15 compras del producto.");
+				System.out.print("Elije opcion: ");
+				opcion = sc.nextInt();
+				
+			}while(opcion <1 && opcion >4);
+			int cantPublicidad = 0;
+			switch(opcion) {
+				case 1:
+					cantPublicidad =2;
+					break;
+				case 2:
+					cantPublicidad =4;
+					break;
+				case 3:
+					cantPublicidad =8;
+					break;
+				case 4:
+					cantPublicidad =15;
+					break;
+			}
+			try {
+				publicacion.publicitarProducto(vendedor.getNombre(), productoSeleccionado, cantPublicidad);
+			} catch (PublicacionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else {
+			System.out.println("No tienes productos para publicidad.");
+		}
+		
 	}
 	
 	public void menuEdicionProducto(Vendedor vendedor) {
@@ -125,39 +212,50 @@ public class Consola {
 			System.out.println("Menu Edicion");
 			System.out.println("Aqui podrás editar cada atributo de tu producto que no este en venta.");
 			if (productoSeleccionado == null)
-				System.out.println("1. Seleccionar producto");
+				System.out.println("1. Seleccionar producto - Aun no has seleccionado un producto");
 			else
 				System.out.println("1. Volver a seleccionar producto - Producto Seleccionado: "+ productoSeleccionado.getNombre());
 			System.out.println("2. Editar nombre");
 			System.out.println("3. Editar precio");
-			System.out.println("4. Aumentar el Stock");
+			System.out.println("4. Editar el Stock");
 			System.out.println("5. Editar descripcion");
 			System.out.println("6. Cambiar la categoria");
 			System.out.println("7. Cambiar caracteristicas");
+			System.out.println("8. Ver informacion del producto seleccionado");
 			System.out.println("0. Volver al menu vendedor");
 			System.out.print("Elije opcion: ");
 			int opcion = sc.nextInt();
 			switch(opcion) {
 				case 1:
-					productoSeleccionado = elegirProducto(vendedor);
+					productoSeleccionado = elegirProducto(vendedor, false);
 					break;
 				case 2:
-					editarNombre(vendedor, productoSeleccionado);
+					if (productoSeleccionado(productoSeleccionado))
+						editarNombre(vendedor, productoSeleccionado);
 					break;
 				case 3:
-					editarPrecio(vendedor, productoSeleccionado);
+					if (productoSeleccionado(productoSeleccionado))
+						editarPrecio(vendedor, productoSeleccionado);
 					break;
 				case 4:
-					aumentarStock(vendedor, productoSeleccionado);
+					if (productoSeleccionado(productoSeleccionado))
+						aumentarStock(vendedor, productoSeleccionado);
 					break;
 				case 5:
-					editarDescripcion(vendedor, productoSeleccionado);
+					if (productoSeleccionado(productoSeleccionado))
+						editarDescripcion(vendedor, productoSeleccionado);
 					break;
 				case 6:
-					editarCategoria(vendedor, productoSeleccionado);
+					if (productoSeleccionado(productoSeleccionado))
+						editarCategoria(vendedor, productoSeleccionado);
 					break;
 				case 7:
-					editarCaracteristicas(vendedor, productoSeleccionado);
+					if (productoSeleccionado(productoSeleccionado))
+						editarCaracteristicas(vendedor, productoSeleccionado);
+					break;
+				case 8:
+					if (productoSeleccionado(productoSeleccionado))
+						System.out.println(productoSeleccionado.toString());
 					break;
 				case 0:
 					control = false;
@@ -169,6 +267,15 @@ public class Consola {
 		}while(control);
 	}
 	///INI-FUNCIONES EDITAR PRODUCTO
+	public boolean productoSeleccionado(Producto p) {
+		boolean flag = false;
+		if (p == null)
+			System.out.println("Primero debes seleccionar un producto.");
+		else
+			flag = true;
+		return flag;
+	}
+	
 	public void editarNombre(Vendedor vendedor, Producto producto) {
 		System.out.println("Nombre anterior:"+ producto.getNombre());
 		System.out.print("Nombre deseado:");
@@ -193,7 +300,7 @@ public class Consola {
 	public void editarDescripcion(Vendedor vendedor, Producto producto) {
 		System.out.println("Descripcion anterior:"+ producto.getDescripcion());
 		System.out.print("Descripcion deseada:");
-		String nuevaDescripcion = sc.nextLine();
+		String nuevaDescripcion = sc.next();
 		producto.setDescripcion(nuevaDescripcion);
 		System.out.println("¡Descripcion modificada correctamente!");
 	}
@@ -212,8 +319,8 @@ public class Consola {
 	public void editarCaracteristicas(Vendedor vendedor, Producto producto) {
 		System.out.println("Ingrese las nuevas caracteristicas de tu producto:");
 		CategoriaType categoria = producto.getCategoria().getTipo();
-    	String mayuscula = Character.toString(categoria.name().charAt(0));
-    	String nombreClase = categoria.name().toLowerCase().replace(categoria.name().toLowerCase().charAt(0), mayuscula.charAt(0));
+		String nombreClase = categoria.name().toLowerCase();
+    	nombreClase = nombreClase.substring(0, 1).toUpperCase() + nombreClase.substring(1);
     	 try {
     		    Class<?> caracteristica = Class.forName("caracteristicas.listado."+nombreClase);
     		    ArrayList<Object> attr = new ArrayList<>();
@@ -255,7 +362,7 @@ public class Consola {
     		}
 	}
 	
-	public Producto elegirProducto(Vendedor vendedor) {
+	public Producto elegirProducto(Vendedor vendedor, boolean enVenta) {
 		ArrayList<Producto> productos = vendedor.getLista();
 		Producto productoElegido = null;
 		int cantProductosEditables = 0;
@@ -264,7 +371,7 @@ public class Consola {
 		do {
 			try{
 				for (int i = 0; i < productos.size(); i++) {
-					if(!productos.get(i).isEnVenta()) {
+					if(productos.get(i).isEnVenta() == enVenta) {
 						System.out.println(i + ") " + productos.get(i).getNombre());
 						cantProductosEditables++;
 						productosAccesibles.add(i);
@@ -276,6 +383,7 @@ public class Consola {
 					productoElegido = productos.get(opcion);
 				} else {
 					System.out.println("No tienes productos o todos se encuentran en venta.");
+					break;
 				}
 			} catch (InputMismatchException e) {
 				System.out.println("Ingrese un numero");
@@ -363,8 +471,8 @@ public class Consola {
     	CategoriaType categoria = CategoriaType.values()[sc.nextInt()];
     	producto.setCategoria(new Categoria(categoria));
     	System.out.println("Ingrese las caracteristicas de tu producto:");
-    	String mayuscula = Character.toString(categoria.name().charAt(0));
-    	String nombreClase = categoria.name().toLowerCase().replace(categoria.name().toLowerCase().charAt(0), mayuscula.charAt(0));
+    	String nombreClase = categoria.name().toLowerCase();
+    	nombreClase = nombreClase.substring(0, 1).toUpperCase() + nombreClase.substring(1);
     	 try {
     		    Class<?> caracteristica = Class.forName("caracteristicas.listado."+nombreClase);
     		    ArrayList<Object> attr = new ArrayList<>();

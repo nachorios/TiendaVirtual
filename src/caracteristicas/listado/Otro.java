@@ -1,12 +1,13 @@
 package caracteristicas.listado;
 
+import caracteristicas.Caracteristica;
 import utils.UtilsClases;
 
-public class Otro {
+public class Otro extends Caracteristica{
 	private String caracteristicas;
 	
 	public Otro(String caracteristicas) {
-		super();
+		super("Otro");
 		this.caracteristicas = caracteristicas;
 	}
 	@Override

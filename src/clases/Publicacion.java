@@ -207,6 +207,19 @@ public class Publicacion implements IJsonObj{
 		return productos;
 	}
 	
+	public ArrayList<Producto> getArrayListProductosPublicitadosDeUnUsuario(String usuario) {
+		LinkedHashMap<Producto, Integer> productos = getListadoDeProductosPublicitados().get(usuario);
+		ArrayList<Producto> productosPublicitados = new ArrayList<Producto>();
+		if (productos != null) {
+			Iterator it = productos.entrySet().iterator();
+			while(it.hasNext()) {
+				Map.Entry me = (Map.Entry)it.next();
+				productosPublicitados.add((Producto) me.getKey());
+			}
+		}
+		return productosPublicitados;
+	}
+	
 	public int contarProductosPublicitadosDeUnUsuario(String usuario) {
 		int cantidad = 0;
 		LinkedHashMap<Producto, Integer> productos = getListadoDeProductosPublicitados().get(usuario);
@@ -224,6 +237,7 @@ public class Publicacion implements IJsonObj{
 	public void publicarProducto(String usuario, Producto producto) throws PublicacionException{
 		if (contarProductosPublicadosDeUnUsuario(usuario)<maxProductosEnVentaxUsuario) {
 			agregarProductoEnListadoProductos(usuario, producto);
+			producto.setEnVenta(true);
 		} else {
 			throw new MaximoProductosVendidosPorUsuarioException("No puedes publicar mas de "+maxProductosEnVentaxUsuario+" productos por usuario.");
 		}

@@ -20,6 +20,7 @@ public class Main {
     public static void main(String[] args) {
     	Consola consola = new Consola();
     	consola.menuInicial();
+    	/*
     	InterfazConsola menu = new InterfazConsola();
 		File venta = new File ("vendedores.dat");
 		File compra = new File("compradores.dat");
@@ -99,7 +100,7 @@ public class Main {
 					break;
 			}
 		}while (control);
-
+*/
 	}
 
 
