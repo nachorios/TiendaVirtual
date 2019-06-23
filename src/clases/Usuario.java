@@ -26,6 +26,7 @@ public class Usuario extends Persona implements IJsonObj {
         cantProducComprados = 0;
         cantProdVendidos = 0;
         lista = new ArrayList<>();
+        cestaCompras = new Cesta<>();
     }
 
     public Usuario(String nombre, String apellido, int edad, String documento, String direccion,

@@ -317,7 +317,7 @@ public class Publicacion implements IJsonObj{
 		return listadoDeProductosSugeridos;
 	}
 	
-	private ArrayList<Producto> getArrayListDeProductosVenta() {
+	public ArrayList<Producto> getArrayListDeProductosVenta() {
 		Iterator it = getListadoDeProductosVenta().entrySet().iterator();
 		ArrayList<Producto> productos = new ArrayList<Producto>();
 		while (it.hasNext()) {
@@ -344,7 +344,7 @@ public class Publicacion implements IJsonObj{
 		return productos;
 	}
 	
-	private ArrayList<Producto> getArrayListDeProductosSugeridos(String usuario) {
+	public ArrayList<Producto> getArrayListDeProductosSugeridos(String usuario) {
 		Iterator it = getListadoDeProductosSugeridos().entrySet().iterator();
 		ArrayList<Producto> productos = new ArrayList<Producto>();
 		while (it.hasNext()) {

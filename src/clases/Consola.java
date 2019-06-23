@@ -44,10 +44,11 @@ public class Consola {
 			 		//}
 			 		break;
 			 	case 2:
-			 		
 			 		//CREAR USUARIO
 			 		break;
 			 	case 0:
+			 		//GUARDAR DATOS
+			 		control = false;
 			 		break;
 			 	default:
 			 }
@@ -57,7 +58,7 @@ public class Consola {
 	public void menuCompradorVendedor() {
 		boolean control = true;
 		do {
-			System.out.println("Bienvenido a Wosh!");
+			System.out.println("Menu Principal");
 			System.out.println("1. Entrar como Comprador");
 			System.out.println("2. Entrar como Vendedor");
 			System.out.println("0. Volver al Menu inicial");
@@ -65,23 +66,191 @@ public class Consola {
 			int opcion = sc.nextInt();
 			switch(opcion) {
 				case 1:
-					
+					menuComprador();
 					break;
 				case 2:
 					menuVendedor();
 					break;
 				case 0:
-					
+					control = false;
 					break;
 				default:
-						
-						
+					System.out.println("Opcion incorrecta.");
 			}
 		}while(control);
 	}
 	
 	public void menuComprador() {
-		//TODO
+		Usuario comprador = new Usuario(); //= CARGAR DATOS VENDEDOR SEGUN EL NOMBRE DE USUARIO DE EL OBJETO 'usuario';
+		boolean control = true;
+		do{
+			System.out.println("Menu Comprador");
+			System.out.println("Aqui podras buscar productos, añadirlos a tu cesta y comprarlos!");
+			System.out.println("1. Buscar producto");
+			System.out.println("2. Cesta de productos");
+			System.out.println("3. Realizar compra");
+			System.out.println("0. Volver al Menu Principal");
+			System.out.print("Elije opcion: ");
+			int opcion = sc.nextInt();
+			switch(opcion) {
+				case 1:
+					menuBuscarProductos(comprador);
+					break;
+				case 2:
+					menuCestaProductos(comprador);
+					break;
+				case 3:
+					realizarCompra(comprador);
+					break;
+				case 0:
+					control = false;
+					break;
+				default:
+					System.out.println("Opcion incorrecta.");
+			}
+		}while(control);
+	}
+	
+	public void realizarCompra(Usuario comprador) {
+		ArrayList<Producto> productos = comprador.getCestaCompras().obtenerProductos();
+		if (productos.size() > 0) {
+			boolean control;
+			do {
+				for (int i = 0; i < productos.size(); i++) {
+					System.out.println(i+1+") "+ productos.toString());
+				}
+				System.out.println("Tu saldo: "+ comprador.getSaldo());
+				System.out.println("Preio de la compra: "+ comprador.getCestaCompras().getPrecioTotal());
+				System.out.println("Deseas realizar la compra? S/N");
+				control = false;
+				switch(sc.next()) {
+					case "s":
+						System.out.println(publicacion.realizarIntercambio(comprador));
+						break;
+					case "n":
+						System.out.println("Has cancelado la compra.");
+						break;
+					default:
+						control = true;
+				}
+			} while(control);
+		} else {
+			System.out.println("No tienes productos en tu cesta de compras.");
+		}
+		
+	}
+	
+	public void menuCestaProductos(Usuario comprador) {
+		boolean control = true;
+		do{
+			System.out.println("Menu Cesta de Compras");
+			System.out.println("1. Ver Cesta de compras");
+			System.out.println("2. Quitar producto de la cesta");
+			System.out.println("3. Vaciar cesta de compras");
+			System.out.println("0. Volver al Menu Principal");
+			System.out.print("Elije opcion: ");
+			int opcion = sc.nextInt();
+			switch(opcion) {
+				case 1:
+					verCestaCompras(comprador);
+					break;
+				case 2:
+					quitarProductoCestaCompras(comprador);
+					break;
+				case 3:
+					comprador.getCestaCompras().vaciarCesta();
+					System.out.println("Has vaciado la cesta de compras!");
+					break;
+				case 0:
+					control = false;
+					break;
+				default:
+					System.out.println("Opcion incorrecta.");
+			}
+		}while(control);
+	}
+	
+	public void verCestaCompras(Usuario comprador) {
+		ArrayList<Producto> productos = comprador.getCestaCompras().obtenerProductos();
+		for (int i = 0; i < productos.size(); i++) {
+			System.out.println(i+1+") "+ productos.toString());
+		}
+	}
+	
+	public void quitarProductoCestaCompras(Usuario comprador) {
+		ArrayList<Producto> productos = comprador.getCestaCompras().obtenerProductos();
+		if (productos.size()>0) {
+			Producto prodAquitar = null;
+			for (int i = 0; i < productos.size(); i++) {
+				System.out.println(i+1+") "+ productos.get(i).getNombre());
+			}
+			System.out.print("Elige el producto que desea quitar: ");
+			try{
+				prodAquitar = productos.get(sc.nextInt()-1);
+			}catch(IndexOutOfBoundsException e) {
+				System.out.println("Ingrese un producto valido");
+			}
+			
+			if (prodAquitar == null) {
+				System.out.println("No se ha podido quitar el producto");
+			} else {
+				comprador.getCestaCompras().quitarProductoEnCesta(prodAquitar);
+				System.out.println("El producto se ha quitado correctamente!");
+			}
+		}	
+	}
+	
+	
+	public void menuBuscarProductos(Usuario comprador) {
+		boolean control = true;
+		do{
+			System.out.println("¿Como deseas buscar el producto?");
+			System.out.println("1. Buscar por categoria");
+			System.out.println("2. Buscar por nombre");
+			System.out.println("3. Buscar por nombre del vendedor");
+			System.out.println("4. Busqueda aleatoria");
+			System.out.println("5. Ver productos sugeridos");
+			System.out.println("0. Volver al Menu Comprador");
+			System.out.print("Elije opcion: ");
+			int opcion = sc.nextInt();
+			switch(opcion) {
+				case 1:
+					System.out.println("Elije la categoria que desea buscar: ");
+			    	for (int i = 0; i < CategoriaType.values().length; i++) {
+			    		System.out.println(i+") "+ CategoriaType.values()[i]);
+			    	}
+					System.out.print("Elije opcion: ");
+					CategoriaType categoria = CategoriaType.values()[sc.nextInt()];
+					
+					buscarProducto(publicacion.buscarProductosPorCategoria(categoria, comprador.getNombreUsuario()));
+					break;
+				case 2:
+					System.out.print("Ingrese el nombre del producto deseado: ");
+					buscarProducto(publicacion.buscarProductosPorNombre(sc.next(), comprador.getNombreUsuario()));
+					break;
+				case 3:
+					buscarProducto(publicacion.getArrayListProductosPublicitadosDeUnUsuario(sc.next()));
+					break;
+				case 4:
+					buscarProducto(publicacion.getArrayListDeProductosVenta());
+					break;
+				case 5:
+					buscarProducto(publicacion.getArrayListDeProductosSugeridos(comprador.getNombreUsuario()));
+					break;
+				case 0:
+					control = false;
+					break;
+				default:
+					System.out.println("Opcion incorrecta.");
+			}
+		}while(control);
+	}
+	
+	public Producto buscarProducto(ArrayList<Producto> productosEnVenta) {
+		for (int i = 0; i < productosEnVenta.size(); i++) {
+			System.out.println(i+")"+productosEnVenta.get(i));
+		}
+		return null;
 	}
 	
 	public void menuVendedor() {
@@ -89,11 +258,11 @@ public class Consola {
 		boolean control = true;
 		do {
 			System.out.println("Menu Vendedor");
-			System.out.println("Aqui podrï¿½s crear, vender, publicitar y modificar tu producto!");
+			System.out.println("Aqui podras crear, vender, publicitar y modificar tu producto!");
 			System.out.println("1. Crear producto");
-			System.out.println("2. Vender producto");
-			System.out.println("3. Modificar producto");
-			System.out.println("4. Publicitar producto");
+			System.out.println("2. Publicar a la venta un producto");
+			System.out.println("3. Modificar un producto");
+			System.out.println("4. Publicitar un producto");
 			System.out.println("5. Ver informacion de la cuenta");
 			System.out.println("6. Ver productos publicados a la venta");
 			System.out.println("7. Ver productos publicitados");
@@ -158,8 +327,6 @@ public class Consola {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		} else {
-			System.out.println("No tienes productos para vender.");
 		}
 		
 	}
@@ -199,8 +366,6 @@ public class Consola {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		} else {
-			System.out.println("No tienes productos para publicidad.");
 		}
 		
 	}
@@ -210,7 +375,7 @@ public class Consola {
 		boolean control = true;
 		do {
 			System.out.println("Menu Edicion");
-			System.out.println("Aqui podrï¿½s editar cada atributo de tu producto que no este en venta.");
+			System.out.println("Aqui podras editar cada atributo de tu producto que no este en venta.");
 			if (productoSeleccionado == null)
 				System.out.println("1. Seleccionar producto - Aun no has seleccionado un producto");
 			else
@@ -382,7 +547,7 @@ public class Consola {
 					opcion = sc.nextInt();
 					productoElegido = productos.get(opcion);
 				} else {
-					System.out.println("No tienes productos o todos se encuentran en venta.");
+					System.out.println("Ahora mismo no tienes productos disponibles");
 					break;
 				}
 			} catch (InputMismatchException e) {
