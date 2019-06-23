@@ -2,8 +2,8 @@ package clases;
 import org.json.JSONObject;
 import interfaces.IJsonObj;
 
-public class Comprador extends Usuario implements IJsonObj {
-    private double cantProducComprados;
+public class Comprador {
+  /*  private double cantProducComprados;
     private Cesta<Producto> cestaCompras;
 
     public Comprador() {
@@ -51,7 +51,7 @@ public class Comprador extends Usuario implements IJsonObj {
         else
         	return false;
     }*/
-
+/*
     public void cargarSaldo(double dinero){
         setSaldo(getSaldo()+ dinero);
     }
@@ -86,5 +86,5 @@ public class Comprador extends Usuario implements IJsonObj {
 
 	public void setCestaCompras(Cesta<Producto> cestaCompras) {
 		this.cestaCompras = cestaCompras;
-	}
+	}*/
 }

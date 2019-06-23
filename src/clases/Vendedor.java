@@ -5,8 +5,8 @@ import interfaces.IJsonObj;
 
 import java.util.ArrayList;
 
-public class Vendedor extends Usuario implements IJsonObj {
-    //private ArrayList<Producto> listaVenta;
+public class Vendedor  {
+ /*   //private ArrayList<Producto> listaVenta;
     private double cantProdVendidos;
 
     public Vendedor() {
@@ -51,14 +51,14 @@ public class Vendedor extends Usuario implements IJsonObj {
         }
     }
      */
-    @Override
+/*    @Override
     public String toString() {
         return "Vendedor{" +
                 "cantProdVendidos=" + cantProdVendidos +
                 "} " + super.toString();
     }
-/*//TODO CORREGIR
-    public void vender(Producto prod) {
+/*///TODO CORREGIR
+ /*   public void vender(Producto prod) {
         try {
             if(prod.getCantidad() < 0)
                 quitarProducto(prod);
@@ -71,7 +71,7 @@ public class Vendedor extends Usuario implements IJsonObj {
         }
     }
 */
-    @Override
+ /*   @Override
     public JSONObject objetoAJSON() {
         JSONObject jsonProducto = new JSONObject();
         jsonProducto.put("nombre", getNombre());
@@ -84,6 +84,7 @@ public class Vendedor extends Usuario implements IJsonObj {
         jsonProducto.put("saldo", getSaldo());
         jsonProducto.put("contrasenia", getContrasenia());
         jsonProducto.put("cantidadProdVendidos", getCantProdVendidos());
+        jsonProducto.put("cantProducComprados", getCantProducComprados());
 
         return jsonProducto;
     }
@@ -100,5 +101,5 @@ public class Vendedor extends Usuario implements IJsonObj {
         else
             return false;
     }
-
+*/
 }

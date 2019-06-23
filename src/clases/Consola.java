@@ -26,7 +26,7 @@ public class Consola {
 	public void ejecutarWoshConsola() {
 		
 	}
-	
+
 	public void menuInicial() {
 		 boolean control = true;
 		 do {
@@ -38,9 +38,9 @@ public class Consola {
 			 int opcion = sc.nextInt();
 			 switch(opcion) {
 			 	case 1:
-			 		if (ingresarUsuario()) {
+			 	//	if (ingresarUsuario()) {
 			 			
-			 		}
+			 	//	}
 			 		break;
 			 	case 2:
 			 		//CREAR USUARIO
@@ -79,11 +79,11 @@ public class Consola {
 	}
 	
 	public void menuVendedor() {
-		Vendedor vendedor = new Vendedor(); //= CARGAR DATOS VENDEDOR SEGUN EL NOMBRE DE USUARIO DE EL OBJETO 'usuario';
+		Usuario vendedor = new Usuario(); //= CARGAR DATOS VENDEDOR SEGUN EL NOMBRE DE USUARIO DE EL OBJETO 'usuario';
 		boolean control = true;
 		do {
 			System.out.println("Menu Vendedor");
-			System.out.println("Aqui podrás crear, vender, publicitar y modificar tu producto!");
+			System.out.println("Aqui podrï¿½s crear, vender, publicitar y modificar tu producto!");
 			System.out.println("1. Crear producto");
 			System.out.println("2. Vender producto");
 			System.out.println("3. Modificar producto");
@@ -118,12 +118,12 @@ public class Consola {
 		}while(control);
 	}
 	
-	public void menuEdicionProducto(Vendedor vendedor) {
+	public void menuEdicionProducto(Usuario vendedor) {
 		Producto productoSeleccionado = null;
 		boolean control = true;
 		do {
 			System.out.println("Menu Edicion");
-			System.out.println("Aqui podrás editar cada atributo de tu producto que no este en venta.");
+			System.out.println("Aqui podrï¿½s editar cada atributo de tu producto que no este en venta.");
 			if (productoSeleccionado == null)
 				System.out.println("1. Seleccionar producto");
 			else
@@ -169,35 +169,35 @@ public class Consola {
 		}while(control);
 	}
 	///INI-FUNCIONES EDITAR PRODUCTO
-	public void editarNombre(Vendedor vendedor, Producto producto) {
+	public void editarNombre(Usuario vendedor, Producto producto) {
 		System.out.println("Nombre anterior:"+ producto.getNombre());
 		System.out.print("Nombre deseado:");
 		String nuevoNombre = sc.next();
 		producto.setNombre(nuevoNombre);
-		System.out.println("¡Nombre modificado correctamente!");
+		System.out.println("ï¿½Nombre modificado correctamente!");
 	}
-	public void editarPrecio(Vendedor vendedor, Producto producto) {
+	public void editarPrecio(Usuario vendedor, Producto producto) {
 		System.out.println("precio anterior:"+ producto.getPrecio());
 		System.out.print("precio deseado:");
 		float nuevoPrecio = sc.nextFloat();
 		producto.setPrecio(nuevoPrecio);
-		System.out.println("¡Precio modificado correctamente!");
+		System.out.println("ï¿½Precio modificado correctamente!");
 	}
-	public void aumentarStock(Vendedor vendedor, Producto producto) {
+	public void aumentarStock(Usuario vendedor, Producto producto) {
 		System.out.println("Stock anterior:"+ producto.getCantidad());
 		System.out.print("Stock deseado:");
 		int nuevoStock = sc.nextInt();
 		producto.setCantidad(nuevoStock);
-		System.out.println("¡Stock modificado correctamente!");
+		System.out.println("ï¿½Stock modificado correctamente!");
 	}
-	public void editarDescripcion(Vendedor vendedor, Producto producto) {
+	public void editarDescripcion(Usuario vendedor, Producto producto) {
 		System.out.println("Descripcion anterior:"+ producto.getDescripcion());
 		System.out.print("Descripcion deseada:");
 		String nuevaDescripcion = sc.nextLine();
 		producto.setDescripcion(nuevaDescripcion);
-		System.out.println("¡Descripcion modificada correctamente!");
+		System.out.println("ï¿½Descripcion modificada correctamente!");
 	}
-	public void editarCategoria(Vendedor vendedor, Producto producto) {
+	public void editarCategoria(Usuario vendedor, Producto producto) {
 		System.out.println("Categoria anterior:"+ producto.getCategoria());
 		System.out.println("Elije la nueva categoria de tu producto: ");
     	for (int i = 0; i < CategoriaType.values().length; i++) {
@@ -205,11 +205,11 @@ public class Consola {
     	}
     	CategoriaType nuevaCategoria = CategoriaType.values()[sc.nextInt()];
     	producto.setCategoria(new Categoria(nuevaCategoria));
-		System.out.println("¡Categoria modificada correctamente!");
-		System.out.println("Debido a que has cambiado de categoria, deberás colocar nuevas caracteristicas.");
+		System.out.println("ï¿½Categoria modificada correctamente!");
+		System.out.println("Debido a que has cambiado de categoria, deberï¿½s colocar nuevas caracteristicas.");
 		editarCaracteristicas(vendedor, producto);
 	}
-	public void editarCaracteristicas(Vendedor vendedor, Producto producto) {
+	public void editarCaracteristicas(Usuario vendedor, Producto producto) {
 		System.out.println("Ingrese las nuevas caracteristicas de tu producto:");
 		CategoriaType categoria = producto.getCategoria().getTipo();
     	String mayuscula = Character.toString(categoria.name().charAt(0));
@@ -254,8 +254,8 @@ public class Consola {
     			 e.printStackTrace();
     		}
 	}
-	
-	public Producto elegirProducto(Vendedor vendedor) {
+
+	public Producto elegirProducto(Usuario vendedor) {
 		ArrayList<Producto> productos = vendedor.getLista();
 		Producto productoElegido = null;
 		int cantProductosEditables = 0;
@@ -291,20 +291,20 @@ public class Consola {
 	}
 	///FIN-FUNCIONES EDITAR PRODUCTO
 	
-	
+	/*
 	public boolean ingresarUsuario() {
 		boolean flag = false;
 		try {
 			System.out.println("Ingrese nombre usuario");
-			Vendedor vendedor = archi.buscarVendedor(venta, sc.next());
+			Usuario vendedor = archi.buscar(venta, sc.next());
 			if (vendedor != null) {
 				System.out.println("Ingrese contraseÃ±a");
 				if(vendedor.getContrasenia().equals(sc.next())){
 					System.out.println("Bienvenido");
-					System.out.println(menu.menuOpcionesVendedor());
+					System.out.println(menu.menuOpciones());
 					switch (sc.nextInt()){
 						case 1:
-							System.out.println(archi.leerVendedor(venta, vendedor.getNombreUsuario()));
+							System.out.println(archi.leer(venta, vendedor.getNombreUsuario()));
 							break;
 
 						default:
@@ -324,14 +324,14 @@ public class Consola {
 		
 		return flag;
 	}
-	
+
 	public void crearVendedor() throws IOException {
 
-		ArrayList<Vendedor> listaVende = new ArrayList<>();
+		ArrayList<Usuario> listaVende = new ArrayList<>();
 		Vendedor vendedor;
 		boolean flag = true;
 		try {
-			listaVende = archi.levantarVendedor(venta);
+			listaVende = archi.levantar(venta);
 
 		} catch (IOException e) {
 
@@ -347,7 +347,7 @@ public class Consola {
 			archi.guardar(listaVende, venta);
 		}
 
-	}
+	}*/
 	
 	public Producto crearProducto(String nombre) {
     	Producto producto = new Producto();
@@ -415,14 +415,14 @@ public class Consola {
     	//editar?
     	return producto;
     }
-	
+	/*
 	public Vendedor crearCuenta() {
 
     	boolean control = true;
     	Vendedor vendedor = new Vendedor();
 		System.out.println("Ingrese nombre de usuario: ");
 		vendedor.setNombreUsuario(sc.next());
-		System.out.println("Ingrese la Contraseña: ");
+		System.out.println("Ingrese la Contraseï¿½a: ");
 		vendedor.setContrasenia(sc.next());
 		System.out.println("Ingrese tu Nombre: ");
 		vendedor.setNombre(sc.next());
@@ -448,5 +448,5 @@ public class Consola {
 
     	return vendedor;
 	
-	}
+	}*/
 }
