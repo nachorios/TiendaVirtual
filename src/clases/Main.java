@@ -18,13 +18,12 @@ import utils.UtilsClases;
 public class Main {
 	static Scanner sc = new Scanner(System.in);
     public static void main(String[] args) {
-    	Consola consola = new Consola();
-    	consola.menuInicial();
-    	/*
+
+    //	Consola consola = new Consola();
+    //	consola.menuInicial();
     	InterfazConsola menu = new InterfazConsola();
-		File venta = new File ("vendedores.dat");
-		File compra = new File("compradores.dat");
-		File publi = new File ("publicaiones.dat");
+		File users = new File ("usuario.dat");
+		File publi = new File ("publicaciones.dat");
 		Archivos archi = new Archivos();
 
     	Producto producto = new Producto();
@@ -33,137 +32,72 @@ public class Main {
 
 		do {
 			System.out.println(menu.menuPrincipal());
-
-			switch (sc.nextInt()) {
-				case 1:
-					System.out.println(menu.menuSesion());
-					do {
+			try {
+				switch (sc.nextInt()) {
+					case 1:
+						System.out.println(menu.menuSesion());
+						inicioSesion(archi, users, menu);
+						break;
+					case 2:
+						System.out.println(menu.menuRegistracion());
 						try {
-							switch (sc.nextInt()) {
-								case 1:
-									inicioVendedor(archi, venta, menu);
-									break;
-								case 2:
-									inicioComprador(archi, compra, menu);
-									break;
-								case 0:
-									control = false;
-									break;
-								default:
-									System.out.println("Ingrese una opcion correcta");
-							}
-						}catch (InputMismatchException e){
-							System.out.println("Ingrese un numero");
-							sc.nextLine();
+							crearUsuario(archi, users);
+						} catch (IOException e) {
+							System.out.println("Error al crear usuario");
 						}
-					}while (control);
-					control = true;
-				break;
-				case 2:
-					System.out.println(menu.menuRegistracion());
-						do {
-							try {
-								switch (sc.nextInt()) {
-									case 1:
-										try {
-											crearVendedor(archi, venta);
-										} catch (IOException e) {
-											System.out.println("Error al crear usuario");
-										}
-										break;
-									case 2:
-										try {
-											crearComprador(archi, compra);
-										} catch (IOException e) {
-											System.out.println("Error al crear usuario");
-										}
-										break;
-									case 0:
-										control = false;
-									default:
-										System.out.println("Ingrese una opcion correcta");
-										break;
-								}
-							}catch (InputMismatchException a){
-								System.out.println("Ingrese un numero");
-								sc.nextLine();
-							}
-						}while (control);
-						control = true;
-					break;
-				case 0:
+						break;
+					case 0:
 						control = false;
-				break;
-
+						break;
 					default:
 						System.out.println("Ingrese una opcion correcta");
-					break;
+						break;
+				}
+			}catch (InputMismatchException e) {
+				System.out.println("Ingrese un numero");
+				sc.nextLine();
 			}
 		}while (control);
-*/
 	}
 
 
+	public static void crearUsuario(Archivos archi, File file) throws IOException {
 
-	public static void crearVendedor(Archivos archi, File file) throws IOException {
-
-		ArrayList<Vendedor> listaVende = new ArrayList<>();
-		Vendedor vendedor;
+		ArrayList<Usuario> lista = new ArrayList<>();
+		Usuario usuario;
 		boolean flag = true;
 		try {
-			listaVende = archi.levantarVendedor(file);
+			lista = archi.levantar(file);
 
 		} catch (IOException e) {
 
-			vendedor = pedirDatosV();
+			usuario = pedirDatos();
 
-			listaVende.add(vendedor);
-			archi.guardar(listaVende, file);
+			lista.add(usuario);
+			archi.guardar(lista, file);
 			flag = false;
 		}
 		if (flag){
-			vendedor = pedirDatosV();
-			listaVende.add(vendedor);
-			archi.guardar(listaVende, file);
+			usuario = pedirDatos();
+			lista.add(usuario);
+			archi.guardar(lista, file);
 		}
 
 	}
 
-	public static void crearComprador(Archivos archi, File file) throws IOException {
 
-		ArrayList<Comprador> listaCompra = new ArrayList<>();
-		Comprador comprador;
-		boolean flag = true;
-		try {
-			listaCompra = archi.levantarComprador(file);
-
-		} catch (IOException e) {
-
-			comprador =  pedirDatosC();
-			listaCompra.add(comprador);
-			archi.guardarC(listaCompra, file);
-			flag = false;
-		}
-		if (flag){
-			comprador =  pedirDatosC();
-			listaCompra.add(comprador);
-			archi.guardarC(listaCompra, file);
-		}
-
-	}
-
-	public static void inicioVendedor(Archivos archi, File venta, InterfazConsola menu){
+	public static void inicioSesion(Archivos archi, File file, InterfazConsola menu){
 		try {
 			System.out.println("Ingrese nombre usuario");
-			Vendedor vendedor = archi.buscarVendedor(venta, sc.next());
-			if (vendedor != null) {
+			Usuario usuario = archi.buscar(file, sc.next());
+			if (usuario != null) {
 				System.out.println("Ingrese contraseña");
-				if(vendedor.getContrasenia().equals(sc.next())){
+				if(usuario.getContrasenia().equals(sc.next())){
 					System.out.println("Bienvenido");
-					System.out.println(menu.menuOpcionesVendedor());
+					System.out.println(menu.menuOpciones());
 					switch (sc.nextInt()){
 						case 1:
-							System.out.println(archi.leerVendedor(venta, vendedor.getNombreUsuario()));
+							System.out.println(archi.leer(file, usuario.getNombreUsuario()));
 							break;
 
 						default:
@@ -176,103 +110,43 @@ public class Main {
 				}
 			} else
 				System.out.println("Usuario no encontrado");
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (IOException a) {
+			a.printStackTrace();
 		}
 
 	}
 
-	public static void inicioComprador(Archivos archi, File compra, InterfazConsola menu){
-		try {
-			System.out.println("Ingrese nombre usuario");
-			Comprador comprador = archi.buscarComprador(compra, sc.next());
-			if (comprador != null) {
-				System.out.println("Ingrese contraseña");
-				if(comprador.getContrasenia().equals(sc.next())){
-					System.out.println("Bienvenido");
-					System.out.println(menu.menuOpcionesComprador());
-					switch (sc.nextInt()){
-						case 1:
-							System.out.println(archi.leerComprador(compra, comprador.getNombreUsuario()));
-							break;
 
-						default:
-							System.out.println("Ingrese una opcion correcta");
-							break;
-					}
-				}
-				else {
-					System.out.println("Contraseña incorrecta");
-				}
-			} else
-				System.out.println("Usuario no encontrado");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-	}
-
-	public static Vendedor pedirDatosV(){
+	public static Usuario pedirDatos(){
     	boolean control = true;
-    	Vendedor vendedor = new Vendedor();
+    	Usuario usuario = new Usuario();
 		System.out.println("Ingrese nombre de usuario: ");
-		vendedor.setNombreUsuario(sc.next());
+		usuario.setNombreUsuario(sc.next());
 		System.out.println("Contraseña: ");
-		vendedor.setContrasenia(sc.next());
+		usuario.setContrasenia(sc.next());
 		System.out.println("Nombre: ");
-		vendedor.setNombre(sc.next());
+		usuario.setNombre(sc.next());
 		System.out.println("Apellido: ");
-		vendedor.setApellido(sc.next());
+		usuario.setApellido(sc.next());
 		System.out.println("Correo electronico: ");
-		vendedor.setCorreoElectronico(sc.next());
+		usuario.setCorreoElectronico(sc.next());
 		System.out.println("Documento: ");
-		vendedor.setDocumento(sc.next());
+		usuario.setDocumento(sc.next());
 		System.out.println("Edad: ");
 		do {
 			try {
-				vendedor.setEdad(sc.nextInt());
+				usuario.setEdad(sc.nextInt());
 				control = false;
-			} catch (InputMismatchException e) {
+			} catch (InputMismatchException u) {
 				System.out.println("Ingrese un numero");
 				sc.nextLine();
 			}
 		}while (control);
 
 		System.out.println("Direccion: ");
-		vendedor.setDireccion(sc.next());
+		usuario.setDireccion(sc.next());
 
-    	return vendedor;
-	}
-
-	public static Comprador pedirDatosC(){
-    	boolean control = true;
-		Comprador comprador = new Comprador();
-		System.out.println("Ingrese nombre de usuario: ");
-		comprador.setNombreUsuario(sc.next());
-		System.out.println("Contraseña: ");
-		comprador.setContrasenia(sc.next());
-		System.out.println("Nombre: ");
-		comprador.setNombre(sc.next());
-		System.out.println("Apellido: ");
-		comprador.setApellido(sc.next());
-		System.out.println("Correo electronico: ");
-		comprador.setCorreoElectronico(sc.next());
-		System.out.println("Documento: ");
-		comprador.setDocumento(sc.next());
-		System.out.println("Edad: ");
-		do {
-			try {
-				comprador.setEdad(sc.nextInt());
-				control = false;
-			} catch (InputMismatchException e) {
-				System.out.println("Ingrese un numero");
-				sc.nextLine();
-			}
-		}while (control);
-		System.out.println("Direccion: ");
-		comprador.setDireccion(sc.next());
-
-		return comprador;
+    	return usuario;
 	}
 
     public static void crearProducto() {

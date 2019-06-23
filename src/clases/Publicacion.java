@@ -127,7 +127,7 @@ public class Publicacion implements IJsonObj{
 		}
 	}
 	
-	public String realizarIntercambio(Comprador comprador){
+	public String realizarIntercambio(Usuario comprador){
 		StringBuilder resultado = new StringBuilder();
 		
 		ArrayList<Producto> productosAcomprar = comprador.getCestaCompras().obtenerProductos();
