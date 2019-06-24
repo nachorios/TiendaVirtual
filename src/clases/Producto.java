@@ -1,6 +1,7 @@
 package clases;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.UUID;
 
 import org.json.JSONObject;
 
@@ -15,7 +16,7 @@ import interfaces.IJsonObj;
  * @version 1.0
  */
 public class Producto implements IJsonObj, Serializable {
-	private int ID;
+	private String ID;
 	private String nombre;
 	private String vendedor;
 	private float precio;
@@ -129,8 +130,9 @@ public class Producto implements IJsonObj, Serializable {
 		setPrecio(precio);
 		setVendedor(vendedor);
 	}
-	private int getIDnuevoProducto() {
-		return (int) (Math.random()*10000);
+	private String getIDnuevoProducto() {
+		UUID id = UUID.randomUUID();
+		return id.toString();
 	}
 
 	public String getNombre() {
@@ -189,7 +191,7 @@ public class Producto implements IJsonObj, Serializable {
 		this.categorias = categoria;
 	}
 
-	public int getID() {
+	public String getID() {
 		return ID;
 	}
 

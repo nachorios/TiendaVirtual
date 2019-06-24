@@ -37,7 +37,7 @@ public class Archivos
      * @return una lista de vendedores que se encuentran en el archivo
      * @throws IOException
      */
-    public ArrayList<Usuario> levantar(File file)throws IOException{
+    public ArrayList<Usuario> levantar(File file, File lista)throws IOException{
         ArrayList<Usuario> usuario = new ArrayList<>();
         FileReader fr = new FileReader(file);
         BufferedReader br = new BufferedReader(fr);
@@ -63,6 +63,7 @@ public class Archivos
             usuario1.setSaldo(json.getDouble("saldo"));
             usuario1.setContrasenia(json.getString("contrasenia"));
             usuario1.setCantProdVendidos(json.getDouble("cantidadProdVendidos"));
+            usuario1.setLista(levantarLista(lista));
             usuario.add(usuario1);
         }
         br.close();
@@ -114,7 +115,7 @@ public class Archivos
 			}
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			//e1.printStackTrace();
 		}
        
         return lista;

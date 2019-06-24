@@ -18,11 +18,12 @@ public class Consola {
 	Scanner sc = new Scanner(System.in);
 	File venta = new File ("usuarios.dat");
 	File publi = new File ("publicaiones.dat");
+	File lista = new File ("listas.dat");
 	Archivos archi = new Archivos();
 	Publicacion publicacion = new Publicacion();
 	ArrayList<Usuario> list = new ArrayList<>();
 	public void ejecutarWoshConsola() {
-
+		limpiarConsola();
         cargarPublicacion();
 	    menuInicial();
 	}
@@ -31,9 +32,9 @@ public class Consola {
 
 		 boolean control = true;
         try {
-            list = archi.levantar(venta);
+            list = archi.levantar(venta,lista);
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
         do {
 			 System.out.println("Bienvenido a Wosh!");
@@ -42,12 +43,17 @@ public class Consola {
 			 System.out.println("0. Salir del sistema.");
 			 System.out.print("Elije opcion: ");
 			 int opcion = sc.nextInt();
+			 limpiarConsola();
 			 switch(opcion) {
 			 	case 1:
 			 		Usuario usuario = ingresarUsuario(list);
 
 			 	    if (usuario != null) {
+			 	    	limpiarConsola();
 			 			menuCompradorVendedor(usuario);
+			 		} else {
+			 			limpiarConsola();
+			 			System.out.println("Contraseña incorrecta!");
 			 		}
 			 		break;
 			 	case 2:
@@ -79,6 +85,7 @@ public class Consola {
 			System.out.println("0. Volver al Menu inicial");
 			System.out.print("Elije opcion: ");
 			int opcion = sc.nextInt();
+			limpiarConsola();
 			switch(opcion) {
 				case 1:
 					menuComprador(usuario);
@@ -88,7 +95,7 @@ public class Consola {
 					break;
 				case 0:
 				try {
-					archi.guardarListaUsuario(usuario.getLista(), venta);
+					archi.guardarListaUsuario(usuario.getLista(), lista);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -98,6 +105,7 @@ public class Consola {
 				default:
 					System.out.println("Opcion incorrecta.");
 			}
+			limpiarConsola();
 		}while(control);
 	}
 
@@ -113,6 +121,7 @@ public class Consola {
 			System.out.println("0. Volver al Menu Principal");
 			System.out.print("Elije opcion: ");
 			int opcion = sc.nextInt();
+			limpiarConsola();
 			switch(opcion) {
 				case 1:
 					menuBuscarProductos(comprador);
@@ -149,7 +158,7 @@ public class Consola {
 					System.out.println(i+1+") "+ productos.toString());
 				}
 				System.out.println("Tu saldo: "+ comprador.getSaldo());
-				System.out.println("Preio de la compra: "+ comprador.getCestaCompras().getPrecioTotal());
+				System.out.println("Precio de la compra: "+ comprador.getCestaCompras().getPrecioTotal());
 				System.out.println("Deseas realizar la compra? S/N");
 				control = false;
 				switch(sc.next()) {
@@ -162,6 +171,7 @@ public class Consola {
 					default:
 						control = true;
 				}
+				limpiarConsola();
 			} while(control);
 		} else {
 			System.out.println("No tienes productos en tu cesta de compras.");
@@ -179,6 +189,7 @@ public class Consola {
 			System.out.println("0. Volver al Menu Principal");
 			System.out.print("Elije opcion: ");
 			int opcion = sc.nextInt();
+			limpiarConsola();
 			switch(opcion) {
 				case 1:
 					verCestaCompras(comprador);
@@ -204,6 +215,9 @@ public class Consola {
 		for (int i = 0; i < productos.size(); i++) {
 			System.out.println(i+1+") "+ productos.toString());
 		}
+		if (productos.size() == 0) {
+			System.out.println("La cesta de compras esta vacia.");
+		}
 	}
 
 	public void quitarProductoCestaCompras(Usuario comprador) {
@@ -226,6 +240,8 @@ public class Consola {
 				comprador.getCestaCompras().quitarProductoEnCesta(prodAquitar);
 				System.out.println("El producto se ha quitado correctamente!");
 			}
+		}else {
+			System.out.println("La cesta de compras esta vacia.");
 		}
 	}
 
@@ -242,6 +258,7 @@ public class Consola {
 			System.out.println("0. Volver al Menu Comprador");
 			System.out.print("Elije opcion: ");
 			int opcion = sc.nextInt();
+			limpiarConsola();
 			switch(opcion) {
 				case 1:
 					System.out.println("Elije la categoria que desea buscar: ");
@@ -258,6 +275,7 @@ public class Consola {
 					buscarProducto(comprador,publicacion.buscarProductosPorNombre(sc.next(), comprador.getNombreUsuario()));
 					break;
 				case 3:
+					System.out.print("Ingrese el nombre del vendedor a buscar: ");
 					buscarProducto(comprador,publicacion.getArrayListProductosPublicitadosDeUnUsuario(sc.next()));
 					break;
 				case 4:
@@ -272,6 +290,7 @@ public class Consola {
 				default:
 					System.out.println("Opcion incorrecta.");
 			}
+			limpiarConsola();
 		}while(control);
 	}
 
@@ -282,6 +301,9 @@ public class Consola {
 					&& !comprador.getCestaCompras().obtenerProductos().contains(productosEnVenta.get(i))) {
 				System.out.println(i+1+")"+productosEnVenta.get(i));
 			}
+		}
+		if (productosEnVenta.size() == 0) {
+			System.out.println("No hay productos disponibles.");
 		}
 		System.out.println("0) Para salir");
 		System.out.print("Elije el producto que deseas añadir a la cesta: ");
@@ -306,10 +328,12 @@ public class Consola {
 			System.out.println("5. Ver informacion de la cuenta");
 			System.out.println("6. Ver productos publicados a la venta");
 			System.out.println("7. Ver productos publicitados");
-			System.out.println("8. Quitar un producto publicado");
+			//System.out.println("8. Quitar un producto publicado");
+			System.out.println("8. Ver todos tus productos");
 			System.out.println("0. Volver al Menu Principal");
 			System.out.print("Elije opcion: ");
 			int opcion = sc.nextInt();
+			limpiarConsola();
 			switch(opcion) {
 				case 1:
 					vendedor.agregarProductoLista(crearProducto(vendedor.getNombreUsuario()));
@@ -332,8 +356,13 @@ public class Consola {
 				case 7:
 					verProductosPublicitados(vendedor);
 					break;
-				case 8:
+				/*case 8:
 					quitarProductoEnVenta(vendedor);
+					break;*/
+				case 8:
+					for (Producto p : vendedor.getLista()) {
+						System.out.println(p);
+					}
 					break;
 				case 0:
 					control = false;
@@ -358,19 +387,32 @@ public class Consola {
 
 	public void verProductosEnVenta(Usuario vendedor) {
 		if (publicacion != null)
-			for(Producto p : publicacion.getProductosDeUnUsuario(vendedor.getNombreUsuario())) {
-				System.out.println(p);
+			if (publicacion.getProductosDeUnUsuario(vendedor.getNombreUsuario()).size() != 0) {
+				for(Producto p : publicacion.getProductosDeUnUsuario(vendedor.getNombreUsuario())) {
+					System.out.println(p);
+				}
+			} else {
+				System.out.println("No tienes productos en venta.");
 			}
+			
 	}
 
 	public void verProductosPublicitados(Usuario vendedor) {
-		for(Producto p : publicacion.getArrayListProductosPublicitadosDeUnUsuario(vendedor.getNombreUsuario())) {
-			System.out.println(p);
+		if (publicacion.getArrayListProductosPublicitadosDeUnUsuario(vendedor.getNombreUsuario()).size() != 0) {
+			for(Producto p : publicacion.getArrayListProductosPublicitadosDeUnUsuario(vendedor.getNombreUsuario())) {
+				System.out.println(p);
+			}
+		} else {
+			System.out.println("No tienes productos publicitados");
 		}
+		
 	}
 
 	public void verInformacionCuenta(Usuario vendedor) {
-		System.out.println(vendedor.toString());
+		System.out.println("Nombre de usuario: "+vendedor.getNombreUsuario());
+		System.out.println("Correo electronico: "+vendedor.getCorreoElectronico());
+		System.out.println("Cantidad de productos comprados: "+vendedor.getCantProducComprados());
+		System.out.println("Saldo de la cuenta: "+vendedor.getSaldo());
 	}
 
 	public void publicarEnVentaProducto(Usuario vendedor) {
@@ -379,6 +421,7 @@ public class Consola {
 			try {
 				Producto productoVendedor = vendedor.getLista().get(vendedor.getLista().indexOf(productoSeleccionado));
 				publicacion.publicarProducto(vendedor.getNombreUsuario(), productoVendedor);
+				vendedor.getLista().remove(productoVendedor);
 				System.out.println("Has colocado a la venta tu producto.");
 				archi.guardar(publicacion, publi);
 			} catch (PublicacionException e) {
@@ -393,7 +436,7 @@ public class Consola {
 
 	public void publicitarProducto(Usuario vendedor) {
 		Producto productoSeleccionado = productoSeleccionado = elegirProducto(vendedor, true);
-		if (productoSeleccionado != null) {
+		if (productoSeleccionado != null || publicacion.getArrayListProductosPublicitadosDeUnUsuario(vendedor.getNombreUsuario()).contains(productoSeleccionado)) {
 			int opcion;
 			do {
 				System.out.println("Elije la opcion de publicidad que desees:");
@@ -453,6 +496,7 @@ public class Consola {
 			System.out.println("0. Volver al menu vendedor");
 			System.out.print("Elije opcion: ");
 			int opcion = sc.nextInt();
+			limpiarConsola();
 			switch(opcion) {
 				case 1:
 					productoSeleccionado = elegirProducto(vendedor, false);
@@ -507,30 +551,32 @@ public class Consola {
 	public void editarNombre(Usuario vendedor, Producto producto) {
 		System.out.println("Nombre anterior:"+ producto.getNombre());
 		System.out.print("Nombre deseado:");
-		String nuevoNombre = sc.next();
+		sc.nextLine();
+		String nuevoNombre = sc.nextLine();
 		producto.setNombre(nuevoNombre);
-		System.out.println("ï¿½Nombre modificado correctamente!");
+		System.out.println("Nombre modificado correctamente!");
 	}
 	public void editarPrecio(Usuario vendedor, Producto producto) {
 		System.out.println("precio anterior:"+ producto.getPrecio());
 		System.out.print("precio deseado:");
 		float nuevoPrecio = sc.nextFloat();
 		producto.setPrecio(nuevoPrecio);
-		System.out.println("ï¿½Precio modificado correctamente!");
+		System.out.println("Precio modificado correctamente!");
 	}
 	public void aumentarStock(Usuario vendedor, Producto producto) {
 		System.out.println("Stock anterior:"+ producto.getCantidad());
 		System.out.print("Stock deseado:");
 		int nuevoStock = sc.nextInt();
 		producto.setCantidad(nuevoStock);
-		System.out.println("ï¿½Stock modificado correctamente!");
+		System.out.println("Stock modificado correctamente!");
 	}
 	public void editarDescripcion(Usuario vendedor, Producto producto) {
 		System.out.println("Descripcion anterior:"+ producto.getDescripcion());
 		System.out.print("Descripcion deseada:");
-		String nuevaDescripcion = sc.next();
+		sc.nextLine();
+		String nuevaDescripcion = sc.nextLine();
 		producto.setDescripcion(nuevaDescripcion);
-		System.out.println("ï¿½Descripcion modificada correctamente!");
+		System.out.println("Descripcion modificada correctamente!");
 	}
 	public void editarCategoria(Usuario vendedor, Producto producto) {
 		System.out.println("Categoria anterior:"+ producto.getCategoria());
@@ -540,7 +586,7 @@ public class Consola {
     	}
     	CategoriaType nuevaCategoria = CategoriaType.values()[sc.nextInt()];
     	producto.setCategoria(new Categoria(nuevaCategoria));
-		System.out.println("ï¿½Categoria modificada correctamente!");
+		System.out.println("Categoria modificada correctamente!");
 		System.out.println("Debido a que has cambiado de categoria, deberï¿½s colocar nuevas caracteristicas.");
 		editarCaracteristicas(vendedor, producto);
 	}
@@ -559,7 +605,8 @@ public class Consola {
     	    		if(UtilsClases.objectIsInteger(atributo.getType())) {
     	    			attr.add(sc.nextInt());
     	    		} else if (UtilsClases.objectIsString(atributo.getType())) {
-    	    			attr.add(sc.next());
+    	    			attr.add(sc.nextLine());
+    	    			sc.nextLine();
     	    		} else if (UtilsClases.objectIsFloat(atributo.getType())) {
     	    			attr.add(sc.nextFloat());
     	    		}
@@ -641,7 +688,8 @@ public class Consola {
 
 		for (int i = 0; i<list.size(); i++){
 
-			if (list.get(i).equals(usuario)) {
+			if (list.get(i).getNombreUsuario().equals(usuario.getNombreUsuario())
+					&& list.get(i).getContrasenia().equals(usuario.getContrasenia())) {
 				usuario1 = list.get(i);
 			}
 		}
@@ -650,11 +698,13 @@ public class Consola {
 
 	public Producto crearProducto(String nombre) {
     	Producto producto = new Producto();
-    	
+    	sc.nextLine();
     	System.out.println("Nombre del producto: ");
-    	producto.setNombre(sc.next());
+    	producto.setNombre(sc.nextLine());
+    	sc.nextLine();
     	System.out.println("Descripcion:");
-    	producto.setDescripcion(sc.next());
+    	producto.setDescripcion(sc.nextLine());
+    	sc.nextLine();
     	System.out.println("Elije la categoria de tu producto: ");
     	for (int i = 0; i < CategoriaType.values().length; i++) {
     		System.out.println(i+") "+ CategoriaType.values()[i]);
@@ -674,7 +724,8 @@ public class Consola {
     	    		if(UtilsClases.objectIsInteger(atributo.getType())) {
     	    			attr.add(sc.nextInt());
     	    		} else if (UtilsClases.objectIsString(atributo.getType())) {
-    	    			attr.add(sc.next());
+    	    			attr.add(sc.nextLine());
+    	    			sc.nextLine();
     	    		} else if (UtilsClases.objectIsFloat(atributo.getType())) {
     	    			attr.add(sc.nextFloat());
     	    		}
@@ -717,10 +768,10 @@ public class Consola {
     	return producto;
     }
 	
-	public void guardarUsuarios(Archivos archi,Usuario usuario, File file) {
+	public void guardarUsuarios(Archivos archi,Usuario usuario, File file, File lista2) {
 		ArrayList<Usuario> lista = new ArrayList<>();
 		try {
-			lista = archi.levantar(file);
+			lista = archi.levantar(file,lista2);
 			lista.add(usuario);
 			try {
 				archi.guardar(lista, file);

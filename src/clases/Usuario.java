@@ -150,6 +150,7 @@ public class Usuario extends Persona implements IJsonObj {
             for (Producto p : getCestaCompras().obtenerProductos()) {
             	setCantProducComprados(getCantProducComprados()+p.getCantidad());
             	p.setEnVenta(false);
+            	p.setVendedor(getNombreUsuario());
                 getLista().add(p);
             }
             getCestaCompras().vaciarCesta();

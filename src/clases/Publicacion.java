@@ -165,6 +165,12 @@ public class Publicacion implements IJsonObj, Serializable {
 				productosAcomprar.remove(p);
 			}
 		}
+		
+		for (Producto p : comprador.getCestaCompras().obtenerProductos()) {
+			sugerirProducto(comprador.getNombreUsuario(), p);
+			quitarProductoEnVenta(p);
+		}
+		
 		if (comprador.comprar()) {
 			resultado.append("Has realizado la compra.");
 			if (!productosNoDisponibles.isEmpty()) {
