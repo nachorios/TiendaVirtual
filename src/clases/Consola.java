@@ -44,36 +44,32 @@ public class Consola {
 			 int opcion = sc.nextInt();
 			 switch(opcion) {
 			 	case 1:
-			 		Usuario usuario = ingresarUsuario();
-			 		for (int i = 0; i<list.size(); i++){
-			 		    if (list.get(i).equals(usuario))
-			 		        usuario = list.get(i);
-                    }
+			 		Usuario usuario = ingresarUsuario(list);
+
 			 	    if (usuario != null) {
 			 			menuCompradorVendedor(usuario);
 			 		}
 			 		break;
 			 	case 2:
-					try {
-						crearUsuario(archi, venta);
-					} catch (IOException e) {
-						System.out.println("Error al crear usuario");
-					}
+
+						list = crearUsuario(list);
+
 					break;
 			 	case 0:
 			 		control = false;
 			 		break;
 			 	default:
 			 }
-            try {
-                archi.guardar(list, venta);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+
 
         }while(control);
+		try {
+			archi.guardar(list, venta);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
-	
+
 	public void menuCompradorVendedor(Usuario usuario) {
 		boolean control = true;
 		do {
@@ -104,7 +100,7 @@ public class Consola {
 			}
 		}while(control);
 	}
-	
+
 	public void menuComprador(Usuario comprador) {
 		boolean control = true;
 		do{
@@ -143,7 +139,7 @@ public class Consola {
         comprador.cargarSaldo(sc.nextDouble());
         System.out.println("Usted a cargado " + comprador.getSaldo() + " a su cuenta");
     }
-	
+
 	public void realizarCompra(Usuario comprador) {
 		ArrayList<Producto> productos = comprador.getCestaCompras().obtenerProductos();
 		if (productos.size() > 0) {
@@ -170,9 +166,9 @@ public class Consola {
 		} else {
 			System.out.println("No tienes productos en tu cesta de compras.");
 		}
-		
+
 	}
-	
+
 	public void menuCestaProductos(Usuario comprador) {
 		boolean control = true;
 		do{
@@ -202,14 +198,14 @@ public class Consola {
 			}
 		}while(control);
 	}
-	
+
 	public void verCestaCompras(Usuario comprador) {
 		ArrayList<Producto> productos = comprador.getCestaCompras().obtenerProductos();
 		for (int i = 0; i < productos.size(); i++) {
 			System.out.println(i+1+") "+ productos.toString());
 		}
 	}
-	
+
 	public void quitarProductoCestaCompras(Usuario comprador) {
 		ArrayList<Producto> productos = comprador.getCestaCompras().obtenerProductos();
 		if (productos.size()>0) {
@@ -223,17 +219,17 @@ public class Consola {
 			}catch(IndexOutOfBoundsException e) {
 				System.out.println("Ingrese un producto valido");
 			}
-			
+
 			if (prodAquitar == null) {
 				System.out.println("No se ha podido quitar el producto");
 			} else {
 				comprador.getCestaCompras().quitarProductoEnCesta(prodAquitar);
 				System.out.println("El producto se ha quitado correctamente!");
 			}
-		}	
+		}
 	}
-	
-	
+
+
 	public void menuBuscarProductos(Usuario comprador) {
 		boolean control = true;
 		do{
@@ -254,7 +250,7 @@ public class Consola {
 			    	}
 					System.out.print("Elije opcion: ");
 					CategoriaType categoria = CategoriaType.values()[sc.nextInt()];
-					
+
 					buscarProducto(comprador,publicacion.buscarProductosPorCategoria(categoria, comprador.getNombreUsuario()));
 					break;
 				case 2:
@@ -278,7 +274,7 @@ public class Consola {
 			}
 		}while(control);
 	}
-	
+
 	public void buscarProducto(Usuario comprador, ArrayList<Producto> productosEnVenta) {
 		for (int i = 0; i < productosEnVenta.size(); i++) {
 			if (!productosEnVenta.get(i).getVendedor().equals(comprador.getNombreUsuario())
@@ -292,11 +288,11 @@ public class Consola {
 		Producto prodElegido = null;
 		if (opcion != 0) {
 			prodElegido = productosEnVenta.get(opcion-1);
-			
+
 			comprador.agregarProductoCesta(prodElegido);
-		} 
+		}
 	}
-	
+
 	public void menuVendedor(Usuario vendedor) {
 	    boolean control = true;
 		do {
@@ -346,7 +342,7 @@ public class Consola {
 			}
 		}while(control);
 	}
-	
+
 	public void quitarProductoEnVenta(Usuario vendedor) {
 		Producto productoSeleccionado = productoSeleccionado = elegirProducto(vendedor, true);
 		if (productoSeleccionado != null) {
@@ -358,24 +354,24 @@ public class Consola {
 				System.out.println("Has quitado tu producto de la venta.");
 		}
 	}
-	
+
 	public void verProductosEnVenta(Usuario vendedor) {
 		if (publicacion != null)
 			for(Producto p : publicacion.getProductosDeUnUsuario(vendedor.getNombreUsuario())) {
 				System.out.println(p);
 			}
 	}
-	
+
 	public void verProductosPublicitados(Usuario vendedor) {
 		for(Producto p : publicacion.getArrayListProductosPublicitadosDeUnUsuario(vendedor.getNombreUsuario())) {
 			System.out.println(p);
 		}
 	}
-	
+
 	public void verInformacionCuenta(Usuario vendedor) {
 		System.out.println(vendedor.toString());
 	}
-	
+
 	public void publicarEnVentaProducto(Usuario vendedor) {
 		Producto productoSeleccionado = productoSeleccionado = elegirProducto(vendedor, false);
 		if (productoSeleccionado != null) {
@@ -391,9 +387,9 @@ public class Consola {
                 e.printStackTrace();
             }
         }
-		
+
 	}
-	
+
 	public void publicitarProducto(Usuario vendedor) {
 		Producto productoSeleccionado = productoSeleccionado = elegirProducto(vendedor, true);
 		if (productoSeleccionado != null) {
@@ -406,7 +402,7 @@ public class Consola {
 				System.out.println("Opcion 4) 500$ duracion 15 compras del producto.");
 				System.out.print("Elije opcion: ");
 				opcion = sc.nextInt();
-				
+
 			}while(opcion <1 && opcion >4);
 			int cantPublicidad = 0;
 			switch(opcion) {
@@ -433,9 +429,9 @@ public class Consola {
                 e.printStackTrace();
             }
         }
-		
+
 	}
-	
+
 	public void menuEdicionProducto(Usuario vendedor) {
 		Producto productoSeleccionado = null;
 		boolean control = true;
@@ -493,7 +489,7 @@ public class Consola {
 					break;
 				default:
 					System.out.println("Opcion incorrecta.");
-						
+
 			}
 		}while(control);
 	}
@@ -506,7 +502,7 @@ public class Consola {
 			flag = true;
 		return flag;
 	}
-	
+
 	public void editarNombre(Usuario vendedor, Producto producto) {
 		System.out.println("Nombre anterior:"+ producto.getNombre());
 		System.out.print("Nombre deseado:");
@@ -556,7 +552,7 @@ public class Consola {
     		    Class<?> caracteristica = Class.forName("caracteristicas.listado."+nombreClase);
     		    ArrayList<Object> attr = new ArrayList<>();
     		    for(int i = 0; i < caracteristica.getDeclaredFields().length; i++) {
-    		    	
+
     	    		Field atributo = caracteristica.getDeclaredFields()[i];
     	    		System.out.println(atributo.getName()+": ");
     	    		if(UtilsClases.objectIsInteger(atributo.getType())) {
@@ -577,14 +573,14 @@ public class Consola {
 					try {
 						Object object;
 						object = ctor.newInstance(atributos);
-						
+
 						producto.setCaracteristicas((Caracteristica) object);
 					} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
 							| InvocationTargetException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					
+
 				} catch (SecurityException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -594,7 +590,7 @@ public class Consola {
     			 e.printStackTrace();
     		}
 	}
-	
+
 	public Producto elegirProducto(Usuario vendedor, boolean enVenta) {
 		ArrayList<Producto> productos = vendedor.getLista();
 		Producto productoElegido = null;
@@ -624,35 +620,31 @@ public class Consola {
 			} catch (IndexOutOfBoundsException e) {
 				System.out.println("Ingrese el numero del producto que desea seleccionar.");
 				sc.nextLine();
-			} 
+			}
 		}while(!productosAccesibles.contains(opcion) || opcion == -1);
-		
-		
+
+
 		return productoElegido;
 	}
 	///FIN-FUNCIONES EDITAR PRODUCTO
-	
 
-	public Usuario ingresarUsuario() {
-		Usuario vendedor = null;
-		try {
+
+	public Usuario ingresarUsuario(ArrayList<Usuario> list) {
+		Usuario usuario = new Usuario();
+
+
 			System.out.println("Ingrese nombre usuario");
-			vendedor = archi.buscar(venta, sc.next());
-			if (vendedor != null) {
+			usuario.setNombreUsuario(sc.next());
 				System.out.println("Ingrese contraseña");
-				if(vendedor.getContrasenia().equals(sc.next())){
-					System.out.println("Bienvenido");
-				}
-				else {
-					System.out.println("Contraseña incorrecta");
-				}
-			} else
-				System.out.println("Usuario no encontrado");
-		} catch (IOException e) {
-			e.printStackTrace();
+				usuario.setContrasenia(sc.next());
+
+
+		for (int i = 0; i<list.size(); i++){
+			if (list.get(i).getNombreUsuario().equals(usuario.getNombreUsuario()) &&
+			list.get(i).getContrasenia().equals(usuario.getContrasenia()))
+				usuario = list.get(i);
 		}
-		
-		return vendedor;
+		return usuario;
 	}
 
 	public Producto crearProducto(String nombre) {
@@ -742,28 +734,13 @@ public class Consola {
 		
 	}
 
-	public void crearUsuario(Archivos archi, File file) throws IOException {
+	public ArrayList<Usuario> crearUsuario(ArrayList<Usuario> lista) {
 
-		ArrayList<Usuario> lista = new ArrayList<>();
 		Usuario usuario;
-		boolean flag = true;
-		try {
-			lista = archi.levantar(file);
-
-		} catch (IOException e) {
-
-			usuario = pedirDatos();
-
-			lista.add(usuario);
-			archi.guardar(lista, file);
-			flag = false;
-		}
-		if (flag){
 			usuario = pedirDatos();
 			lista.add(usuario);
-			archi.guardar(lista, file);
-		}
 
+		return lista;
 	}
 
 	public Usuario pedirDatos(){

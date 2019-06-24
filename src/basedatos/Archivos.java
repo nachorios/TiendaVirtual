@@ -70,20 +70,6 @@ public class Archivos
     }
     
 
-    public Usuario buscar(File file, String usuario) throws IOException {
-        Usuario usuario1;
-        ArrayList<Usuario> usuarioArrayList = levantar(file);
-
-        for (int i =0; i<usuarioArrayList.size(); i++){
-            usuario1 = usuarioArrayList.get(i);
-            if (usuario1.getNombreUsuario().equals(usuario)){
-
-                return usuario1;
-            }
-
-        }
-        return usuario1 = null;
-    }
 
     public void guardar(Publicacion publicacion, File file) throws IOException {
         ObjectOutputStream fw = new ObjectOutputStream(new FileOutputStream(file));
