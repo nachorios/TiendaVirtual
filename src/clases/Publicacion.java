@@ -36,8 +36,20 @@ public class Publicacion implements IJsonObj{
 	private HashMap<String,ArrayList<Producto>> listadoDeProductosVenta;
 	private HashMap<String,Stack<Producto>> listadoDeProductosSugeridos;
 	private HashMap<String,LinkedHashMap<Producto, Integer>> listadoDeProductosPublicitados;
-	
-	/**
+
+    public void setListadoDeProductosVenta(HashMap<String, ArrayList<Producto>> listadoDeProductosVenta) {
+        this.listadoDeProductosVenta = listadoDeProductosVenta;
+    }
+
+    public void setListadoDeProductosSugeridos(HashMap<String, Stack<Producto>> listadoDeProductosSugeridos) {
+        this.listadoDeProductosSugeridos = listadoDeProductosSugeridos;
+    }
+
+    public void setListadoDeProductosPublicitados(HashMap<String, LinkedHashMap<Producto, Integer>> listadoDeProductosPublicitados) {
+        this.listadoDeProductosPublicitados = listadoDeProductosPublicitados;
+    }
+
+    /**
 	 * Inicializa las variables de los listados
 	 */
 	public Publicacion() {
@@ -382,7 +394,7 @@ public class Publicacion implements IJsonObj{
 			usuarioConProductos.put(me.getKey().toString(), ((Producto)me.getValue()).objetoAJSON());
 			jsonProdSugerido.put(usuarioConProductos);
 		}
-		jsonPublicacion.put("listadoProductosEnVenta", jsonProdSugerido);
+		jsonPublicacion.put("listadoProductosSugeridos", jsonProdSugerido);
 		
 		JSONArray jsonProdPublicitados= new JSONArray();// String
 		JSONObject jsonLinkedHashmap= new JSONObject();// LinkedHashMap<Producto, Integer>
@@ -400,7 +412,7 @@ public class Publicacion implements IJsonObj{
 			jsonLinkedHashmap.put((String) me.getKey(), jsonProdConCantidad);
 			jsonProdPublicitados.put(jsonProdConCantidad);
 		}
-		jsonPublicacion.put("listadoProductosEnVenta", jsonProdPublicitados);
+		jsonPublicacion.put("listadoProductosPublicitados", jsonProdPublicitados);
 		
 		return jsonPublicacion;
 	}

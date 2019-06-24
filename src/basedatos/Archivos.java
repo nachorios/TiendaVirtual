@@ -98,25 +98,18 @@ public class Archivos
     }
 
     public void guardar(Publicacion publicacion, File file) throws IOException {
-        JSONObject jsonObject = publicacion.objetoAJSON();
-        FileWriter fw = new FileWriter(file);
-        fw.write(jsonObject.toString());
+        ObjectOutputStream fw = new ObjectOutputStream(new FileOutputStream(file));
+        fw.writeObject(publicacion);
         fw.flush();
         fw.close();
 
+
     }
 
-    public Publicacion levantarPubli(File file) throws IOException{
-        Publicacion publicacion = new Publicacion();
-        FileReader fr = new FileReader(file);
-        BufferedReader br = new BufferedReader(fr);
-        String linea;
-        JSONObject json;
-        while ((linea = br.readLine()) != null){
-            json = new JSONObject(linea);
-        }
-
-
+    public Publicacion levantarPubli(File file) throws IOException, ClassNotFoundException {
+        Publicacion publicacion;
+        ObjectInputStream ob = new ObjectInputStream(new FileInputStream(file));
+        publicacion =(Publicacion) ob.readObject();
 
         return publicacion;
     }
