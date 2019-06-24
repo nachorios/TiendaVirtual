@@ -173,6 +173,7 @@ public class Publicacion implements IJsonObj, Serializable {
 		
 		if (comprador.comprar()) {
 			resultado.append("Has realizado la compra.");
+			//TODO otorgarSaldoVendedor
 			if (!productosNoDisponibles.isEmpty()) {
 				resultado.append("No ha habido stock de los siguientes productos: ");
 				for (Producto p : productosNoDisponibles) {
