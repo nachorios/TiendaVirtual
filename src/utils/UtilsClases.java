@@ -35,6 +35,13 @@ public class UtilsClases {
     	return flag;
     }
     
+    public static boolean objectIsFloat(Class<?> obj) {
+    	boolean flag = false;
+    	if (obj.getTypeName().equals(float.class.getTypeName()))
+    		flag = true;
+    	return flag;
+    }
+    
     public static boolean objectIsString(Class<?> obj) {
     	boolean flag = false;
     	if (obj.getTypeName().equals(String.class.getTypeName()))

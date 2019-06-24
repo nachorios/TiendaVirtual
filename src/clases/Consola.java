@@ -222,20 +222,20 @@ public class Consola {
 					System.out.print("Elije opcion: ");
 					CategoriaType categoria = CategoriaType.values()[sc.nextInt()];
 					
-					buscarProducto(publicacion.buscarProductosPorCategoria(categoria, comprador.getNombreUsuario()));
+					buscarProducto(comprador,publicacion.buscarProductosPorCategoria(categoria, comprador.getNombreUsuario()));
 					break;
 				case 2:
 					System.out.print("Ingrese el nombre del producto deseado: ");
-					buscarProducto(publicacion.buscarProductosPorNombre(sc.next(), comprador.getNombreUsuario()));
+					buscarProducto(comprador,publicacion.buscarProductosPorNombre(sc.next(), comprador.getNombreUsuario()));
 					break;
 				case 3:
-					buscarProducto(publicacion.getArrayListProductosPublicitadosDeUnUsuario(sc.next()));
+					buscarProducto(comprador,publicacion.getArrayListProductosPublicitadosDeUnUsuario(sc.next()));
 					break;
 				case 4:
-					buscarProducto(publicacion.getArrayListDeProductosVenta());
+					buscarProducto(comprador,publicacion.getArrayListDeProductosVenta());
 					break;
 				case 5:
-					buscarProducto(publicacion.getArrayListDeProductosSugeridos(comprador.getNombreUsuario()));
+					buscarProducto(comprador,publicacion.getArrayListDeProductosSugeridos(comprador.getNombreUsuario()));
 					break;
 				case 0:
 					control = false;
@@ -246,11 +246,23 @@ public class Consola {
 		}while(control);
 	}
 	
-	public Producto buscarProducto(ArrayList<Producto> productosEnVenta) {
+	public void buscarProducto(Usuario comprador, ArrayList<Producto> productosEnVenta) {
 		for (int i = 0; i < productosEnVenta.size(); i++) {
-			System.out.println(i+")"+productosEnVenta.get(i));
+			if (!productosEnVenta.get(i).getVendedor().equals(comprador.getNombreUsuario())
+					&& !productosEnVenta.get(i).isEnVenta()) {
+				System.out.println(i+1+")"+productosEnVenta.get(i));
+			}
+			
 		}
-		return null;
+		System.out.println("0) Para salir");
+		System.out.print("Elije el producto que deseas añadir a la cesta: ");
+		int opcion = sc.nextInt();
+		Producto prodElegido = null;
+		if (opcion != 0) {
+			prodElegido = productosEnVenta.get(opcion-1);
+			
+			comprador.agregarProductoCesta(prodElegido);
+		} 
 	}
 	
 	public void menuVendedor() {
@@ -497,6 +509,8 @@ public class Consola {
     	    			attr.add(sc.nextInt());
     	    		} else if (UtilsClases.objectIsString(atributo.getType())) {
     	    			attr.add(sc.next());
+    	    		} else if (UtilsClases.objectIsFloat(atributo.getType())) {
+    	    			attr.add(sc.nextFloat());
     	    		}
     	    	}
     		    Object[] atributos = new Object[attr.size()];
@@ -649,6 +663,8 @@ public class Consola {
     	    			attr.add(sc.nextInt());
     	    		} else if (UtilsClases.objectIsString(atributo.getType())) {
     	    			attr.add(sc.next());
+    	    		} else if (UtilsClases.objectIsFloat(atributo.getType())) {
+    	    			attr.add(sc.nextFloat());
     	    		}
     	    	}
     		    Object[] atributos = new Object[attr.size()];

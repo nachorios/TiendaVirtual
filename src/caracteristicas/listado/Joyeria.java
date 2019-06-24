@@ -1,15 +1,16 @@
 package caracteristicas.listado;
 
+import caracteristicas.Caracteristica;
 import utils.UtilsClases;
 
-public class Joyeria {
+public class Joyeria extends Caracteristica{
 	private String marca;
 	private float peso;
 	private String estilo;
 	private String material;
 	
 	public Joyeria(String marca, float peso, String estilo, String material) {
-		super();
+		super("Joyeria");
 		this.marca = marca;
 		this.peso = peso;
 		this.estilo = estilo;
