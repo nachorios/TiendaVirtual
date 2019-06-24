@@ -1,7 +1,5 @@
 package clases;
 
-import java.util.InputMismatchException;
-
 abstract class Persona {
     private String nombre;
     private String apellido;
