@@ -1,4 +1,5 @@
 package clases;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -27,7 +28,7 @@ import clases.Categoria.CategoriaType;
  * @author usuario
  * @version 1.0
  */
-public class Publicacion implements IJsonObj{
+public class Publicacion implements IJsonObj, Serializable {
 	private final int maxProductosSugeridos = 5;
 	private final int maxProductosPublicitados = 10;
 	private final int maxProductosPublicitadosxUsuario = 2;

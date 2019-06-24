@@ -2,12 +2,15 @@ package clases;
 
 import org.json.JSONObject;
 import interfaces.IJsonObj;
-	/**
+
+import java.io.Serializable;
+
+/**
 	 * Esta clase almacena el tipo de categoria y el nombre de la misma.
 	 * @version 1.0
 	 *
 	 */
-	public class Categoria implements IJsonObj{
+	public class Categoria implements IJsonObj, Serializable {
 	/**
 	 * Este enum representa las distintas categorias que puede poseer un producto.
 	 * @version 1.0

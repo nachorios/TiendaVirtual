@@ -69,19 +69,6 @@ public class Archivos
         return usuario;
     }
 
-
-    public String leer(File file, String usuario) throws IOException {
-        Usuario usuario1;
-        ArrayList<Usuario> listaUsuario = levantar(file);
-        for (int i =0; i<listaUsuario.size(); i++){
-            usuario1 = listaUsuario.get(i);
-            if (usuario1.getNombreUsuario().equals(usuario))
-                return usuario1.toString();
-        }
-        return null;
-    }
-
-
     public Usuario buscar(File file, String usuario) throws IOException {
         Usuario usuario1;
         ArrayList<Usuario> usuarioArrayList = levantar(file);
@@ -102,7 +89,6 @@ public class Archivos
         fw.writeObject(publicacion);
         fw.flush();
         fw.close();
-
 
     }
 

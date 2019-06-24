@@ -1,4 +1,5 @@
 package clases;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import org.json.JSONObject;
@@ -13,7 +14,7 @@ import interfaces.IJsonObj;
  * @author usuario
  * @version 1.0
  */
-public class Producto implements IJsonObj{
+public class Producto implements IJsonObj, Serializable {
 	private int ID;
 	private String nombre;
 	private String vendedor;
