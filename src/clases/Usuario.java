@@ -1,5 +1,7 @@
 package clases;
 import interfaces.IJsonObj;
+
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -155,6 +157,14 @@ public class Usuario extends Persona implements IJsonObj {
         else
             return false;
     }
+    
+    private JSONArray listaAJSONArray() {
+    	JSONArray jsonLista = new JSONArray();
+    	for (Producto p : getLista()) {
+    		jsonLista.put(p.objetoAJSON());
+    	}
+    	return jsonLista;
+    }
 
     public JSONObject objetoAJSON() {
         JSONObject jsonProducto = new JSONObject();
@@ -169,6 +179,7 @@ public class Usuario extends Persona implements IJsonObj {
         jsonProducto.put("contrasenia", getContrasenia());
         jsonProducto.put("cantidadProdVendidos", getCantProdVendidos());
         jsonProducto.put("cantProducComprados", getCantProducComprados());
+        jsonProducto.put("lista", listaAJSONArray());
 
         return jsonProducto;
     }

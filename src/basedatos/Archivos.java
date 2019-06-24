@@ -1,5 +1,6 @@
 package basedatos;
 
+import clases.Producto;
 import clases.Publicacion;
 import clases.Usuario;
 import org.json.JSONArray;
@@ -62,12 +63,12 @@ public class Archivos
             usuario1.setSaldo(json.getDouble("saldo"));
             usuario1.setContrasenia(json.getString("contrasenia"));
             usuario1.setCantProdVendidos(json.getDouble("cantidadProdVendidos"));
-
             usuario.add(usuario1);
         }
         br.close();
         return usuario;
     }
+    
 
     public Usuario buscar(File file, String usuario) throws IOException {
         Usuario usuario1;
@@ -100,4 +101,29 @@ public class Archivos
         return publicacion;
     }
 
+    public void guardarListaUsuario( ArrayList<Producto> lista, File file) throws IOException {
+        ObjectOutputStream fw = new ObjectOutputStream(new FileOutputStream(file));
+        fw.writeObject(lista);
+        fw.flush();
+        fw.close();
+    }
+    public ArrayList<Producto> levantarLista(File file){
+    	ArrayList<Producto> lista = new ArrayList<Producto>();
+        ObjectInputStream ob;
+		try {
+			ob = new ObjectInputStream(new FileInputStream(file)); 
+			try {
+			lista =(ArrayList<Producto>) ob.readObject();
+			} catch (ClassNotFoundException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+       
+        return lista;
+    }
+    
 }

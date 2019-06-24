@@ -1,7 +1,12 @@
 package utils;
 
 import java.lang.reflect.InvocationTargetException;
-
+/**
+ * Esta clase almacena todos los metodos que nos facilitan la creacion de caracteristicas de forma dinamica
+ * sin la necesidad de declarar cada getter y setter.
+ * @version 1.0
+ * 
+ */
 public class UtilsClases {
 	public static String crearToString(Class<?> clase, Object obj) {
 		StringBuilder sb = new StringBuilder();

@@ -21,11 +21,12 @@ public class Consola {
 	Archivos archi = new Archivos();
 	Publicacion publicacion = new Publicacion();
 	public void ejecutarWoshConsola() {
+		cargarPublicacion();
 		menuInicial();
 	}
 
 	public void menuInicial() {
-	    cargarPublicacion();
+	    
 		 boolean control = true;
 		 do {
 			 System.out.println("Bienvenido a Wosh!");
@@ -73,6 +74,12 @@ public class Consola {
 					menuVendedor(usuario);
 					break;
 				case 0:
+				try {
+					archi.guardarListaUsuario(usuario.getLista(), venta);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 					control = false;
 					break;
 				default:
@@ -327,9 +334,10 @@ public class Consola {
 	}
 	
 	public void verProductosEnVenta(Usuario vendedor) {
-		for(Producto p : publicacion.getProductosDeUnUsuario(vendedor.getNombreUsuario())) {
-			System.out.println(p);
-		}
+		if (publicacion != null)
+			for(Producto p : publicacion.getProductosDeUnUsuario(vendedor.getNombreUsuario())) {
+				System.out.println(p);
+			}
 	}
 	
 	public void verProductosPublicitados(Usuario vendedor) {
@@ -577,7 +585,7 @@ public class Consola {
 					}
 				}
 				if (cantProductosEditables!=0) {
-					System.out.print("Escriba la ID del producto que desea editar: ");
+					System.out.print("Escriba la ID del producto que desea elegir: ");
 					opcion = sc.nextInt();
 					productoElegido = productos.get(opcion);
 				} else {
@@ -689,6 +697,24 @@ public class Consola {
     	//editar?
     	return producto;
     }
+	
+	public void guardarUsuarios(Archivos archi,Usuario usuario, File file) {
+		ArrayList<Usuario> lista = new ArrayList<>();
+		try {
+			lista = archi.levantar(file);
+			lista.add(usuario);
+			try {
+				archi.guardar(lista, file);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 
 	public void crearUsuario(Archivos archi, File file) throws IOException {
 
@@ -730,6 +756,7 @@ public class Consola {
 		System.out.println("Documento: ");
 		usuario.setDocumento(sc.next());
 		System.out.println("Edad: ");
+		usuario.setLista(new ArrayList<Producto>());
 		do {
 			try {
 				usuario.setEdad(sc.nextInt());

@@ -25,7 +25,6 @@ import clases.Categoria.CategoriaType;
  * Clase que almacena los productos productos colocados a la venta,
  * los productos sugeridos a los usuarios y
  * los productos publicitados.
- * @author usuario
  * @version 1.0
  */
 public class Publicacion implements IJsonObj, Serializable {
@@ -139,7 +138,11 @@ public class Publicacion implements IJsonObj, Serializable {
 			}
 		}
 	}
-	
+	/**
+	 * 
+	 * @param comprador : usuario que comprara los productos
+	 * @return : retorna un string que detalla el resultado de la operacion
+	 */
 	public String realizarIntercambio(Usuario comprador){
 		StringBuilder resultado = new StringBuilder();
 		
@@ -172,21 +175,27 @@ public class Publicacion implements IJsonObj, Serializable {
 				}
 			}
 		} else {
-			resultado.append("No tienes suficiente saldo paraa realizar la compra.");
+			resultado.append("No tienes suficiente saldo para realizar la compra.");
 		}
 		return resultado.toString();
 	}
-	
+	/**
+	 * Remueve el producto del listado de productos en venta.
+	 * @param producto : Producto a eliminar
+	 */
 	public void quitarProductoEnVenta(Producto producto) {
-		getListadoDeProductosVenta().get(producto.getVendedor()).remove(producto);
+		ArrayList<Producto> productosEnVenta = getListadoDeProductosVenta().get(producto.getVendedor());
+		productosEnVenta.remove(producto);
+		getListadoDeProductosVenta().put(producto.getVendedor(), productosEnVenta);
+		//TODO quitar de sugeridos y de publicitados
 	}
 	
 	/**
-	 * 
-	 * @param usuario
-	 * @param producto
-	 * @param cantPublicidades
-	 * @throws PublicacionException
+	 * Agrega un producto al listado de productos publicitados
+	 * @param usuario : Usuario que publicita
+	 * @param producto : Producto a publicitar
+	 * @param cantPublicidades : Cantidad de veces que permanecerá el producto publicitado
+	 * @throws PublicacionException 
 	 */
 	public void publicitarProducto(String usuario, Producto producto, int cantPublicidades) throws PublicacionException{
 		
@@ -204,7 +213,7 @@ public class Publicacion implements IJsonObj, Serializable {
 		}
 	}
 	/**
-	 * 
+	 * Cuenta la cantidad de productos publicitados
 	 * @return
 	 */
 	private int contarTodosProductosPublicitados() {
@@ -215,7 +224,11 @@ public class Publicacion implements IJsonObj, Serializable {
 		}
 		return cantidad;
 	}
-
+	/**
+	 * Retorna los productos publicitados de un usuario
+	 * @param usuario
+	 * @return
+	 */
 	private LinkedHashMap<Producto, Integer> getProductosPublicitadosDeUnUsuario(String usuario) {
 		LinkedHashMap<Producto, Integer> productos = getListadoDeProductosPublicitados().get(usuario);
 		if (productos == null) {
@@ -237,7 +250,11 @@ public class Publicacion implements IJsonObj, Serializable {
 		}
 		return productosPublicitados;
 	}
-	
+	/**
+	 * Retorna la cantidad de productos publicitados de un usuario
+	 * @param usuario
+	 * @return
+	 */
 	public int contarProductosPublicitadosDeUnUsuario(String usuario) {
 		int cantidad = 0;
 		LinkedHashMap<Producto, Integer> productos = getListadoDeProductosPublicitados().get(usuario);

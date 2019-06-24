@@ -32,6 +32,7 @@ public class Producto implements IJsonObj, Serializable {
 		jsonProducto.put("nombre", getNombre());
 		jsonProducto.put("vendedor", getVendedor());
 		jsonProducto.put("precio", getPrecio());
+		jsonProducto.put("cantidad", getCantidad());
 		jsonProducto.put("enVenta", isEnVenta());
 		jsonProducto.put("descripcion", getDescripcion());
 		jsonProducto.put("caracteristicas", getCaracteristicas());
@@ -39,8 +40,6 @@ public class Producto implements IJsonObj, Serializable {
 		
 		return jsonProducto;
 	}
-	
-	
 	/****************************/
 	
 	/**
@@ -130,7 +129,6 @@ public class Producto implements IJsonObj, Serializable {
 		setPrecio(precio);
 		setVendedor(vendedor);
 	}
-
 	private int getIDnuevoProducto() {
 		return (int) (Math.random()*10000);
 	}
