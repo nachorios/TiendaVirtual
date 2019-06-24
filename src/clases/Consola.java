@@ -20,14 +20,21 @@ public class Consola {
 	File publi = new File ("publicaiones.dat");
 	Archivos archi = new Archivos();
 	Publicacion publicacion = new Publicacion();
+	ArrayList<Usuario> list = new ArrayList<>();
 	public void ejecutarWoshConsola() {
-		menuInicial();
+        cargarPublicacion();
+	    menuInicial();
 	}
 
 	public void menuInicial() {
-	    cargarPublicacion();
+
 		 boolean control = true;
-		 do {
+        try {
+            list = archi.levantar(venta);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        do {
 			 System.out.println("Bienvenido a Wosh!");
 			 System.out.println("1. Iniciar sesion.");
 			 System.out.println("2. Registrarse.");
@@ -37,6 +44,10 @@ public class Consola {
 			 switch(opcion) {
 			 	case 1:
 			 		Usuario usuario = ingresarUsuario();
+			 		for (int i = 0; i<list.size(); i++){
+			 		    if (list.get(i).equals(usuario))
+			 		        usuario = list.get(i);
+                    }
 			 	    if (usuario != null) {
 			 			menuCompradorVendedor(usuario);
 			 		}
@@ -53,7 +64,13 @@ public class Consola {
 			 		break;
 			 	default:
 			 }
-		 }while(control);
+            try {
+                archi.guardar(list, venta);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }while(control);
 	}
 	
 	public void menuCompradorVendedor(Usuario usuario) {
@@ -89,6 +106,7 @@ public class Consola {
 			System.out.println("1. Buscar producto");
 			System.out.println("2. Cesta de productos");
 			System.out.println("3. Realizar compra");
+            System.out.println("4. Cargar saldo");
 			System.out.println("0. Volver al Menu Principal");
 			System.out.print("Elije opcion: ");
 			int opcion = sc.nextInt();
@@ -102,6 +120,8 @@ public class Consola {
 				case 3:
 					realizarCompra(comprador);
 					break;
+                case 4:
+                    cargarSaldo(comprador);
 				case 0:
 					control = false;
 					break;
@@ -110,6 +130,12 @@ public class Consola {
 			}
 		}while(control);
 	}
+
+	public void cargarSaldo(Usuario comprador){
+        System.out.print("Cuanto desea cargar? ");
+        comprador.cargarSaldo(sc.nextDouble());
+        System.out.println("Usted a cargado " + comprador.getSaldo() + " a su cuenta");
+    }
 	
 	public void realizarCompra(Usuario comprador) {
 		ArrayList<Producto> productos = comprador.getCestaCompras().obtenerProductos();
@@ -753,12 +779,8 @@ public class Consola {
 	}
 
 	public void cargarPublicacion(){
-        try {
+
             publicacion = archi.levantarPubli(publi);
-        } catch (IOException e) {
 
-        } catch (ClassNotFoundException e) {
-
-        }
     }
 }

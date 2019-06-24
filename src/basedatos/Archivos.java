@@ -92,11 +92,18 @@ public class Archivos
 
     }
 
-    public Publicacion levantarPubli(File file) throws IOException, ClassNotFoundException {
-        Publicacion publicacion;
-        ObjectInputStream ob = new ObjectInputStream(new FileInputStream(file));
-        publicacion =(Publicacion) ob.readObject();
-
+    public Publicacion levantarPubli(File file) {
+        Publicacion publicacion = null;
+        try {
+            ObjectInputStream ob = new ObjectInputStream(new FileInputStream(file));
+            publicacion = (Publicacion) ob.readObject();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         return publicacion;
     }
 

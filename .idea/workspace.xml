@@ -4,12 +4,8 @@
     <list default="true" id="c4373153-c5f6-4235-a85b-6984613847bc" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/basedatos/Archivos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/basedatos/Archivos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/caracteristicas/Caracteristica.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/caracteristicas/Caracteristica.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/clases/Categoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/clases/Categoria.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/clases/Consola.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/clases/Consola.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/clases/Persona.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/clases/Persona.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/clases/Producto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/clases/Producto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/clases/Publicacion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/clases/Publicacion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/clases/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/clases/Usuario.java" afterDir="false" />
     </list>
     <list id="91d40acb-95bd-4b10-997c-748cb8e88496" name="Revert &quot;Segundo hola&quot;" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -37,44 +33,35 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/clases/Publicacion.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-68">
-              <caret line="22" selection-start-line="1" selection-end-line="22" />
-              <folding>
-                <element signature="e#9086#9096#0" expanded="true" />
-                <element signature="e#12270#12271#0" expanded="true" />
-                <element signature="e#12307#12308#0" expanded="true" />
-                <element signature="e#12528#12529#0" expanded="true" />
-                <element signature="e#12569#12570#0" expanded="true" />
-                <element signature="e#12749#12759#0" expanded="true" />
-                <element signature="e#13135#13145#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/clases/Producto.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="16" column="55" selection-start-line="16" selection-start-column="55" selection-end-line="16" selection-end-column="55" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/clases/Consola.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="12580">
-              <caret line="749" lean-forward="true" selection-start-line="749" selection-end-line="749" />
+            <state relative-caret-position="529">
+              <caret line="69" column="16" selection-start-line="69" selection-start-column="16" selection-end-line="69" selection-end-column="36" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#721#722#0" expanded="true" />
-                <element signature="e#741#742#0" expanded="true" />
-                <element signature="e#9767#9768#0" expanded="true" />
-                <element signature="e#9813#9814#0" expanded="true" />
-                <element signature="e#18198#18207#0" expanded="true" />
+                <element signature="method#menuComprador#0;class#Consola#0" />
+                <element signature="method#cargarSaldo#0;class#Consola#0" />
+                <element signature="method#realizarCompra#0;class#Consola#0" />
+                <element signature="method#menuCestaProductos#0;class#Consola#0" />
+                <element signature="e#4837#4897#1" />
+                <element signature="method#quitarProductoCestaCompras#0;class#Consola#0" />
+                <element signature="method#menuVendedor#0;class#Consola#0" />
+                <element signature="method#quitarProductoEnVenta#0;class#Consola#0" />
+                <element signature="method#verProductosPublicitados#0;class#Consola#0" />
+                <element signature="method#publicitarProducto#0;class#Consola#0" />
+                <element signature="method#menuEdicionProducto#0;class#Consola#0" />
+                <element signature="method#productoSeleccionado#0;class#Consola#0" />
+                <element signature="method#editarNombre#0;class#Consola#0" />
+                <element signature="method#editarPrecio#0;class#Consola#0" />
+                <element signature="method#aumentarStock#0;class#Consola#0" />
+                <element signature="method#editarDescripcion#0;class#Consola#0" />
+                <element signature="method#editarCategoria#0;class#Consola#0" />
+                <element signature="method#editarCaracteristicas#0;class#Consola#0" />
+                <element signature="method#elegirProducto#0;class#Consola#0" />
+                <element signature="e#18687#18696#0" expanded="true" />
+                <element signature="method#crearProducto#0;class#Consola#0" />
+                <element signature="method#pedirDatos#0;class#Consola#0" />
+                <element signature="method#limpiarConsola#0;class#Consola#0" />
               </folding>
             </state>
           </provider>
@@ -83,20 +70,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/clases/Categoria.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="341">
-              <caret line="24" column="25" lean-forward="true" selection-start-line="24" selection-start-column="25" selection-end-line="24" selection-end-column="25" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/caracteristicas/Caracteristica.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="6" column="3" selection-start-line="6" selection-start-column="3" selection-end-line="6" selection-end-column="3" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="22">
+              <caret line="8" column="7" lean-forward="true" selection-start-line="8" selection-start-column="7" selection-end-line="8" selection-end-column="71" />
             </state>
           </provider>
         </entry>
@@ -104,13 +79,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/basedatos/Archivos.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="325">
-              <caret line="91" selection-start-line="91" selection-end-line="91" />
+            <state relative-caret-position="241">
+              <caret line="71" column="19" selection-start-line="71" selection-start-column="19" selection-end-line="71" selection-end-column="19" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="method#guardar#0;class#Archivos#0" />
                 <element signature="method#levantar#0;class#Archivos#0" />
-                <element signature="method#buscar#0;class#Archivos#0" />
               </folding>
             </state>
           </provider>
@@ -119,27 +92,29 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/clases/Persona.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" selection-start-line="1" selection-end-line="1" />
+            <state relative-caret-position="34">
+              <caret line="2" column="15" selection-start-line="2" selection-start-column="15" selection-end-line="2" selection-end-column="15" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/clases/Usuario.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1122">
-              <caret line="141" column="16" selection-start-line="141" selection-start-column="16" selection-end-line="141" selection-end-column="16" />
+            <state relative-caret-position="1275">
+              <caret line="133" column="27" selection-start-line="133" selection-start-column="27" selection-end-line="133" selection-end-column="27" />
               <folding>
-                <element signature="method#Usuario#0;class#Usuario#0" />
                 <element signature="method#Usuario#1;class#Usuario#0" />
+                <element signature="e#1759#1760#0" expanded="true" />
+                <element signature="e#1778#1779#0" expanded="true" />
                 <element signature="method#equals#0;class#Usuario#0" />
                 <element signature="method#toString#0;class#Usuario#0" />
+                <element signature="e#3587#3588#0" expanded="true" />
+                <element signature="e#3631#3632#0" expanded="true" />
                 <element signature="method#agregarProductoCesta#0;class#Usuario#0" />
                 <element signature="e#3808#3809#0" expanded="true" />
                 <element signature="e#3848#3849#0" expanded="true" />
                 <element signature="method#comprar#0;class#Usuario#0" />
-                <element signature="method#objetoAJSON#0;class#Usuario#0" />
               </folding>
             </state>
           </provider>
@@ -182,16 +157,16 @@
         <option value="$PROJECT_DIR$/src/excepciones/IngreseUnEntero.java" />
         <option value="$PROJECT_DIR$/src/clases/Comprador.java" />
         <option value="$PROJECT_DIR$/src/clases/Vendedor.java" />
-        <option value="$PROJECT_DIR$/src/clases/Usuario.java" />
         <option value="$PROJECT_DIR$/src/clases/InterfazConsola.java" />
         <option value="$PROJECT_DIR$/src/clases/Main.java" />
         <option value="$PROJECT_DIR$/src/clases/Persona.java" />
-        <option value="$PROJECT_DIR$/src/clases/Publicacion.java" />
         <option value="$PROJECT_DIR$/src/clases/Producto.java" />
-        <option value="$PROJECT_DIR$/src/basedatos/Archivos.java" />
-        <option value="$PROJECT_DIR$/src/clases/Consola.java" />
         <option value="$PROJECT_DIR$/src/caracteristicas/Caracteristica.java" />
         <option value="$PROJECT_DIR$/src/clases/Categoria.java" />
+        <option value="$PROJECT_DIR$/src/clases/Publicacion.java" />
+        <option value="$PROJECT_DIR$/src/basedatos/Archivos.java" />
+        <option value="$PROJECT_DIR$/src/clases/Usuario.java" />
+        <option value="$PROJECT_DIR$/src/clases/Consola.java" />
       </list>
     </option>
   </component>
@@ -220,18 +195,6 @@
               <item name="TiendaVirtual" type="b2602c69:ProjectViewProjectNode" />
               <item name="TiendaVirtual" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="TiendaVirtual" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TiendaVirtual" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="basedatos" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="TiendaVirtual" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TiendaVirtual" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="caracteristicas" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="TiendaVirtual" type="b2602c69:ProjectViewProjectNode" />
@@ -451,7 +414,14 @@
       <option name="project" value="LOCAL" />
       <updated>1561336316251</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Guardado de publicacion">
+      <created>1561344658871</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1561344658871</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TodoView" selected-index="2">
@@ -565,11 +535,10 @@
     <MESSAGE value="Cambios en el main 2.0" />
     <MESSAGE value="Convinar vendedor y comprador en usuario" />
     <MESSAGE value="Eliminar clase comprador, vendedor e interfaz consola&#10;Guardar publicacion" />
-    <option name="LAST_COMMIT_MESSAGE" value="Eliminar clase comprador, vendedor e interfaz consola&#10;Guardar publicacion" />
+    <MESSAGE value="Guardado de publicacion" />
+    <option name="LAST_COMMIT_MESSAGE" value="Guardado de publicacion" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/Transaccion.java" />
-    <entry file="file://$PROJECT_DIR$/src/Caracteristica.java" />
     <entry file="file://$PROJECT_DIR$/src/Main.java" />
     <entry file="file://$PROJECT_DIR$/src/Consola.java" />
     <entry file="file://$PROJECT_DIR$/src/Producto.java" />
@@ -648,13 +617,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/utils/UtilsClases.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="25" selection-start-line="5" selection-start-column="25" selection-end-line="5" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$PROJECT_DIR$/libs/json-20180813.jar!/org/json/JSONObject.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
@@ -696,13 +658,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/clases/Cesta.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/clases/Vendedor.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1088">
@@ -741,42 +696,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/clases/Usuario.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1122">
-          <caret line="141" column="16" selection-start-line="141" selection-start-column="16" selection-end-line="141" selection-end-column="16" />
-          <folding>
-            <element signature="method#Usuario#0;class#Usuario#0" />
-            <element signature="method#Usuario#1;class#Usuario#0" />
-            <element signature="method#equals#0;class#Usuario#0" />
-            <element signature="method#toString#0;class#Usuario#0" />
-            <element signature="method#agregarProductoCesta#0;class#Usuario#0" />
-            <element signature="e#3808#3809#0" expanded="true" />
-            <element signature="e#3848#3849#0" expanded="true" />
-            <element signature="method#comprar#0;class#Usuario#0" />
-            <element signature="method#objetoAJSON#0;class#Usuario#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/clases/Persona.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" selection-start-line="1" selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk-11.0.2/lib/src.zip!/java.base/java/io/ObjectInputStream.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="99">
           <caret line="1597" column="26" selection-start-line="1597" selection-start-column="26" selection-end-line="1597" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/clases/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="35" selection-start-line="5" selection-start-column="35" selection-end-line="5" selection-end-column="35" />
         </state>
       </provider>
     </entry>
@@ -794,70 +717,138 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/clases/Producto.java">
+    <entry file="file://$PROJECT_DIR$/src/clases/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="16" column="55" selection-start-line="16" selection-start-column="55" selection-end-line="16" selection-end-column="55" />
+        <state relative-caret-position="85">
+          <caret line="5" column="35" selection-start-line="5" selection-start-column="35" selection-end-line="5" selection-end-column="35" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/basedatos/Archivos.java">
+    <entry file="file://$PROJECT_DIR$/src/utils/UtilsClases.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="325">
-          <caret line="91" selection-start-line="91" selection-end-line="91" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#guardar#0;class#Archivos#0" />
-            <element signature="method#levantar#0;class#Archivos#0" />
-            <element signature="method#buscar#0;class#Archivos#0" />
-          </folding>
+        <state relative-caret-position="85">
+          <caret line="5" column="25" selection-start-line="5" selection-start-column="25" selection-end-line="5" selection-end-column="25" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/clases/Publicacion.java">
+    <entry file="file://$PROJECT_DIR$/src/interfaces/IJsonArray.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-68">
-          <caret line="22" selection-start-line="1" selection-end-line="22" />
-          <folding>
-            <element signature="e#9086#9096#0" expanded="true" />
-            <element signature="e#12270#12271#0" expanded="true" />
-            <element signature="e#12307#12308#0" expanded="true" />
-            <element signature="e#12528#12529#0" expanded="true" />
-            <element signature="e#12569#12570#0" expanded="true" />
-            <element signature="e#12749#12759#0" expanded="true" />
-            <element signature="e#13135#13145#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="51">
+          <caret line="3" column="17" selection-start-line="3" selection-start-column="17" selection-end-line="3" selection-end-column="17" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/caracteristicas/Caracteristica.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="3" selection-start-line="6" selection-start-column="3" selection-end-line="6" selection-end-column="3" />
+        <state relative-caret-position="119">
+          <caret line="7" column="3" selection-start-line="7" selection-start-column="3" selection-end-line="8" selection-end-column="54" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/clases/Persona.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="15" selection-start-line="2" selection-start-column="15" selection-end-line="2" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/clases/Publicacion.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="24" column="3" selection-start-line="24" selection-start-column="3" selection-end-line="26" selection-end-column="30" />
+          <folding>
+            <element signature="e#9270#9280#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/basedatos/Archivos.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="241">
+          <caret line="71" column="19" selection-start-line="71" selection-start-column="19" selection-end-line="71" selection-end-column="19" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#levantar#0;class#Archivos#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/usuarios.dat">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/clases/Cesta.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/clases/Producto.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="11" column="3" lean-forward="true" selection-start-line="11" selection-start-column="3" selection-end-line="12" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/clases/Consola.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="529">
+          <caret line="69" column="16" selection-start-line="69" selection-start-column="16" selection-end-line="69" selection-end-column="36" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#menuComprador#0;class#Consola#0" />
+            <element signature="method#cargarSaldo#0;class#Consola#0" />
+            <element signature="method#realizarCompra#0;class#Consola#0" />
+            <element signature="method#menuCestaProductos#0;class#Consola#0" />
+            <element signature="e#4837#4897#1" />
+            <element signature="method#quitarProductoCestaCompras#0;class#Consola#0" />
+            <element signature="method#menuVendedor#0;class#Consola#0" />
+            <element signature="method#quitarProductoEnVenta#0;class#Consola#0" />
+            <element signature="method#verProductosPublicitados#0;class#Consola#0" />
+            <element signature="method#publicitarProducto#0;class#Consola#0" />
+            <element signature="method#menuEdicionProducto#0;class#Consola#0" />
+            <element signature="method#productoSeleccionado#0;class#Consola#0" />
+            <element signature="method#editarNombre#0;class#Consola#0" />
+            <element signature="method#editarPrecio#0;class#Consola#0" />
+            <element signature="method#aumentarStock#0;class#Consola#0" />
+            <element signature="method#editarDescripcion#0;class#Consola#0" />
+            <element signature="method#editarCategoria#0;class#Consola#0" />
+            <element signature="method#editarCaracteristicas#0;class#Consola#0" />
+            <element signature="method#elegirProducto#0;class#Consola#0" />
+            <element signature="e#18687#18696#0" expanded="true" />
+            <element signature="method#crearProducto#0;class#Consola#0" />
+            <element signature="method#pedirDatos#0;class#Consola#0" />
+            <element signature="method#limpiarConsola#0;class#Consola#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/clases/Categoria.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="341">
-          <caret line="24" column="25" lean-forward="true" selection-start-line="24" selection-start-column="25" selection-end-line="24" selection-end-column="25" />
+        <state relative-caret-position="22">
+          <caret line="8" column="7" lean-forward="true" selection-start-line="8" selection-start-column="7" selection-end-line="8" selection-end-column="71" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/clases/Consola.java">
+    <entry file="file://$PROJECT_DIR$/src/clases/Usuario.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="12580">
-          <caret line="749" lean-forward="true" selection-start-line="749" selection-end-line="749" />
+        <state relative-caret-position="1275">
+          <caret line="133" column="27" selection-start-line="133" selection-start-column="27" selection-end-line="133" selection-end-column="27" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#721#722#0" expanded="true" />
-            <element signature="e#741#742#0" expanded="true" />
-            <element signature="e#9767#9768#0" expanded="true" />
-            <element signature="e#9813#9814#0" expanded="true" />
-            <element signature="e#18198#18207#0" expanded="true" />
+            <element signature="method#Usuario#1;class#Usuario#0" />
+            <element signature="e#1759#1760#0" expanded="true" />
+            <element signature="e#1778#1779#0" expanded="true" />
+            <element signature="method#equals#0;class#Usuario#0" />
+            <element signature="method#toString#0;class#Usuario#0" />
+            <element signature="e#3587#3588#0" expanded="true" />
+            <element signature="e#3631#3632#0" expanded="true" />
+            <element signature="method#agregarProductoCesta#0;class#Usuario#0" />
+            <element signature="e#3808#3809#0" expanded="true" />
+            <element signature="e#3848#3849#0" expanded="true" />
+            <element signature="method#comprar#0;class#Usuario#0" />
           </folding>
         </state>
       </provider>
