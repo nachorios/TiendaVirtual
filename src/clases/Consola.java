@@ -253,7 +253,6 @@ public class Consola {
 					&& !productosEnVenta.get(i).isEnVenta()) {
 				System.out.println(i+1+")"+productosEnVenta.get(i));
 			}
-			
 		}
 		System.out.println("0) Para salir");
 		System.out.print("Elije el producto que deseas añadir a la cesta: ");
