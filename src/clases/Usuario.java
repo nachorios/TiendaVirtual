@@ -133,7 +133,7 @@ public class Usuario extends Persona implements IJsonObj {
     }
 
     public void cargarSaldo(double dinero){
-        setSaldo(getSaldo()+ dinero);
+        setSaldo(this.saldo+ dinero);
     }
 
     public void agregarProductoCesta(Producto prod) {
