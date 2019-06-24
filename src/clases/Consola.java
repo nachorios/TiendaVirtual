@@ -320,6 +320,9 @@ public class Consola {
 		if (productoSeleccionado != null) {
 				Producto productoVendedor = vendedor.getLista().get(vendedor.getLista().indexOf(productoSeleccionado));
 				publicacion.quitarProductoEnVenta(productoVendedor);
+				vendedor.getLista().remove(productoVendedor);
+				productoVendedor.setEnVenta(false);
+				vendedor.getLista().add(productoVendedor);
 				System.out.println("Has quitado tu producto de la venta.");
 		}
 	}

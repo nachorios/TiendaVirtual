@@ -177,10 +177,7 @@ public class Publicacion implements IJsonObj{
 	}
 	
 	public void quitarProductoEnVenta(Producto producto) {
-		if (getListadoDeProductosVenta().containsKey(producto.getVendedor())&&
-				getListadoDeProductosVenta().containsKey(producto)) {
-			getListadoDeProductosVenta().remove(producto.getVendedor(), producto);
-		}
+		getListadoDeProductosVenta().get(producto.getVendedor()).remove(producto);
 	}
 	
 	/**
