@@ -3,6 +3,7 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/src/caracteristicas/listado/Antiguedad.java" charset="windows-1252" />
     <file url="file://$PROJECT_DIR$/src/caracteristicas/listado/Musica.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/clases/Consola.java" charset="windows-1252" />
     <file url="file://$PROJECT_DIR$/src/clases/InterfazConsola.java" charset="windows-1252" />
   </component>
 </project>

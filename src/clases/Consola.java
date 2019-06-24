@@ -16,16 +16,13 @@ import utils.UtilsClases;
 
 public class Consola {
 	Scanner sc = new Scanner(System.in);
-	InterfazConsola menu = new InterfazConsola();
-	File venta = new File ("vendedores.dat");
-	File compra = new File("compradores.dat");
+	File venta = new File ("usuarios.dat");
 	File publi = new File ("publicaiones.dat");
 	Archivos archi = new Archivos();
 
 	Publicacion publicacion = new Publicacion();
-	Usuario usuario;
 	public void ejecutarWoshConsola() {
-		
+		menuInicial();
 	}
 
 	public void menuInicial() {
@@ -39,13 +36,17 @@ public class Consola {
 			 int opcion = sc.nextInt();
 			 switch(opcion) {
 			 	case 1:
-			 		//if (ingresarUsuario()) {
+			 		if (ingresarUsuario()) {
 			 			menuCompradorVendedor();
-			 		//}
+			 		}
 			 		break;
 			 	case 2:
-			 		//CREAR USUARIO
-			 		break;
+					try {
+						crearUsuario(archi, venta);
+					} catch (IOException e) {
+						System.out.println("Error al crear usuario");
+					}
+					break;
 			 	case 0:
 			 		//GUARDAR DATOS
 			 		control = false;
@@ -578,7 +579,7 @@ public class Consola {
 	}
 	///FIN-FUNCIONES EDITAR PRODUCTO
 	
-	/*
+
 	public boolean ingresarUsuario() {
 		boolean flag = false;
 		try {
@@ -588,20 +589,10 @@ public class Consola {
 				System.out.println("Ingrese contraseña");
 				if(vendedor.getContrasenia().equals(sc.next())){
 					System.out.println("Bienvenido");
-					System.out.println(menu.menuOpciones());
-					switch (sc.nextInt()){
-						case 1:
-							System.out.println(archi.leer(venta, vendedor.getNombreUsuario()));
-							break;
-
-						default:
-							System.out.println("Ingrese una opcion correcta");
-							break;
-					}
+					flag = true;
 				}
 				else {
 					System.out.println("Contraseña incorrecta");
-					flag = true;
 				}
 			} else
 				System.out.println("Usuario no encontrado");
@@ -612,30 +603,6 @@ public class Consola {
 		return flag;
 	}
 
-	public void crearVendedor() throws IOException {
-
-		ArrayList<Usuario> listaVende = new ArrayList<>();
-		Vendedor vendedor;
-		boolean flag = true;
-		try {
-			listaVende = archi.levantar(venta);
-
-		} catch (IOException e) {
-
-			vendedor = crearCuenta();
-
-			listaVende.add(vendedor);
-			archi.guardar(listaVende, venta);
-			flag = false;
-		}
-		if (flag){
-			vendedor = crearCuenta();
-			listaVende.add(vendedor);
-			archi.guardar(listaVende, venta);
-		}
-
-	}*/
-	
 	public Producto crearProducto(String nombre) {
     	Producto producto = new Producto();
     	
@@ -704,38 +671,60 @@ public class Consola {
     	//editar?
     	return producto;
     }
-	/*
-	public Vendedor crearCuenta() {
 
-    	boolean control = true;
-    	Vendedor vendedor = new Vendedor();
+	public void crearUsuario(Archivos archi, File file) throws IOException {
+
+		ArrayList<Usuario> lista = new ArrayList<>();
+		Usuario usuario;
+		boolean flag = true;
+		try {
+			lista = archi.levantar(file);
+
+		} catch (IOException e) {
+
+			usuario = pedirDatos();
+
+			lista.add(usuario);
+			archi.guardar(lista, file);
+			flag = false;
+		}
+		if (flag){
+			usuario = pedirDatos();
+			lista.add(usuario);
+			archi.guardar(lista, file);
+		}
+
+	}
+
+	public Usuario pedirDatos(){
+		boolean control = true;
+		Usuario usuario = new Usuario();
 		System.out.println("Ingrese nombre de usuario: ");
-		vendedor.setNombreUsuario(sc.next());
-		System.out.println("Ingrese la Contrase�a: ");
-		vendedor.setContrasenia(sc.next());
-		System.out.println("Ingrese tu Nombre: ");
-		vendedor.setNombre(sc.next());
-		System.out.println("Ingrese tu Apellido: ");
-		vendedor.setApellido(sc.next());
-		System.out.println("Ingrese tu Correo electronico: ");
-		vendedor.setCorreoElectronico(sc.next());
-		System.out.println("Ingrese tu Documento: ");
-		vendedor.setDocumento(sc.next());
-		System.out.println("Ingrese tu Edad: ");
+		usuario.setNombreUsuario(sc.next());
+		System.out.println("Contrase�a: ");
+		usuario.setContrasenia(sc.next());
+		System.out.println("Nombre: ");
+		usuario.setNombre(sc.next());
+		System.out.println("Apellido: ");
+		usuario.setApellido(sc.next());
+		System.out.println("Correo electronico: ");
+		usuario.setCorreoElectronico(sc.next());
+		System.out.println("Documento: ");
+		usuario.setDocumento(sc.next());
+		System.out.println("Edad: ");
 		do {
 			try {
-				vendedor.setEdad(sc.nextInt());
+				usuario.setEdad(sc.nextInt());
 				control = false;
-			} catch (InputMismatchException e) {
+			} catch (InputMismatchException u) {
 				System.out.println("Ingrese un numero");
 				sc.nextLine();
 			}
 		}while (control);
 
 		System.out.println("Direccion: ");
-		vendedor.setDireccion(sc.next());
+		usuario.setDireccion(sc.next());
 
-    	return vendedor;
-	
-	}*/
+		return usuario;
+	}
 }
