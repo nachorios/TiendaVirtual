@@ -105,9 +105,8 @@ public class Usuario extends Persona implements IJsonObj {
         if (this == o) return true;
         if (!(o instanceof Usuario)) return false;
         Usuario usuario = (Usuario) o;
-        return Double.compare(usuario.saldo, saldo) == 0 &&
-                Objects.equals(nombreUsuario, usuario.nombreUsuario) &&
-                Objects.equals(correoElectronico, usuario.correoElectronico);
+        return Objects.equals(nombreUsuario, usuario.nombreUsuario) &&
+                Objects.equals(contrasenia, usuario.contrasenia);
     }
 
     @Override

@@ -632,20 +632,20 @@ public class Consola {
 
 	public Usuario ingresarUsuario(ArrayList<Usuario> list) {
 		Usuario usuario = new Usuario();
+		Usuario usuario1 = null;
 
-
-			System.out.println("Ingrese nombre usuario");
-			usuario.setNombreUsuario(sc.next());
-				System.out.println("Ingrese contraseña");
-				usuario.setContrasenia(sc.next());
-
+		System.out.println("Ingrese nombre usuario");
+		usuario.setNombreUsuario(sc.next());
+		System.out.println("Ingrese contraseña");
+		usuario.setContrasenia(sc.next());
 
 		for (int i = 0; i<list.size(); i++){
-			if (list.get(i).getNombreUsuario().equals(usuario.getNombreUsuario()) &&
-			list.get(i).getContrasenia().equals(usuario.getContrasenia()))
-				usuario = list.get(i);
+
+			if (list.get(i).equals(usuario)) {
+				usuario1 = list.get(i);
+			}
 		}
-		return usuario;
+		return usuario1;
 	}
 
 	public Producto crearProducto(String nombre) {
