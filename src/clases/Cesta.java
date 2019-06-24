@@ -20,7 +20,7 @@ public class Cesta <T extends Producto> {
 	 */
 	public void agregarProductoEnCesta(T producto) {
 		cesta.add(producto);
-		setPrecioTotal(getPrecioTotal()+producto.getPrecio());
+		setPrecioTotal(getPrecioTotal()+producto.getPrecio()*producto.getCantidad());
 	}
 	/**
 	 * Quita un producto de la cestaa y disminuye su precio total.
@@ -28,7 +28,7 @@ public class Cesta <T extends Producto> {
 	 */
 	public void quitarProductoEnCesta(T producto) {
 		cesta.remove(producto);
-		setPrecioTotal(getPrecioTotal()-producto.getPrecio());
+		setPrecioTotal(getPrecioTotal()-producto.getPrecio()*producto.getCantidad());
 	}
 	/**
 	 * Retorna todos los productos que se encuentran en la cesta.

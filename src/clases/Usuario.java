@@ -149,9 +149,11 @@ public class Usuario extends Persona implements IJsonObj {
         if (getSaldo() >= getCestaCompras().getPrecioTotal()){
             setSaldo(getSaldo() - getCestaCompras().getPrecioTotal());
             for (Producto p : getCestaCompras().obtenerProductos()) {
+            	setCantProducComprados(getCantProducComprados()+p.getCantidad());
             	p.setEnVenta(false);
                 getLista().add(p);
             }
+            getCestaCompras().vaciarCesta();
             setCantProducComprados(getCestaCompras().obtenerProductos().size()+1);
             return true;
         }
