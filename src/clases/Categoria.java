@@ -2,11 +2,17 @@ package clases;
 
 import org.json.JSONObject;
 import interfaces.IJsonObj;
-
-
-
+	/**
+	 * Esta clase almacena el tipo de categoria y el nombre de la misma.
+	 * @version 1.0
+	 *
+	 */
 	public class Categoria implements IJsonObj{
-	
+	/**
+	 * Este enum representa las distintas categorias que puede poseer un producto.
+	 * @version 1.0
+	 *
+	 */
 	public enum CategoriaType{ACCESORIO,ALIMENTO,ANTIGUEDAD,ARTE,INMUEBLE,JOYERIA,JUGUETE,LIBRO,MUSICA,ROPA,TECNOLOGIA,VEHICULO,OTRO}
 	
 	private CategoriaType tipo;

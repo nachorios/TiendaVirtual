@@ -19,7 +19,6 @@ public class Consola {
 	File venta = new File ("usuarios.dat");
 	File publi = new File ("publicaiones.dat");
 	Archivos archi = new Archivos();
-
 	Publicacion publicacion = new Publicacion();
 	public void ejecutarWoshConsola() {
 		menuInicial();
@@ -278,6 +277,7 @@ public class Consola {
 			System.out.println("5. Ver informacion de la cuenta");
 			System.out.println("6. Ver productos publicados a la venta");
 			System.out.println("7. Ver productos publicitados");
+			System.out.println("8. Quitar un producto publicado");
 			System.out.println("0. Volver al Menu Principal");
 			System.out.print("Elije opcion: ");
 			int opcion = sc.nextInt();
@@ -303,6 +303,9 @@ public class Consola {
 				case 7:
 					verProductosPublicitados(vendedor);
 					break;
+				case 8:
+					quitarProductoEnVenta(vendedor);
+					break;
 				case 0:
 					control = false;
 					break;
@@ -310,6 +313,15 @@ public class Consola {
 					System.out.println("Opcion incorrecta.");
 			}
 		}while(control);
+	}
+	
+	public void quitarProductoEnVenta(Usuario vendedor) {
+		Producto productoSeleccionado = productoSeleccionado = elegirProducto(vendedor, false);
+		if (productoSeleccionado != null) {
+				Producto productoVendedor = vendedor.getLista().get(vendedor.getLista().indexOf(productoSeleccionado));
+				publicacion.quitarProductoEnVenta(productoVendedor);
+				System.out.println("Has quitado tu producto de la venta.");
+		}
 	}
 	
 	public void verProductosEnVenta(Usuario vendedor) {
@@ -329,7 +341,7 @@ public class Consola {
 	}
 	
 	public void publicarEnVentaProducto(Usuario vendedor) {
-		Producto productoSeleccionado = productoSeleccionado = elegirProducto(vendedor, false);
+		Producto productoSeleccionado = productoSeleccionado = elegirProducto(vendedor, true);
 		if (productoSeleccionado != null) {
 			try {
 				Producto productoVendedor = vendedor.getLista().get(vendedor.getLista().indexOf(productoSeleccionado));
@@ -725,5 +737,11 @@ public class Consola {
 		usuario.setDireccion(sc.next());
 
 		return usuario;
+	}
+	
+	public void limpiarConsola() {
+		for(int i = 0; i < 50; i++) {
+			System.out.println("");
+		}
 	}
 }

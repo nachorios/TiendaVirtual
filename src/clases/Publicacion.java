@@ -175,6 +175,14 @@ public class Publicacion implements IJsonObj{
 		}
 		return resultado.toString();
 	}
+	
+	public void quitarProductoEnVenta(Producto producto) {
+		if (getListadoDeProductosVenta().containsKey(producto.getVendedor())&&
+				getListadoDeProductosVenta().containsKey(producto)) {
+			getListadoDeProductosVenta().remove(producto.getVendedor(), producto);
+		}
+	}
+	
 	/**
 	 * 
 	 * @param usuario
