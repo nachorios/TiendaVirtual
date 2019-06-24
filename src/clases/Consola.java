@@ -25,6 +25,7 @@ public class Consola {
 	}
 
 	public void menuInicial() {
+	    cargarPublicacion();
 		 boolean control = true;
 		 do {
 			 System.out.println("Bienvenido a Wosh!");
@@ -35,8 +36,9 @@ public class Consola {
 			 int opcion = sc.nextInt();
 			 switch(opcion) {
 			 	case 1:
-			 		if (ingresarUsuario()) {
-			 			menuCompradorVendedor();
+			 		Usuario usuario = ingresarUsuario();
+			 	    if (usuario != null) {
+			 			menuCompradorVendedor(usuario);
 			 		}
 			 		break;
 			 	case 2:
@@ -47,7 +49,6 @@ public class Consola {
 					}
 					break;
 			 	case 0:
-			 		//GUARDAR DATOS
 			 		control = false;
 			 		break;
 			 	default:
@@ -55,7 +56,7 @@ public class Consola {
 		 }while(control);
 	}
 	
-	public void menuCompradorVendedor() {
+	public void menuCompradorVendedor(Usuario usuario) {
 		boolean control = true;
 		do {
 			System.out.println("Menu Principal");
@@ -66,10 +67,10 @@ public class Consola {
 			int opcion = sc.nextInt();
 			switch(opcion) {
 				case 1:
-					menuComprador();
+					menuComprador(usuario);
 					break;
 				case 2:
-					menuVendedor();
+					menuVendedor(usuario);
 					break;
 				case 0:
 					control = false;
@@ -80,8 +81,7 @@ public class Consola {
 		}while(control);
 	}
 	
-	public void menuComprador() {
-		Usuario comprador = new Usuario(); //= CARGAR DATOS VENDEDOR SEGUN EL NOMBRE DE USUARIO DE EL OBJETO 'usuario';
+	public void menuComprador(Usuario comprador) {
 		boolean control = true;
 		do{
 			System.out.println("Menu Comprador");
@@ -264,9 +264,8 @@ public class Consola {
 		} 
 	}
 	
-	public void menuVendedor() {
-		Usuario vendedor = new Usuario(); //= CARGAR DATOS VENDEDOR SEGUN EL NOMBRE DE USUARIO DE EL OBJETO 'usuario';
-		boolean control = true;
+	public void menuVendedor(Usuario vendedor) {
+	    boolean control = true;
 		do {
 			System.out.println("Menu Vendedor");
 			System.out.println("Aqui podras crear, vender, publicitar y modificar tu producto!");
@@ -347,11 +346,14 @@ public class Consola {
 				Producto productoVendedor = vendedor.getLista().get(vendedor.getLista().indexOf(productoSeleccionado));
 				publicacion.publicarProducto(vendedor.getNombreUsuario(), productoVendedor);
 				System.out.println("Has colocado a la venta tu producto.");
+				archi.guardar(publicacion, publi);
 			} catch (PublicacionException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
-		}
+			} catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 		
 	}
 	
@@ -386,11 +388,14 @@ public class Consola {
 			}
 			try {
 				publicacion.publicitarProducto(vendedor.getNombre(), productoSeleccionado, cantPublicidad);
+				archi.guardar(publicacion, publi);
 			} catch (PublicacionException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
-		}
+			} catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 		
 	}
 	
@@ -591,16 +596,15 @@ public class Consola {
 	///FIN-FUNCIONES EDITAR PRODUCTO
 	
 
-	public boolean ingresarUsuario() {
-		boolean flag = false;
+	public Usuario ingresarUsuario() {
+		Usuario vendedor = null;
 		try {
 			System.out.println("Ingrese nombre usuario");
-			Usuario vendedor = archi.buscar(venta, sc.next());
+			vendedor = archi.buscar(venta, sc.next());
 			if (vendedor != null) {
 				System.out.println("Ingrese contraseña");
 				if(vendedor.getContrasenia().equals(sc.next())){
 					System.out.println("Bienvenido");
-					flag = true;
 				}
 				else {
 					System.out.println("Contraseña incorrecta");
@@ -611,7 +615,7 @@ public class Consola {
 			e.printStackTrace();
 		}
 		
-		return flag;
+		return vendedor;
 	}
 
 	public Producto crearProducto(String nombre) {
@@ -744,4 +748,14 @@ public class Consola {
 			System.out.println("");
 		}
 	}
+
+	public void cargarPublicacion(){
+        try {
+            publicacion = archi.levantarPubli(publi);
+        } catch (IOException e) {
+
+        } catch (ClassNotFoundException e) {
+
+        }
+    }
 }
