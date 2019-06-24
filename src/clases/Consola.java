@@ -315,7 +315,7 @@ public class Consola {
 	}
 	
 	public void quitarProductoEnVenta(Usuario vendedor) {
-		Producto productoSeleccionado = productoSeleccionado = elegirProducto(vendedor, false);
+		Producto productoSeleccionado = productoSeleccionado = elegirProducto(vendedor, true);
 		if (productoSeleccionado != null) {
 				Producto productoVendedor = vendedor.getLista().get(vendedor.getLista().indexOf(productoSeleccionado));
 				publicacion.quitarProductoEnVenta(productoVendedor);
@@ -343,7 +343,7 @@ public class Consola {
 	}
 	
 	public void publicarEnVentaProducto(Usuario vendedor) {
-		Producto productoSeleccionado = productoSeleccionado = elegirProducto(vendedor, true);
+		Producto productoSeleccionado = productoSeleccionado = elegirProducto(vendedor, false);
 		if (productoSeleccionado != null) {
 			try {
 				Producto productoVendedor = vendedor.getLista().get(vendedor.getLista().indexOf(productoSeleccionado));
