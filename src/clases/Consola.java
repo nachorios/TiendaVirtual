@@ -278,7 +278,8 @@ public class Consola {
 	public void buscarProducto(Usuario comprador, ArrayList<Producto> productosEnVenta) {
 		for (int i = 0; i < productosEnVenta.size(); i++) {
 			if (!productosEnVenta.get(i).getVendedor().equals(comprador.getNombreUsuario())
-					&& !productosEnVenta.get(i).isEnVenta()) {
+					&& productosEnVenta.get(i).isEnVenta()
+					&& !comprador.getCestaCompras().obtenerProductos().contains(productosEnVenta.get(i))) {
 				System.out.println(i+1+")"+productosEnVenta.get(i));
 			}
 		}
@@ -311,7 +312,7 @@ public class Consola {
 			int opcion = sc.nextInt();
 			switch(opcion) {
 				case 1:
-					vendedor.agregarProductoLista(crearProducto(vendedor.getNombre()));
+					vendedor.agregarProductoLista(crearProducto(vendedor.getNombreUsuario()));
 					break;
 				case 2:
 					publicarEnVentaProducto(vendedor);

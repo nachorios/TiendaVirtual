@@ -85,7 +85,8 @@ public class Archivos
             ObjectInputStream ob = new ObjectInputStream(new FileInputStream(file));
             publicacion = (Publicacion) ob.readObject();
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            publicacion = new Publicacion();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
